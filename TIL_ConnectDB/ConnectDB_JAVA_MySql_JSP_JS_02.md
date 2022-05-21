@@ -1,10 +1,11 @@
 # JAVA , MySql, JSP,JS  연동-02
 
-1. 연동은 DAO -> suggest.jsp -> ajax.js -> client.jsp 순서로 된다
+1. 연동은 DAO.java -> suggest.jsp -> ajax.js -> client.jsp 순서로 된다
 
-   - suggest.jsp에서 dao를 사용
+   - suggest.jsp에서 DAO.java를 사용
    - ajax.js에서 suggest.jsp를 사용
    - client.jsp에서 suggest.jsp를 사용
+   - cf. DAO.java, suggest.jsp : 백앤드 구간 // ajax.js, client.jsp : 프론트 앤드 구간
 
 2. 코딩
 
