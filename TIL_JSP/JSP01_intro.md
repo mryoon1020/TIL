@@ -18,9 +18,9 @@
      - 클라이언트(브라우저)에서 요청(request) -> web server로 들어감
        - 이과정에서 HTML 요청일경우 브라우저 내에 컴파일 이 내장되어있으므로 바로 출력함
      - JSP 요청의 경우(기본언어가 JAVA)
-       - JAVA Servelet 을 통해 class, Byte code로 컴파일이 됨
+       - JAVA Servelet 형태로 변환을 통해 class, Byte code로 컴파일 됨
        - 컴파일 이후 JRELoad를 통해 DB(Oracle,MySQL,DB2 etc.)에 접근하여 인터프리터 방식으로 읽어 옴
        - 출력된 결과를 web Server를 통해 다시 응답(response)함, 이때 HTML로 변환하여 응답하게 됨
      - Servlet 요청의 경우
-       - JAVA언어 컴파일 과정없이 바로 JRE Load 과정으로 들어감
+       - JAVA언어 컴파일 과정없이 바로 JRE Load 과정으로 들어감,Servelet 자체가 class 형태이기 때문
        - 이후 과정의 JSP 요청과 동일함
