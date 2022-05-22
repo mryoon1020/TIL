@@ -4,13 +4,13 @@
 
 - <% 자바 코드 %>
 
-``` 
+```
 ex)
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<% 
+
+<%
 
 String name="왕눈이";
 int kuk = 90;
@@ -42,26 +42,24 @@ int avg = tot/2;
 
 ```
 
+### <%! %>선언문(권장되지 않음, 빈즈로 대체하여 사용함)
 
-
-### <%= %>선언문(권장되지 않음, 빈즈로 대체하여 사용함)
-
-- <%= 메소드(함수)선언 %>
+- <%! 메소드(함수)선언 %>
 
 ```
 ex)
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
 <%! public int tot(int kuk, int eng, int mat){
 		return kuk+eng+mat;
 	}
-	
+
 	public int avg(int tot){
-		return tot/3;	
+		return tot/3;
 	}
-		
+
 %>
 
 <%
@@ -74,7 +72,7 @@ ex)
 	int avg = avg(tot);
 
 %>
-    
+
 <!DOCTYPE html>
 <html>
 <head>
