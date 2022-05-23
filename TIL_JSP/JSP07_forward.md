@@ -3,6 +3,7 @@
 ### 액션태그
 
 - jsp 문법, 코드를 줄일 수 있음
+- jsp: 로 시작하는 태그는 다 액션태그임
 
 | 액션태그        | 내용                                                         |
 | ----------- | ----------------------------------------------------------- |
@@ -18,12 +19,13 @@
 1. jsp:forward
 
    - 다른 jsp 페이지로 요청을 이동 할 때 사용
-
-     ex) forwardTag1.jsp 에서 id,password 입력 -> 보내기 클릭 -> forwardTag1_1.jsp 
-
-     <jsp:forward page="forwardTag1_2.jsp" /> 실행 -> forwardTag1_2.jsp 에서 출력
-
-     (cf. button의 기본타입은 submit임)
+   - **request는 더 이상 forward할 수 없을 때(최종 객체에 도달했을 때) request에 대한 응답을 시행**
+     - 단계가 계속 넘어가도 request에 대한 응답을 시행한 것은 아니기에 **단계가 넘어가도 request는 계속 살아 있는 상태**
+   - ex) forwardTag1.jsp 에서 id,password 입력 -> 보내기 클릭 -> forwardTag1_1.jsp 
+   
+   <jsp:forward page="forwardTag1_2.jsp" /> 실행 -> forwardTag1_2.jsp 에서 출력
+   
+   (cf. button의 기본타입은 submit임)
 
 ```
 -----------------------------------------------------------------------------------------
