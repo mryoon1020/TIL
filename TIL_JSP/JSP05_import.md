@@ -1,6 +1,6 @@
 # JSP
 
-### <%@ %> 지시자
+### <%@ %> 지시자(Directive)
 
 - JSP페이지가 실행될때 JSP 컨테이너에 알리는 역할
 - page, include, taglib 3종류가있음
