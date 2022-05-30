@@ -64,7 +64,9 @@ AddrDTO dto = dao.read(addressnum);//한건의 레코드조회
 -------------------------------------------------------------------------------
 AddrDTO.java
 -------------------------------------------------------------------------------
-public AddrDTO read(int addressnum) {
+public class AddrDAO {
+
+	public AddrDTO read(int addressnum) {
 		AddrDTO dto = null;
 		Connection con = DBOpen.getConnection();
 		PreparedStatement pstmt = null;
@@ -98,5 +100,6 @@ public AddrDTO read(int addressnum) {
 		
 		return dto;
 	}
+}
 ```
 
