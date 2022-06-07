@@ -27,7 +27,7 @@
 
 - UpdateAction.java
 
-```
+```java
 public class UpdateAction implements Action {
 
 	@Override
@@ -45,9 +45,83 @@ public class UpdateAction implements Action {
 }
 ```
 
+- updateForm.jsp
+
+```jsp
+<%@ page contentType="text/html; charset=UTF-8" %> 
+<%@ page import="model.*" %>
+
+<%
+	AddrDTO dto = (AddrDTO)request.getAttribute("dto");
+%>
+<!DOCTYPE html> 
+<html> 
+<head>
+  <title>homepage</title>
+  <meta charset="utf-8">
+</head>
+<body> 
+
+<div class="container">
+<h1 class="col-sm-offset-2 col-sm-10">주소지 수정</h1>
+<form class="form-horizontal" 
+      action="updateProc.do"
+      method="post"
+      >
+ 
+  <input type="hidden" name="addressnum" value="<%=dto.getAddressnum() %>">
+  
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="name">update name</label>
+    <div class="col-sm-6">
+      <input type="text" name="name" id="name" class="form-control" value="<%=dto.getName()%>">
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="handphone">update handphone</label>
+    <div class="col-sm-6">
+      <input type="text" name="handphone" id="handphone" class="form-control" value="<%=dto.getHandphone()%>">
+    </div>
+  </div>
+  
+  
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="address">update address</label>
+    <div class="col-sm-6">
+    <input type="text" name="address" id="address" class="form-control" value="<%=dto.getAddress()%>">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="zipcode">update zipcode</label>
+    <div class="col-sm-6">
+    <input type="text" name="zipcode" id="zipcode" class="form-control" value="<%=dto.getZipcode()%>">
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="address2">update address2</label>
+    <div class="col-sm-6">
+    <input type="text" name="address2" id="address2" class="form-control" value="<%=dto.getAddress2()%>">
+    </div>
+  </div>
+  
+   <div class="form-group">
+   <div class="col-sm-offset-2 col-sm-5">
+    <button class="btn">수정</button>
+    <button type="reset" class="btn">취소</button>
+   </div>
+ </div>
+</form>
+</div>
+</body> 
+</html> 
+```
+
 - UpdateProcAction.java
 
-```
+```java
 public class UpdateProcAction implements Action {
 
 	@Override
@@ -78,7 +152,7 @@ public class UpdateProcAction implements Action {
 
 - updateProc.jsp
 
-```
+```jsp
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 
 <% 
@@ -115,4 +189,3 @@ public class UpdateProcAction implements Action {
 </body>
 </html>
 ```
-
