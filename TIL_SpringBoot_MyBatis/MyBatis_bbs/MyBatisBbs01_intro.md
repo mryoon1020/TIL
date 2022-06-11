@@ -1,0 +1,48 @@
+# MyBatis 활용하여 게시판 만들기
+
+### 기존 Spring Boot 게시판 활용
+
+- 초기셋팅
+  - spring_bbs/src/main/java
+    - package
+      - com.study.bbs
+        - **DatabaseConfiguration.java**
+        - ServletInitializer.java
+        - SpringBbsApplication.java
+        - TilesConfiguration.java
+      - com.study.controller
+        - BbsController.java
+      - com.study.model
+        - AddrDAO.java(삭제예정)
+        - AddrDTO.java
+        - **BbsMapper.java**
+        - **BbsService.java**
+        - **BbsServiceImpl.java**
+      - com.study.utility
+        - Utility.java
+        - Contant.java(삭제예정)
+        - DBClose.java(삭제예정)
+        - DBOpen.java(삭제예정)
+  - spring_addr/src/main/resources
+    - package
+      - mybatis
+        - **bbs.xml**
+      - templates
+        - tiles.xml
+    - folder
+      - static
+        - images
+          - img_chania.jpg
+          - new.gif
+          - re.jpg
+    - file
+      - application.properties
+  - spring_addr/src/test/java
+    - SpringBbsApplicationTests.java
+  - spring_addr/src/main/webapp/WEB-INF
+    - folder
+      - views
+        - view페이지들
+      - views/template
+        - template.jsp
+        - top.jsp
