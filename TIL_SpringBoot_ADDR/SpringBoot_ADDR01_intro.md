@@ -17,7 +17,7 @@
       - SpringAddrApplication.java
       - TilesConfiguration.java
     - com.study.controller
-      - MemoController.java
+      - AddrController.java
     - com.study.model
       - AddrDAO.java
       - AddrDTO.java
