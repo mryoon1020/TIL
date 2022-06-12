@@ -3,6 +3,9 @@
 ### 특징
 
 - 짧은 자바 코드로 DB연동을 함 
+  - PreparedStatement, ResultSet 등등 MyBatis 프레임 워크가 함
+
+- 모든 데이터처리는 MyBatis 프레임 워크가 함
 - SQL 명령어를 자바코드에서 분리하여 XML 파일에 따로 관리
 - 이식성이 좋아 어떤 프로그래밍 언어로도 구현 가능
 - 무료
