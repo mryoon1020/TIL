@@ -25,3 +25,8 @@
   - 레코드1, admin, 1234, kim
   - 레코드2, user, 1234, lee
   - 레코드3, tester, 1234, park
+
+### <원본 파일은 original/AI_web_test2로 올렸으며 문제를 풀게되면 md파일로 수정부부만 올림>
+
+
+
