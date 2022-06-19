@@ -2,11 +2,11 @@
 
 ### 01. Spring boot 프로젝트를 사용하여 id에 a를, pw에 b를 입력하여 로그인 버튼을 눌렀을 때 다음과 같은 alert창이 뜨도록 test.js 작성
 
-![test01](D:\Github_upload\TIL\TIL_SpringBoot_exam\imgs\test01.png)
+<img src="./imgs/test01.png">
 
 ### 02. 01의 확인 버튼을 누르면 AJEX get형식의 login 요청이 처리되어 다음과 같이 새로운 alert 응답을 하는 UserController.java를 작성
 
-![test02](D:\Github_upload\TIL\TIL_SpringBoot_exam\imgs\test02.png)
+<img src="./imgs/test02.png">
 
 **< 조건 >**
 
