@@ -19,7 +19,7 @@
 | ------ | ----------- | ----------- | -------- | -------------- |
 | id     | varchar(8)  | primary key | 아이디   | 테이블명: user |
 | passwd | varchar(8)  | not null    | 비밀번호 | 테이블명: user |
-| name   | carchar(20) | not null    | 회원이름 | 테이블명: user |
+| name   | varchar(20) | not null    | 회원이름 | 테이블명: user |
 
 - 테이블에 3개의 레코드입력
   - 레코드1, admin, 1234, kim
