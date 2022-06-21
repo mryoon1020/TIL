@@ -34,7 +34,8 @@ function loginCheck(id,pw){
 	//컨트롤러로 값이 이동됨
 	//controller에서 return 값이 옴(여기서는 text타입으로 옴)
 			.then(response => response.text())			
-			//fetch는 json, text 상관없이 response로 받아옴
+			//fetch는 json, text등 타입상관없이 response로 받아옴
+    		//response에 저장된 데이터를 꺼내오려면 .찍고 원하는 타입을 적으면 됨
 			//위에서는 편의상 변수를 response라는 이름으로 설정했지만
 			//response대신에 다른이름이 들어가도됨,.then(res => res.text())가능
 			// .text()는 response안의 데이터를 text타입으로 가져온다는 뜻
