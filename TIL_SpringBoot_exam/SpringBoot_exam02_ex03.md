@@ -18,6 +18,7 @@ $(function(){
 		//뷰페이지(test1.jsp)의 아이디의 값(.val())를 파라미터로 받음
 			.then(text => alert(text))
 			//함수에서 최종실행된 결과를 .then을 통해 받음
+        	//리턴이 fetch면 .then을 쓸수 있음 
 			//text라는 변수안에 .then을 통해 들어온 변수를 저장함
 			//alert출력
 			.catch(console.log);//에러날때 콘솔에 입력
@@ -42,6 +43,7 @@ function loginCheck(id,pw){
 			// .json()은 reponse안의 데이터를 json타입으로 가져온다는 뜻
 			//여기서 .text()를 쓴이유는 컨트롤러에서 리턴타입이 텍스트 였기 때문
 			// .json 하고싶으면 컨트롤러에서 return값을 map으로 하면됨
+            // 결국 컨트롤러에서 리턴하는 값에 따라 타입이 정해짐
 			.catch(console.log)//에러날때 콘솔에 입력
 }
 ```
@@ -118,7 +120,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/loginCheck")
-	@ResponseBody//비동기 통신에서 반드시써야함
+	@ResponseBody//비동기 통신에서 반드시써야함, view페이지의 경로가 아닌이상 반드시 써야함
 //@GetMapping(value = "/findID", produces ="application/json;charset=utf-8")
 	                              //여기있는 produce는 return 값을 다른걸로 받고 싶을때 씀
 	public String loginCheck(@RequestParam Map<String,String> map  ) {
