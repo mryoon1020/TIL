@@ -61,5 +61,37 @@
 - 깃허브에서만 파일삭제
 - 내컴퓨터에는 파일이 남아 있음
 
+### 자주 쓰지는 않지만 중요한 명령어
 
+`git init` 
+
+- GitHub사용을 위해 최초로 실행하는 명령어
+- 최초 1회만 하면 됨, 최상위폴더(~ 또는 root 등)에서 사용금지
+
+`git config --global user.email "본인이메일주소"` 
+
+`git config --global user.name "본인이름(영어)"` 
+
+- GitHub 등록전 최초로 1회 등록해주는 명령어
+
+`git config --global --list` 
+
+- 등록된 config정보 출력
+
+`git touch 파일명.확장자` 
+
+- 파일 생성
+
+`git remote -v` 
+
+- 현재 연결되어있는 git주소 목록보기
+
+`git remote add origin 깃주소` 
+
+- git주소 연결
+- .git으로 끝나야됨
+
+`git remote rm origin` 
+
+- 연결된 주소 지우기
 
