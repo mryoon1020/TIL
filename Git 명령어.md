@@ -68,6 +68,10 @@
 - GitHub사용을 위해 최초로 실행하는 명령어
 - 최초 1회만 하면 됨, 최상위폴더(~ 또는 root 등)에서 사용금지
 
+`rm -rf .git` , `rm -r .git` 
+
+- 두개 다 git init 취소하는 명령어
+
 `git config --global user.email "본인이메일주소"` 
 
 `git config --global user.name "본인이름(영어)"` 
