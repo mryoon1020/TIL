@@ -18,4 +18,4 @@
 
 ※ Margin / Border / Padding 정리
 
-<img src="./imgs/css01.png">
+<img src="./imgs/css01.jpg">
