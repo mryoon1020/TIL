@@ -1,0 +1,43 @@
+//-----------------------과제로 했던 내용 fetch
+
+$(function(){
+	$("#login_btn").click(function(){
+		alert($("#id").val() +" "+$("#pw").val());
+		
+		/** consumer */
+		
+		loginCheck($("#id").val(),$("#pw").val())
+		//loginCheck함수를 호출함,
+		//뷰페이지(test1.jsp)의 아이디의 값(.val())를 파라미터로 받음
+			.then(text => alert(text))
+			//함수에서 최종실행된 결과를 .then을 통해 받음
+			//리턴이 fetch면 .then을 쓸수 있음 
+			//text라는 변수안에 .then을 통해 들어온 변수를 저장함
+			//alert출력
+			.catch(console.log);//에러날때 콘솔에 입력
+		
+	});
+});
+
+/** producer */
+
+function loginCheck(id,pw){
+	return fetch(`/loginCheck?id=${id}&passwd=${pw}`)
+	//url은 ?뒤 /logincheck까지, get방식
+	//return이 fetch 이므로 .then을 쓸수 있음
+	//컨트롤러로 값이 이동됨
+	//controller에서 return 값이 옴(여기서는 text타입으로 옴)
+			.then(response => response.text())			
+			//fetch는 json, text 타입상관없이 response로 받아옴
+			//response에 저장된 데이터를 꺼내오려면 .찍고 원하는 타입을 적으면 됨
+			//위에서는 편의상 변수를 response라는 이름으로 설정했지만
+			//response대신에 다른이름이 들어가도됨,.then(res => res.text())가능
+			// .text()는 response안의 데이터를 text로 가져온다는 뜻
+			// .json()은 reponse안의 데이터를 json으로 가져온다는 뜻
+			//여기서 .text()를 쓴이유는 컨트롤러에서 리턴타입이 텍스트 였기 때문
+			// .json 하고싶으면 컨트롤러에서 return값을 map으로 하면됨
+			// 결국 컨트롤러에서 리턴하는 값에 따라 타입이 정해짐
+			.catch(console.log)//에러날때 콘솔에 입력
+}
+
+//-------------------------Ajex
