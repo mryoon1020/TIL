@@ -1,6 +1,6 @@
 # FileUpload 기능 추가하기
 
-###사용법
+### 사용법
 
 > create.jsp
 
@@ -261,21 +261,21 @@ public class upload {
 ```
 <insert id="create" parameterType="com.rentcar.notice.model.NoticeDTO">
 
-		<choose>
+        <choose>
 
-		<when test="fname == null">
-			INSERT INTO projectNotice(title, content, wname, passwd, wdate)
-				VALUES(#{title}, #{content}, #{wname}, #{passwd}, NOW())
+        <when test="fname == null">
+            INSERT INTO projectNotice(title, content, wname, passwd, wdate)
+                VALUES(#{title}, #{content}, #{wname}, #{passwd}, NOW())
 
-		</when>
+        </when>
 
-			<otherwise>
-				INSERT INTO projectNotice(title, content, wname, passwd, wdate, fname)
-				VALUES(#{title}, #{content}, #{wname}, #{passwd}, NOW(), #{fname})
+            <otherwise>
+                INSERT INTO projectNotice(title, content, wname, passwd, wdate, fname)
+                VALUES(#{title}, #{content}, #{wname}, #{passwd}, NOW(), #{fname})
 
-			</otherwise>
+            </otherwise>
 
-		</choose>
+        </choose>
 
-	</insert>
+    </insert>
 ```
