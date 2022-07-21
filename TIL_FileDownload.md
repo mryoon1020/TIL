@@ -14,7 +14,7 @@
              location.href=url;
           }
 
-  </script>
+</script>
 ```
 
 - 파일 링크 추가
