@@ -25,7 +25,7 @@
 
 ```javascript
 <script>
-function add(wname, title, content, fnameMF, passwd){
+function add(notice){
 
 return fetch('/notice/create',{
                 method: 'post',
@@ -60,14 +60,50 @@ function create(){
   alert(notice);
 
   add(notice)
-    .then(result => {
-
-    }); //end add
+    .then(result => console.log(result)
+    ); //end add
 
 }
 
 </script>
 ```
 
+> controller.java
 
+```java
+@ResponseBody
+    @PostMapping("/notice/create")
+    public String create(@RequestBody NoticeDTO dto){
+
+        log.info("dto: "+ dto);
+
+       // service.create(dto);
+       return "test";
+    }
+```
+
+> MDN 참조
+
+- 상기 코드 사용시 로그로 읽어온 값은 잘들어 오지만 비동기통신을 사용할경우 다른 구문을 사용해야함
+- MDN의 예제와 같이 코드를 재구성필요
+
+```javascript
+const formData = new FormData();
+const fileField = document.querySelector('input[type="file"]');
+
+formData.append('username', 'abc123');
+formData.append('avatar', fileField.files[0]);
+
+fetch('https://example.com/profile/avatar', {
+  method: 'PUT',
+  body: formData,
+})
+.then((response) => response.json())
+.then((result) => {
+  console.log('성공:', result);
+})
+.catch((error) => {
+  console.error('실패:', error);
+});
+```
 
