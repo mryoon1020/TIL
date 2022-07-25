@@ -8,7 +8,7 @@
 - ` <input type="file" name="fnameMF" id="fnameMF" class="form-control">`
 - 파일 입력부분인 input 태그 타입에 file 속성추가
 
-```
+```jsp
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 <!DOCTYPE html>
@@ -99,7 +99,7 @@
 
 > DTO.java
 
-```
+```java
 @Data
 public class NoticeDTO {
     private int    noticeno     ;
@@ -119,7 +119,7 @@ public class NoticeDTO {
 - `else if (os.equals("windows 11")) { System.out.println("os: " + os); serverFullPath = basePath + "\\" + filename; }`
 - 운영체제 반드시 정확히 기재해줄 것
 
-```
+```java
 public static String saveFileSpring(MultipartFile mf, String basePath) {
         InputStream inputStream = null;
         OutputStream outputStream = null;
@@ -202,7 +202,7 @@ public static String saveFileSpring(MultipartFile mf, String basePath) {
 
 - 업로드한 파일 저장위치 설정파일
 
-```
+```java
 public class upload {
     /** 페이지당 출력할 레코드 갯수 */
     public static int RECORD_PER_PAGE = 3;
@@ -227,7 +227,7 @@ public class upload {
 
 > controller.java
 
-```
+```java
   @GetMapping("/notice/create")
     public String create() {
 
@@ -258,7 +258,7 @@ public class upload {
 - 현재는 파일이름만 출력하는 상태
 - 추후 다운로드도 가능하게 업데이트 할예정
 
-```
+```xml
 <insert id="create" parameterType="com.rentcar.notice.model.NoticeDTO">
 
         <choose>
