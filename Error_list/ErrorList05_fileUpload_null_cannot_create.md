@@ -58,3 +58,15 @@ if(fileField.files[0] > 0){
   }
 ```
 
+### 20220808 오류발생
+
+- 파일을 업로드 할경우 create가 되지 않음
+- 상기 if문 수정을 통해 해결 완료
+  - 조건문 `> 0` => `!= null` 변경 
+
+```js
+if(fileField.files[0] != null){
+  formdata.append('fnameMF', fileField.files[0]);
+}
+```
+
