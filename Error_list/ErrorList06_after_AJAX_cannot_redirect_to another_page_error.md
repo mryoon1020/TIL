@@ -17,7 +17,6 @@
 
 ```js
 function add(formdata){
-  //wname, title, content, fnameMF, passwd
 
   return fetch('/notice/create',{
                   method: 'POST',
@@ -27,9 +26,7 @@ function add(formdata){
                   .then(function(response){
                     return response.text()
                   })
-                  .then(result => alert(result))
                   .catch(alert('실패'));
-  
   }
   
   function create(){
@@ -55,9 +52,8 @@ if(fileField.files[0] != null){
   
     add(formdata)
     .then(function(url){
-      return alert(url)
-    })
-      return location.href = "/notice/list";
+      return location.href = url
+    });
   }
 ```
 
@@ -147,4 +143,3 @@ if(fileField.files[0] != null){
 
 <!-- 생략 -->
 ```
-
