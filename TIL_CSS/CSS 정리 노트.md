@@ -19,3 +19,10 @@
 ※ Margin / Border / Padding 정리
 
 <img src="./imgs/css01.jpg">
+
+> 완벽하게 센터 잡기
+
+`display:flex;` + `justify-content: center;` + `align-items: center;`
+
+`:not()` 상속CSS 무시하기
+
