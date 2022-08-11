@@ -26,3 +26,7 @@
 
 `:not()` 상속CSS 무시하기
 
+`<meta http-equiv="refresh" content="(지연시간(초));url=(이동할경로)">` 
+
+-  자동 페이지이동, html문서 head에 작성함
+- ex) `<meta http-equiv="refresh" content="3;url=http:/home2">` 3초후 /home2로 이동
