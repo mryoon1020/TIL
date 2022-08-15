@@ -43,3 +43,9 @@
 - 검색할 그래프
 - 방문여부 확인(재방문 금지)
 - Queue: BFS 실행
+
+### 예제
+
+- link : https://www.acmicpc.net/problem/1926
+
+![baekjoon_1926](.\imgs\baekjoon_1926.png)
