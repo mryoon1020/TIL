@@ -1,5 +1,11 @@
 # Beakjoon(단계별 문제 풀이)
 
+### 시작하기 전에
+
+- 본격적으로 알고리즘 공부 시작전 공부
+- 백준 홈페이지의 단계별 문제(https://www.acmicpc.net/step) 1~11번 풀기
+- 이후 강의에서 다루는 기초 1 ,2, 중급 1의 문제까지 공부할 예정
+
 ### 입출력과 사칙연산
 
 > 2557번 (https://www.acmicpc.net/problem/2557)
@@ -110,6 +116,37 @@ public class Main{
         B = Integer.parseInt(str[1]);
         
         System.out.println(A*B);
+    }
+}
+```
+
+> 1008번(https://www.acmicpc.net/problem/1008)
+
+- 중요조건: 실제 정답과 출력값의 절대오차 또는 상대오차가 10<sup>-9 </sup>이하이면 정답이다
+- `Double` 로 처리해주어야함
+  - 소수점을 처리해주어야 하기 때문
+  - 참조사이트: https://devlog-wjdrbs96.tistory.com/254
+  - `float` : 유효자리수는 7자리 까지 → 문제의 조건에 부합하지 않음
+  - `double`: 유효자리수는 16자리 까지 → 문제의 조건에 부합
+- `<sup></sup>` : 윗첨자 `<sub></sub>` : 아래첨자
+  - 예시. `10<sup>9</sup>`: 10<sup>9</sup>  , `H<sub>2</sub>O` : H<sub>2</sub>O
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class Main{
+    public static void main(String[] args) throws IOException{
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        double A = 0;
+        double B = 0;
+        String[] str = br.readLine().split(" ");
+        A = Double.parseDouble(str[0]);
+        B = Double.parseDouble(str[1]);
+        System.out.println(A/B);
+        
     }
 }
 ```
