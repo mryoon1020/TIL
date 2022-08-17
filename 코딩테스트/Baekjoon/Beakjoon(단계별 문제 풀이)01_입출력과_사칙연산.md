@@ -151,3 +151,144 @@ public class Main{
 }
 ```
 
+> 10869번(https://www.acmicpc.net/problem/10869)
+
+- 몫을 출력 해야하므로 소수점을 출력하면 안됨 → int
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+
+  public static void main(String[] args) throws IOException {
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    int A = 0;
+    int B = 0;
+    String[] str = br.readLine().split(" ");
+    
+    A = Integer.parseInt(str[0]);
+    B = Integer.parseInt(str[1]);
+    
+    System.out.println(A+B);
+    System.out.println(A-B);
+    System.out.println(A*B);
+    System.out.println(A/B);
+    System.out.println(A%B);
+    
+  }
+
+}
+```
+
+> 10926번(https://www.acmicpc.net/problem/10926)
+
+- 오류코드
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+
+  public static void main(String[] args) throws IOException {
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    String a = "joonas";
+    
+    String b = br.readLine();
+
+    if(a.equals(b)) {
+      System.out.println(b+"??!");
+    }
+    
+  }
+
+}
+```
+
+- 정답코드
+  - 비교구문은 필요없었음
+  - 단순히 입력값에 문장 부호 출력이었음
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+
+  public static void main(String[] args) throws IOException {
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    String str = br.readLine();
+      System.out.println(str+"??!");    
+  }
+
+}
+```
+
+> 18108번(https://www.acmicpc.net/problem/18108)
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+
+  public static void main(String[] args) throws IOException {
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    int a = 0;
+    String str = br.readLine();
+    a = Integer.parseInt(str);
+    System.out.println(a-543);
+    
+  }
+
+}
+```
+
+> 3003번(https://www.acmicpc.net/problem/3003)
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+
+  public static void main(String[] args) throws IOException {
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    int k = 0;
+    int q = 0;
+    int l = 0;
+    int b = 0;
+    int kn = 0;
+    int p = 0;
+    String[] str = br.readLine().split(" ");
+    
+    k = 1 - Integer.parseInt(str[0]);
+    q = 1 - Integer.parseInt(str[1]);
+    l = 2 - Integer.parseInt(str[2]);
+    b = 2 - Integer.parseInt(str[3]);
+    kn = 2 - Integer.parseInt(str[4]);
+    p = 8 - Integer.parseInt(str[5]);
+
+    System.out.println(k+" "+q+" "+l+" "+b+" "+kn+" "+p);
+    
+  }
+
+}
+```
+
