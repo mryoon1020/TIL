@@ -292,3 +292,139 @@ public class Main {
 }
 ```
 
+> 10430번(https://www.acmicpc.net/problem/10430)
+
+```java
+// (A+B)%C
+// ((A%C) + (B%C))%C
+// (A×B)%C
+// ((A%C) × (B%C))%C
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+
+  public static void main(String[] args) throws IOException {
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    int A = 0;
+    int B = 0;
+    int C = 0;
+
+    String[] str = br.readLine().split(" ");
+    
+    A = Integer.parseInt(str[0]);
+    B = Integer.parseInt(str[1]);
+    C = Integer.parseInt(str[2]);
+
+    int cal1 = (A+B)%C;
+    int cal2 = ((A%C) + (B%C))%C;
+    int cal3 = (A*B)%C;
+    int cal4 = ((A%C) * (B%C))%C;
+
+    System.out.println(cal1);
+    System.out.println(cal2);
+    System.out.println(cal3);
+    System.out.println(cal4);
+    
+  }
+
+}
+```
+
+>2588번
+
+- 런타인 오류나는 내코드
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+
+  public static void main(String[] args) throws IOException {
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    int abc = 0;
+    int def = 0;
+
+    String[] str = br.readLine().split(" ");
+    
+    int d = Integer.parseInt(str[1].substring(0, 1));   
+    int e = Integer.parseInt(str[1].substring(1,2));    
+    int f = Integer.parseInt(str[1].substring(2));
+    
+    abc = Integer.parseInt(str[0]);  
+    def = Integer.parseInt(str[1]);
+    
+    System.out.println(abc*f);
+    System.out.println(abc*e);
+    System.out.println(abc*d);
+    System.out.println(abc*def);
+    
+    
+  }
+
+}
+```
+
+- 수학적 접근을 이용한 코드
+- 참조사이트 : https://st-lab.tistory.com/20
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+
+  public static void main(String[] args) throws IOException {
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    int a = Integer.parseInt(br.readLine());
+    int b = Integer.parseInt(br.readLine());
+    
+    System.out.println(a*(b%10));
+    System.out.println(a*(b%100/10));
+    System.out.println(a*(b/100));
+    System.out.println(a*b);
+     
+  }
+
+}
+```
+
+- 문자열 배열로 접근한 코드
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		
+		int A = Integer.parseInt(br.readLine());
+		String B = br.readLine();
+ 
+		char[] b = B.toCharArray();
+			
+		
+		System.out.println(A * (b[2]-'0'));
+		System.out.println(A * (b[1]-'0'));
+		System.out.println(A * (b[0]-'0'));
+		System.out.println(A * Integer.parseInt(B));
+ 
+	}
+}
+```
+
