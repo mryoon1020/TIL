@@ -428,3 +428,63 @@ public class Main {
 }
 ```
 
+> 10171번(https://www.acmicpc.net/problem/10171)
+
+- 역슬래시( `\` ) 출력을 위해서는 역슬래시를 작성해주어야함
+  - `System.out.println("\\")` → `\` 출력됨
+- 쌍따옴표( `"` ) 역시 마찬가지로 출력을 위해서는 `\"` 를 사용해야 출력됨 
+
+```java
+public class Main {
+
+  public static void main(String[] args){
+    
+
+    System.out.println("\\    /\\");
+    System.out.println(" )  ( ')");
+    System.out.println("(  /  )");
+    System.out.println(" \\(__)|");
+     
+  }
+
+}
+```
+
+>10172번(https://www.acmicpc.net/problem/10172)
+
+```java
+public class Main {
+
+  public static void main(String[] args){
+    
+
+    System.out.println("|\\_/|");
+    System.out.println("|q p|   /}");
+    System.out.println("( 0 )\"\"\"\\");
+    System.out.println("|\"^\"`    |");
+    System.out.println("||_/=\\\\__|");
+     
+  }
+
+}
+```
+
+> 25083번(https://www.acmicpc.net/problem/25083)
+
+```java
+public class Main {
+
+  public static void main(String[] args){
+    
+
+    System.out.println("         ,r'\"7");
+    System.out.println("r`-_   ,'  ,/");
+    System.out.println(" \\. \". L_r'");
+    System.out.println("   `~\\/");
+    System.out.println("      |");
+    System.out.println("      |");
+     
+  }
+
+}
+```
