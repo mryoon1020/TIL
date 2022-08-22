@@ -240,3 +240,46 @@ public class Main {
 
 }
 ```
+
+> 2480번(https://www.acmicpc.net/problem/2480)
+
+```java
+import java.util.Scanner;
+
+public class Main {
+
+  public static void main(String[] args) {
+
+    Scanner sc = new Scanner(System.in);
+
+    int a = sc.nextInt();
+    int b = sc.nextInt();
+    int c = sc.nextInt();
+
+    if (a == b && a == c) {
+      System.out.println(10000 + a * 1000);
+    } else if (a == b || a == c || b == c) {
+      
+      if (a == b || a == c) {
+        System.out.println(1000 + a * 100);
+
+      } else {
+        System.out.println(1000 + b * 100);
+      }
+    } else {
+      
+      int[] num = {a,b,c};
+      int max = num[0];
+      
+      for(int i=0; i<num.length;i++) {
+        if(max<num[i]) {
+          max =num[i];
+        }
+      }
+     System.out.println(max*100); 
+    }
+
+  }
+
+}
+```
