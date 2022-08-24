@@ -158,3 +158,91 @@ public class Main {
 }
 ```
 
+> 11021번(https://www.acmicpc.net/problem/11021)
+
+```java
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+ 
+public class Main {
+ 
+  public static void main(String[] args) throws Exception, IOException {
+ 
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+ 
+    int n = Integer.parseInt(br.readLine());
+ 
+    for (int i = 1; i < n+1; i++) {
+      String str = br.readLine();
+      int a = Integer.parseInt(str.split(" ")[0]);
+      int b = Integer.parseInt(str.split(" ")[1]);
+      int sum = a+b;
+      bw.write("Case #"+i+": "+sum+"\n");
+      
+    }
+   
+    bw.flush();
+ 
+  }
+}
+```
+
+> 11022번(https://www.acmicpc.net/problem/11022)
+
+```java
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+ 
+public class Main {
+ 
+  public static void main(String[] args) throws Exception, IOException {
+ 
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+ 
+    int n = Integer.parseInt(br.readLine());
+ 
+    for (int i = 1; i < n+1; i++) {
+      String str = br.readLine();
+      int a = Integer.parseInt(str.split(" ")[0]);
+      int b = Integer.parseInt(str.split(" ")[1]);
+      int sum = a+b;
+      bw.write("Case #"+i+": " +a+" + "+b+" = "+sum+"\n");
+      
+    }
+   
+    bw.flush();
+ 
+  }
+}
+```
+
+> 2438번(https://www.acmicpc.net/problem/2438)
+
+```java
+import java.util.Scanner;
+
+public class Main {
+ 
+  public static void main(String[] args) {
+ 
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+      
+    for(int i=1;i<=n;i++) {
+      for(int j=1; j<=i;j++) {
+        System.out.print("*");
+      }
+      System.out.println();
+    }
+  }
+}
+```
+
