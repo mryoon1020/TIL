@@ -246,3 +246,104 @@ public class Main {
 }
 ```
 
+- 연습삼아 해본 역순으로 별찍기
+
+```java
+import java.util.Scanner;
+
+public class Main {
+ 
+  public static void main(String[] args) {
+ 
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    for(int i = n; i>0 ; i--) {
+      for(int j = i; j>0;j--) {
+        System.out.print("*");
+      }
+      System.out.println("");
+    }  
+  }
+}
+```
+
+> 2439번
+
+- 내가 헤메던 코드
+
+  - 아래코드를 실행하면 다음과 같이 출력됨
+
+  - 공백이 줄어 들지 않음
+
+  - for문이 돌며 공백이 프린트 되지만 제동을 해줄 장치가 없음
+
+  - i 가 j 를 제동해주지만 k까지 제동해주지 못함
+
+    ```
+    5
+        *
+        **
+        ***
+        ****
+        *****
+    ```
+
+```java
+import java.util.Scanner;
+
+public class Main {
+ 
+  public static void main(String[] args) {
+ 
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+      
+    for(int i =1; i<=n ; i++) {
+      
+      for(int k=n-1; k>0;k--) {
+      
+        System.out.print(" ");
+      }
+      for(int j=1;j<=i;j++) {
+        
+        System.out.print("*");
+        }
+        
+      System.out.println("");
+    }
+ 
+  }
+}
+```
+
+- 정답코드
+  - 출처: https://st-lab.tistory.com/36
+
+```java
+import java.util.Scanner;
+
+public class Main {
+ 
+  public static void main(String[] args) {
+ 
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+      
+    for(int i =1; i<=n ; i++) {
+      
+      for(int k=1; k<=n-i;k++) {
+      
+        System.out.print(" ");
+      }
+      for(int j=1;j<=i;j++) {
+        
+        System.out.print("*");
+        }
+
+      System.out.println("");
+    }
+ 
+  }
+}
+```
+
