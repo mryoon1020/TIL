@@ -347,3 +347,68 @@ public class Main {
 }
 ```
 
+> 10871번(https://www.acmicpc.net/problem/10871)
+
+- 내정답
+
+```java
+import java.util.Scanner;
+
+public class Main {
+ 
+  public static void main(String[] args) {
+ 
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();//정수갯수
+    int x = sc.nextInt();//크기비교용숫자
+    
+    int[] num = new int[n];
+    
+    for(int i = 0; i< num.length;i++) {
+      num[i]=sc.nextInt();
+    }
+    
+    for(int i = 0; i< num.length;i++) {
+      if(num[i]<x) {
+        System.out.print(num[i] + " ");
+     
+      }
+    } 
+  }
+}
+```
+
+- 빠른연산 및 배열을 사용하지 않는 풀이법
+- 출처("https://st-lab.tistory.com/38")
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+ 
+		int N = Integer.parseInt(st.nextToken());
+		int X = Integer.parseInt(st.nextToken());
+ 
+		StringBuilder sb = new StringBuilder();
+ 
+		st = new StringTokenizer(br.readLine(), " ");
+		
+		for (int i = 0; i < N; i++) {
+			int value = Integer.parseInt(st.nextToken());
+ 
+			if (value < X)
+				sb.append(value).append(' ');
+		}
+		System.out.println(sb);
+	}
+}
+```
+
