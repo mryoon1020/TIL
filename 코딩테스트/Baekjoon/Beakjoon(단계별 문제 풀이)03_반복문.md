@@ -412,3 +412,75 @@ public class Main {
 }
 ```
 
+> 10952번
+
+- 출처 : https://st-lab.tistory.com/39
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main {
+ 
+  public static void main(String[] args) throws Exception {
+
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    StringBuilder sb = new StringBuilder();
+    
+    while(true) {
+
+      StringTokenizer st = new StringTokenizer(br.readLine());
+      int a = Integer.parseInt(st.nextToken());
+      int b = Integer.parseInt(st.nextToken());
+      
+      if(a==0 && b ==0) {
+        break;
+      }
+      sb.append((a+b)).append('\n');
+    }
+    System.out.println(sb);
+  }
+}
+```
+
+- 좀더 간단한 방법(Scanner 사용)
+
+  - 예제 입력
+
+    - ```
+      ※ 문제의 예제에는 다음과 같이표기			Scanner 사용시 콘솔 출력
+      예제입력			예제출력		 |		1 1
+      1 1					2			  |		 2
+      2 3					5			  |		 2 3
+      0 0								  |		 5
+      								  |		 0 0
+      ```
+
+    - Console에 어떻게 나와도 상관 없이 정답처리가 됨
+
+```java
+import java.util.Scanner;
+
+public class Main {
+ 
+  public static void main(String[] args) throws Exception {
+
+    Scanner sc = new Scanner(System.in);
+    
+
+    while(true) {
+      
+      int a = sc.nextInt();
+      int b = sc.nextInt();
+      
+      if(a == 0 && b ==0) {
+        break;
+      }
+      System.out.println(a+b);
+    }    
+  }
+}
+```
+
