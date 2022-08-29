@@ -487,3 +487,131 @@ public class Main {
 }
 ```
 
+> 10951번()
+
+- 내 오답
+  - while문이 끝나는 시점이 없었기에 공백입력시 오류가 남
+
+```java
+import java.util.Scanner;
+
+public class Main {
+ 
+  public static void main(String[] args) throws Exception {
+
+    Scanner sc = new Scanner(System.in);
+    
+
+    while(true) {
+      
+      int a = sc.nextInt();
+      int b = sc.nextInt();
+
+      System.out.println(a+b);
+    }
+    
+  }
+}
+```
+
+- 정답
+- 출처: https://st-lab.tistory.com/40
+
+```java
+import java.util.Scanner;
+
+public class Main {
+ 
+  public static void main(String[] args) throws Exception {
+
+    Scanner sc = new Scanner(System.in);
+    
+
+    while(sc.hasNextInt()) {
+      
+      int a = sc.nextInt();
+      int b = sc.nextInt();
+
+      System.out.println(a+b);
+    }
+    
+  }
+}
+```
+
+- BufferedReader사용
+- 출처: https://st-lab.tistory.com/40
+- 정답처리는 되었지만 IDE상에서는 NoSuchElementException과 함께 합이 계산되지 않음
+- 입력을 끝내고 싶을 때에는 enter키를 누르는 것 대신 ctrl+z를 눌렀을때 결과가 잘 도출이됨
+- 윈도우 계열 : ctrl + z   //   리눅스 계열 : ctrl + d
+- StringTokenizer에서 오류가 났을 확률이 높음
+  - `""` 입력은 null이 아닌 빈문자열의 데이터
+  - null은 메모리도 할당되지 않은 상태
+  - StringTokenizer는 공백 `" "` 단위로 구분
+  - 공백이 없는 빈문자열에서 검사할 수 있는 문자가 없기 때문에 뽑아낼수 없는 토큰이 없음
+  - NoSuchElementException발생
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+
+public class Main {
+ 
+  public static void main(String[] args) throws IOException {
+
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    StringBuilder sb = new StringBuilder();
+    
+    String str;
+    
+    while((str = br.readLine()) != null) {
+      StringTokenizer st = new StringTokenizer(str," ");
+      int a = Integer.parseInt(st.nextToken());
+      int b = Integer.parseInt(st.nextToken());
+      sb.append(a + b).append("\n");
+    }
+    
+    System.out.println(sb);
+  }   
+}
+```
+
+- ctrl+z를 누를 필요 없이 enter만 써도 되는경우
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+
+public class Main {
+ 
+  public static void main(String[] args) throws IOException {
+
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    StringBuilder sb = new StringBuilder();
+    
+    String str;
+    
+    while((str = br.readLine()) != null) {
+      StringTokenizer st = new StringTokenizer(str," ");
+      if(st.hasMoreTokens()) {
+
+      int a = Integer.parseInt(st.nextToken());
+      int b = Integer.parseInt(st.nextToken());
+      sb.append(a + b).append("\n");
+      }else {
+        break;
+      }
+    }
+    System.out.println(sb);
+  }
+}
+```
+
