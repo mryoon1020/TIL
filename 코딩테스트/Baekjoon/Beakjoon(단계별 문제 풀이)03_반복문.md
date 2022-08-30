@@ -487,7 +487,7 @@ public class Main {
 }
 ```
 
-> 10951번()
+> 10951번(https://www.acmicpc.net/problem/10951)
 
 - 내 오답
   - while문이 끝나는 시점이 없었기에 공백입력시 오류가 남
@@ -540,7 +540,7 @@ public class Main {
 ```
 
 - BufferedReader사용
-- 출처: https://st-lab.tistory.com/40
+- 출처: https://st-lab.tistory.com/40 && 댓글질문
 - 정답처리는 되었지만 IDE상에서는 NoSuchElementException과 함께 합이 계산되지 않음
 - 입력을 끝내고 싶을 때에는 enter키를 누르는 것 대신 ctrl+z를 눌렀을때 결과가 잘 도출이됨
 - 윈도우 계열 : ctrl + z   //   리눅스 계열 : ctrl + d
@@ -601,6 +601,7 @@ public class Main {
     
     while((str = br.readLine()) != null) {
       StringTokenizer st = new StringTokenizer(str," ");
+      
       if(st.hasMoreTokens()) {
 
       int a = Integer.parseInt(st.nextToken());
@@ -611,6 +612,120 @@ public class Main {
       }
     }
     System.out.println(sb);
+  }
+}
+```
+
+> 1110번(https://www.acmicpc.net/problem/1110)
+
+- 잘못된 나의 코드
+- 입력값을 subString으로 쪼갠뒤 int로 변환 후 stringBuilder에 저장하는 연산을 구동했음
+- 하기 코드는 while문이 돌지 않으며 굉장히 복잡함
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
+public class Main {
+ 
+  public static void main(String[] args) throws IOException {
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    StringBuilder sb = new StringBuilder();
+    String str = br.readLine();    
+    int cnt = 0;
+    
+    while(str == sb.toString()){
+
+      int a = Integer.parseInt(str.substring(0, 1));
+      int b = Integer.parseInt(str.substring(1));
+    
+      if(a+b >=10) {
+       String c = Integer.toString(a+b);
+       sb.append(b);
+       sb.append(Integer.parseInt(c.substring(1)));      
+       
+      }else {
+      
+      sb.append(b);
+      sb.append((a+b));
+      }
+
+      cnt++;
+      
+   }
+    System.out.println(str);
+    System.out.println(sb);
+    System.out.println(cnt);
+  }
+}
+```
+
+- 정답코드
+- 출처(https://st-lab.tistory.com/42)
+- scanner 사용 코드
+
+```java
+import java.util.Scanner;
+
+public class Main {
+ 
+  public static void main(String[] args){
+    
+    Scanner in = new Scanner(System.in);
+    
+    int N = in.nextInt(); //입력
+    in.close();
+        
+    int cnt = 0;  //루프 횟수
+    int copy = N; //변수 복사
+        
+    while (true) {
+      N = ((N % 10) * 10) + (((N / 10) + (N % 10)) % 10);
+      
+      //N을 10으로 나눈 나머지 * 10 => 새로운 수의 10의 자리
+      //(N을 10으로 나눈 몫 + 나머지)를 10으로 나눈 나머지 => 새로운 수의 1의 자리
+      
+      cnt++;  //루프가 돌때마다 1씩증가
+ 
+      if (copy == N) {
+        break;
+      }
+    }
+    System.out.println(cnt);
+    
+  }
+}
+```
+
+- bufferedReader 사용 코드
+- while 문도 가능하지만 do-while문을 통해 if를 생략하였음
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+ 
+  public static void main(String[] args) throws IOException{
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    int N = Integer.parseInt(br.readLine());
+    
+    int cnt = 0;
+    int copy = N;
+        
+    do {
+      N = ((N % 10) * 10) + (((N / 10) + (N % 10)) % 10);
+      cnt++;
+    } while (copy != N);
+    
+    System.out.println(cnt);
+
   }
 }
 ```
