@@ -301,7 +301,6 @@ temp : 1
 - 본인은 생각해보지 못한 방법
   - 배열길이다 42인 이유 => 나머지의 범위는 0~41이기 때문
   - boolean 배열의 default값은 false임
-  - 
 
 ```java
 import java.io.BufferedReader;
@@ -326,6 +325,139 @@ public class Main {
         }
         System.out.println(count);
     }
+}
+```
+
+> 1546번(https://www.acmicpc.net/problem/1546)
+
+- 런타임 오류나는 내 답안
+- 결과는 잘나옴
+- 추후에 알게된 사실
+  - 문제에서 모든 점수를 바꿔서 계산했다고 언급 되있으므로 굳이 100을 빼줄필요가없었음
+  - 배열의 요소를 확인하기위해 만들었던 출력문이 그대로 정답으로 제출 되었었음
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+
+public class Main {
+ 
+  public static void main(String[] args) throws IOException{
+    
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      
+      int n = Integer.parseInt(br.readLine());
+      
+      double[] num = new double[n];
+      
+      for(int i =0 ; i<num.length;i++) {
+        
+        num[i]= Double.parseDouble(br.readLine());
+      }
+      
+      Arrays.sort(num);
+      
+      double max = num[n-1];
+      
+      for(int i=0;i<num.length;i++) {
+       num[i] = num[i]/max*100;
+      }
+      
+      double cal = 0;
+      
+      for(int i=0;i<num.length;i++) {
+        cal += num[i];
+      }
+      
+      for(int i=0;i<num.length;i++) {
+      
+      System.out.println(num[i]);
+      }
+      System.out.println((cal-100)/n);
+      
+  }
+}
+```
+
+- 정답코드 참조 후 수정해서 정답처리된 코드
+  - StringTokenizer를 사용하여 한줄로 입력받은 후 처리해야 정답처리되는 것으로 보임
+  - StringTokenizer 미사용시 IDE상에서 정답 출력에는 이상 없으나 홈페이지에서 런타임오류가 뜸 
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class Main {
+ 
+  public static void main(String[] args) throws IOException{
+    
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      
+      int n = Integer.parseInt(br.readLine());
+      
+      double[] num = new double[n];
+      
+      StringTokenizer st = new StringTokenizer(br.readLine());
+      
+      for(int i =0 ; i<num.length;i++) {
+        num[i]= Double.parseDouble(st.nextToken());
+      }
+      
+      Arrays.sort(num);
+      for(int i=0;i<num.length;i++) {
+       num[i] = num[i]/num[n-1]*100;
+      }
+      
+      double cal = 0;
+      for(int i=0;i<num.length;i++) {
+        cal += num[i];
+      }
+
+      System.out.println((cal)/n);  
+  }
+}
+```
+
+- 정답 코드
+- 출처(https://st-lab.tistory.com/47)
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class Main {
+ 
+  public static void main(String[] args) throws IOException{
+    
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      
+      double[] num = new double[Integer.parseInt(br.readLine())];
+      
+      StringTokenizer st = new StringTokenizer(br.readLine());
+      
+      for(int i =0 ; i<num.length;i++) {
+        num[i]= Double.parseDouble(st.nextToken());        
+      }
+      
+      double sum = 0;
+      
+      Arrays.sort(num);
+      
+      for(int i=0;i<num.length;i++) {
+        sum += ((num[i]/num[num.length-1])*100);
+      }
+      
+      System.out.println(sum/num.length);
+      
+  }
 }
 ```
 
