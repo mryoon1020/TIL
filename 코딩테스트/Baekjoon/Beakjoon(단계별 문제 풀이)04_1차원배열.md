@@ -461,3 +461,106 @@ public class Main {
 }
 ```
 
+> 8958번(https://www.acmicpc.net/problem/8958)
+
+- 풀지 못한문제
+- 출처(https://st-lab.tistory.com/50)
+- OX는 대문자로 입력해야 정답처리
+- chartAt()을 사용하여 문자열에서 한개씩 문자를 뽑아냄
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+ 
+  public static void main(String[] args) throws IOException{
+    
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      
+      StringBuilder sb = new StringBuilder();
+      
+      int n = Integer.parseInt(br.readLine()); //테스트 횟수
+      
+      String str[] = new String[n];
+      
+      for(int i =0; i<n;i++) {
+        str[i] =br.readLine();	//배열에 문자열 저장
+      }
+
+      for(int i =0; i<n;i++) {
+
+        int cnt = 0;	//매회 초기화 하기 위함
+        int sum = 0;
+        
+        for(int j =0;j<str[i].length();j++){	//str배열의 요소(문자열)한개의 길이만큼
+												//반복문돌리기
+          if(str[i].charAt(j) == 'O') {
+            cnt++;	//O일 경우 cnt+1, O가 연속으로 나올경우 2, 3, 4 계속 증가할 것임
+          }else {
+            cnt=0;	//O가 아닐 경우 cnt 초기화
+          }
+          sum+=cnt;	//총합, 루프1개당 계속 더해중
+        }
+        sb.append(sum).append('\n');	//루프가 1개끝날때 마다 sum과 줄바꿈은 sb에 저장
+      }
+      System.out.println(sb);
+  }
+}
+```
+
+> 4344번(https://www.acmicpc.net/problem/4344)
+
+- 출처(https://st-lab.tistory.com/51)
+- String.format() 을 활용하여 n번째 자리에서 반올림
+  - String.format("%.3f",(cnt/stu)*100) : 소수점 3번째 자리까지 반올림 (결과: 00.000)
+  - String.format("%.2f",(cnt/stu)*100) : 소수점 2번째 자리까지 반올림 (결과: 00.00)
+  - 반올림방법중에 Math.round() 도 있음. 이 방법은 소수점 아래가 0일때 표기하지 않음
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main {
+ 
+  public static void main(String[] args) throws IOException{
+    
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      
+      int[] score;
+      
+      int n = Integer.parseInt(br.readLine());	//시행횟수
+      StringTokenizer st;
+      
+      for(int i =0; i<n;i++) {
+        st =new StringTokenizer(br.readLine());	//학생수 및 성적입력
+        
+        int stu = Integer.parseInt(st.nextToken());	//학생수 저장
+        score = new int[stu];	//위에서 저장된 학생수 만큼의 성적 입력욕 배열생성
+        
+        double sum =0;	//성적 총합 변수 및 초기화
+        
+        for(int j=0;j<stu;j++) {
+          int val = Integer.parseInt(st.nextToken());	//성적 변수에 저장
+          score[j] = val;	//성적 배열에 저장
+          sum += val;	//성적끼리 합
+        }
+        
+        double avg = sum/stu;	//성적 평균
+        double cnt = 0;	//평균성적 넘는 학생수 카운트변수 초기화
+        
+        for(int j =0;j<stu;j++) {	//학생수만큼 반복
+          if(score[j]>avg) {
+            cnt++;
+          }
+        }
+        System.out.println(String.format("%.3f",(cnt/stu)*100)+"%");
+      }
+      
+  }
+}
+```
+
