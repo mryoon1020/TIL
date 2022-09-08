@@ -193,3 +193,207 @@ public class Main {
       System.out.println(sb);
 ```
 
+> 1065번(https://www.acmicpc.net/problem/1065)
+
+- 답이 도출되지 않는 내정답
+  - 등차수열 공식인 `n(초항+마지막항)/2` or `n{(2a+(n-1)d}/2` 을 활용하고 싶었음
+  - 하지만 1234 와 1243과 같은 수는 걸러내지 못하는 오류가 있음
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+  
+  public static void main(String[] args) throws IOException{
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    int n = Integer.parseInt(br.readLine());
+    
+    boolean [] arr = new boolean[n+1];
+    
+    for(int i=0; i<arr.length;i++) {
+      int num = ap(i);
+      
+      if(num<n+1) {
+        arr[num]=true;
+      }
+    }
+    
+    int cntTrue = 0;
+    for(int i =0; i<arr.length; i++) {
+      if(arr[i]) {
+        cntTrue++;
+      }
+    }
+    System.out.println(cntTrue-1);
+  }
+  
+  /*
+   * 
+   *생각 정리
+   * 321이 들어온다면
+   * 321을 쪼개서 배열에 저장
+   * 자리수를 알기 위해서는 int => string.length
+   * 
+   */
+  
+  public static int ap(int number) {
+    
+    String index = Integer.toString(number);
+    int [] arr = new int[index.length()];
+    
+    int eap = number;
+    int cnt = 0;
+    
+    while(number!=0) {
+      
+      arr[cnt]= number%10;
+      cnt++;
+      number=number/10;
+    }
+    
+    int sum = 0;
+    
+    for(int i=0;i<arr.length;i++ ) {
+    
+      sum+=arr[i];
+      
+    }
+    
+ //   int cal = arr.length * (arr[0]+arr[index.length()-1]) / 2;
+    int cal = arr.length * ((2*arr[0])+((arr.length-1)*(arr[1]-arr[0]))) / 2;
+ 
+    if(sum == cal) {
+      
+      return eap;
+    }else {
+      return 0;
+    }
+
+  }
+  
+}
+```
+
+- 정답
+- 출처(https://st-lab.tistory.com/54)
+- 순수코드
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+  
+  public static void main(String[] args) throws IOException{
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    System.out.println(as(Integer.parseInt(br.readLine())));
+
+  } // main end
+  
+  public static int as(int num) {
+    int cnt = 0;
+    
+    if(num <100) {
+      return num;
+    }else {
+      cnt = 99;
+      
+      for(int i = 100; i<= num; i++) {
+        int hun = i/100;
+        int ten = (i/10)%10;
+        int one = i%10;
+        
+        if((hun - ten) == (ten - one)) {
+          cnt++;
+        } //for안에 if end
+      } //for end
+    } //else end
+    
+    return cnt;
+    
+  } //as() end
+  
+} //class end
+```
+
+- 코드 뜯어 보기
+
+※ main
+
+- 단순 숫자 입력 부분
+  - 숫자가 입력되면 as()에 넣어주고 연산결과를 도출해주는 역할
+
+```java
+  public static void main(String[] args) throws IOException{
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    System.out.println(as(Integer.parseInt(br.readLine())));
+
+  } // main end
+```
+
+※as()
+
+- 등차수열의 일반항 n = 초항 + (n-1)*공차
+  - 두자리숫자 및 한자리 숫자는 그 자체로 등차수열임의 유의 할것
+    - ex: 1 : 초항이 1 인 등차수열
+    - ex: 18 : 초항이 1 공차는 7인 등차수열
+  - 세자리 숫자부터는 각 항간의 공차를 확인 하여야함
+- 문제에서의 범위 : 1 이상 1000 이하의 숫자(자연수)
+  - 검사해야할 숫자 : 100이상 1000 이하 사이의 숫자
+
+```java
+public static int as(int num) {
+    int cnt = 0;	//한수 카운트용
+    
+//---------------------------------------------------    
+    
+    if(num <100) {
+      return num;	//그자체로 등차수열인 숫자들
+        			//입력된 num의 값이 99라면
+        			//99개의 한수를 가지고 있는 것임
+        			//반복문을 돌아도 되지만 굳이 필요없음
+        			//as()의 리턴값임
+    }
+    
+//---------------------------------------------------    
+    else {
+        
+      cnt = 99;		//입력숫자가 100 이상일 경우
+        			//1~99는 한수 이므로 카운트해주기 위함
+        
+//---------------------------------------------------   
+        
+      for(int i = 100; i<= num; i++) {	//99까지는 이미 한수 이므로 100부터 시작
+          
+        int hun = i/100;		//백의자리수
+        int ten = (i/10)%10;	//십의 자리수
+        int one = i%10;			//일의 자리수
+          
+//--------------------------------------------------- 
+          
+        if((hun - ten) == (ten - one)) {	//각자리수의 차가 공차 => 등차수열
+            
+          cnt++;	//한수 카운트
+            
+        } //for안에 if end
+          
+//---------------------------------------------------  
+          
+      } //for end
+        
+    } //else end
+    
+    return cnt;	//for문을 빠져나온 결과 리턴, as()의 리턴 값임
+    
+  } //as() end
+```
+
