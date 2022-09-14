@@ -135,3 +135,106 @@ public class Main {
 50 ----------> 2에 대한 아스키 코드
 49 ----------> 1에 대한 아스키 코드
 ```
+
+> 10809번(https://www.acmicpc.net/problem/10809)
+
+- 오류나는 내코드
+  - 입력된 글자와 상관없이 -1만 출력함
+  - 이중 for문에서 문제가 발생한것으로 추정됨
+  - for문대신 while 문으로 바꾸는 것이 더 합리적으로 보임
+  - `String.valueOf()` 는 char을 String으로 변경해줌
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+  
+  public static void main(String[] args) throws IOException{
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String word = br.readLine();  // N 은 필요없지만 문제에서 요구 하므로 입력만 받음
+    String[] wordArr = new String[word.length()];
+    String[] alpha = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+    
+    for(int i =0;i<word.length();i++) {
+      wordArr[i] = String.valueOf(word.charAt(i));
+    }
+    
+    for(int i =0;i<wordArr.length;i++) {
+      
+      for(int j =0; j<alpha.length;j++) {
+        
+        if(wordArr[i] == alpha[j]) {
+          
+          alpha[j] = Integer.toString(i);
+          
+        }else {
+          
+          alpha[j] = "-1";
+          
+        }
+      }
+
+    }
+    
+    for(int i =0; i<alpha.length;i++) {
+    
+    System.out.print(alpha[i]+" ");
+    }
+  }
+  
+}
+```
+
+- 정답
+- 출처(https://st-lab.tistory.com/62)
+  - 아스키코드 활용
+  - 알파벳 총 갯수와 동일한 26개의 -1로 이루어진 배열생성
+  - 알파벳 배열에서 각 알파벳의 배열의 자리수는 `'알파벳' - 'a'`
+    - 'a'의 아스키 코드 값은 97
+    - ex) 'f'의 배열 인덱스
+      - 'f'-'a' = 102 - 97  => 5  ==> 6번째에 있음(인덱스가 5이므로)
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+		int[] arr = new int[26];
+		
+		for(int i = 0; i < arr.length; i++) {
+            
+			arr[i] = -1;	//배열 -1로 초기화
+            
+		}
+        
+//================================================================ 
+        
+		String S = br.readLine();	//단어 입력
+ 
+//===============================================================       
+        
+		for(int i = 0; i < S.length(); i++) {
+            
+			char ch = S.charAt(i);	// 단어의 각자리별 알파벳 뽑아내기
+    
+			if(arr[ch - 'a'] == -1) {	// 해당 원소 값이 -1 인 경우에만 변경
+				arr[ch - 'a'] = i;
+			}
+		}
+
+//===============================================================              
+        
+		for(int val : arr) {	// 배열 출력
+			System.out.print(val + " ");
+		}
+	}
+}
+```
