@@ -238,3 +238,91 @@ public class Main {
 	}
 }
 ```
+
+> 2675번(https://www.acmicpc.net/problem/2675)
+
+- 내 오답
+  - 입력받은 값을 charAt()을 이용하여 뽑아낸뒤 StringBuilder에 저장하여 출력하려 했음
+  - 곱셈연산에서 오류나는 것으로 추정됨
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+
+  public static void main(String[] args) throws IOException {
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    int n = Integer.parseInt(br.readLine());
+    
+    int m = 0;
+    
+    String w = "";
+    
+    StringBuilder sb = new StringBuilder();
+    
+    for(int i = 0; i<n; i++) {
+      m=Integer.parseInt(br.readLine());
+      
+      for(int j =0; j<m; j++) {
+      
+      w = br.readLine();
+      sb.append(w.charAt(i))*m);
+      }
+      sb.append("\n");
+    }
+    
+    System.out.println(sb);
+    
+  }
+
+}
+```
+
+- 정답
+- 출처(https://st-lab.tistory.com/63)
+- 생각보다 간단한 해법이었음
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int T = Integer.parseInt(br.readLine());	//테스트 횟수
+
+//==========================================        
+        
+		for(int i = 0; i < T; i++) {
+	
+            //데이터 입력 및 숫자와 글자 부분을 분리해주는 부분
+            
+			String[] str = br.readLine().split(" ");	// 공백 분리
+			
+			int R = Integer.parseInt(str[0]);	// 반복 횟수
+			String S = str[1];	//글자
+            
+//==========================================			
+            
+			for(int j = 0; j < S.length(); j++) {
+                
+				for(int k = 0; k < R; k++) {
+                    
+					System.out.print(S.charAt(j));
+                    
+				}	//for k end
+			}	//for j end
+			System.out.println();
+		}	//for i end
+	}
+}
+```
+
