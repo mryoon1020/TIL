@@ -326,3 +326,91 @@ public class Main {
 }
 ```
 
+> 1157번(https://www.acmicpc.net/problem/1157)
+
+- 손 못댄 문제
+- 정답 출처 (https://st-lab.tistory.com/64)
+- 해설
+  - 아스키 코드 값이용:  
+    - 대문자: `A = 65 ~ Z = 90` 
+    - 소문자:  `a = 97 ~ z = 122` 
+    - ? : `? = 63`
+  - 알고리즘
+    - 문자열 입력 받음
+    - 알파벳 갯수 만큼 정수 배열을 선언해줌(26개)
+    - 입력받은 문자열을 검사하기 위핸 반복문 설정
+    - 반복문을 돌며 배열의 요소 증가
+    - 조건문 최대값 출력 또는 ? 출력 판단
+    - 최종값 출력
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException{
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int[] arr = new int[26];	// 알파벳 갯수 만큼 배열 선언(대소문자 구분 없으므로 26)
+		String s = br.readLine();	// 문자열 입력
+		
+//===================================================================
+        
+		for (int i = 0; i < s.length(); i++) {	// 입력 받은 문자열의 갯수만큼 반복
+            
+        // 대소문자 구분 없애는 파트
+            
+			if ('a' <= s.charAt(i) && s.charAt(i) <= 'z') {
+                // 'a'의 아스키 코드 값 : 97 , 'z'의 아스키 코드값 : 122
+                // 97 <=  s.charAt(i)  <= 122
+                // 소문자 범위
+                
+				arr[s.charAt(i) - 97]++;
+                // 'a'를 빼주어 해당 인덱스 요소찾기 및 ++연산시행
+                
+			} else {	// 대문자
+                
+				arr[s.charAt(i) - 65]++;
+                // 'A'를 빼주어 해당 인덱스 요소찾기 및 ++연산시행
+                
+			}
+            
+		} // for end
+        
+//==================================================================        
+        
+		int max = -1;	// 최대값 초기화, 0으로 초기화해도 문제 없으나 관행상 -1로 초기화
+		char ch = '?';
+        
+		for (int i = 0; i < 26; i++) {	// 알파벳 갯수 많큼 for문 돌림
+            
+        // 최대값 구하기
+ 
+			if (arr[i] > max) {	// 최대값 찾는 구문
+                
+				max = arr[i];
+				ch = (char) (i + 65);	// 최대값의 인덱스를 알파벳으로 치환
+                						// 대문자로 출력해야하므로 65('A')를 더함
+                
+			} // if end
+            
+       // 가장 많이 사용 된 알파벳이 여러개 존재하는 경우
+            
+			else if (arr[i] == max) {
+                
+				ch = '?';
+                
+			} // else if end
+            
+		} // for end
+        
+		System.out.print(ch);
+        
+	} // main end
+ 
+} //class end
+```
+
