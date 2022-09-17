@@ -414,3 +414,130 @@ public class Main {
 } //class end
 ```
 
+> 1152번(https://www.acmicpc.net/problem/1152)
+
+- 생각보다 아주 간단한 문제였으나 생각이 꼬여서 시간이 많이 걸렸음
+- 본인도 StringTokenizer를 이용했음
+- 출처 블로그의 필자와 달리 배열에 값을저장한 후 다시 출력하는 비효율적인 코드를 짰었음
+- 이후 정답 참조 블로그의 필자와 비슷하게 수정했었으나 공백오류가 났음
+- 글을쓰고 있는 지금 다시 돌려보니 오류가 나지 않았음
+- 간혹 STS 자체에서 오류가 나는 듯 함
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Test {
+
+  public static void main(String[] args) throws IOException {
+
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    StringTokenizer st = new StringTokenizer(br.readLine());
+    
+    int n = st.countTokens();
+    
+//    String [] word = new String[n];
+//    
+//    for(int i = 0; i < n; i++) {
+//      word[i]= st.nextToken();
+//    }
+    
+    System.out.println(n);
+    
+  }
+
+}
+```
+
+- 이후 다음과 같이 코드를 짰으나 실행이 되지 않았음
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+  
+  public static void main(String[] args) throws IOException{
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    String word = br.readLine();
+    
+    int n = word.length();
+    
+    int [] cnt = new int [n];
+    
+    //아스키 코드 스페이스바(공백) = 32
+    
+    for(int i = 0; i<n; i++) {
+      cnt[i]=0;
+    }
+    
+    for(int i = 0; i<n; i++) {
+      if(word.charAt(i)!= 32) {
+        cnt[i] = 1;
+      }
+
+    }
+    
+    //{1 1 0 0 0 1 1 1 0 0}
+    int cntWord = 0;
+    int realCnt = 0;
+    for(int i = 0; i<n; i++) {
+//      int cntWord = 0;
+      int cntAlpha = 0;
+      
+      if(cnt[i] != 0) {
+        cntAlpha++;
+        
+        if(cntAlpha !=0) {
+          cntWord++;
+        } else {
+          cntWord =0;
+        }
+        System.out.println("cntWord : " + cntWord);
+      }
+      
+      
+      
+      if(cntWord != 0) {
+//        cntWord =0;
+        cntAlpha =0;
+        realCnt++;
+      }
+      
+      System.out.println(realCnt);
+    }
+    
+    System.out.println(realCnt);    
+    
+  }
+  
+}
+```
+
+- 정답코드
+- 출처(https://st-lab.tistory.com/65)
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		StringTokenizer st = new StringTokenizer(br.readLine()," ");
+		System.out.print(st.countTokens());
+	}
+}
+```
+
