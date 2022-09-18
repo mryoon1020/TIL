@@ -421,7 +421,9 @@ public class Main {
 - 출처 블로그의 필자와 달리 배열에 값을저장한 후 다시 출력하는 비효율적인 코드를 짰었음
 - 이후 정답 참조 블로그의 필자와 비슷하게 수정했었으나 공백오류가 났음
 - 글을쓰고 있는 지금 다시 돌려보니 오류가 나지 않았음
-- 간혹 STS 자체에서 오류가 나는 듯 함
+- 간혹 STS 자체에서 오류가 나는 듯 함 
+- 오류가 난다면 너무 콘솔창을 믿지 말것
+- 최소한 한번 껏다가 다시 시도해볼것
 
 ```java
 import java.io.BufferedReader;
@@ -537,6 +539,134 @@ public class Main {
 		
 		StringTokenizer st = new StringTokenizer(br.readLine()," ");
 		System.out.print(st.countTokens());
+	}
+}
+```
+
+> 2908번(https://www.acmicpc.net/problem/2908)
+
+- 내정답
+- 설명
+  - 최초 입력 n
+  - StringTokenizer를 통해 a 와 b로 분리
+  - 각 자리수를 바꾼 a, b를 저장하기 위한 빈문자열 변수 changeA, changeB 선언
+  - for 반복문을 이용하여 자리수 변경
+    - charAt()의 인덱스 번호를 맞춰주기 위해 `i ` 가 아닌 `i-1` 로 설정하여야 함
+    - chatAt(0)이 첫번째 자리이기 때문
+  - if 조건문을 이용하여 큰수 출력
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main {
+  
+  public static void main(String[] args) throws IOException{
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    String n = br.readLine();    
+    
+    StringTokenizer st = new StringTokenizer(n);
+    
+    String a = st.nextToken();
+    String b = st.nextToken();
+    
+    String changeA = "";
+    String changeB = "";
+    
+    for(int i = a.length() ;i>0;i--) {
+
+      changeA+=a.charAt(i-1);
+      
+    }
+    
+    for(int i = b.length();i>0;i--) {
+      
+      changeB += b.charAt(i-1);
+      
+    }
+    
+    if(Integer.parseInt(changeA)>Integer.parseInt(changeB)) {
+      System.out.println(changeA);
+    }else{
+      System.out.println(changeB);
+    }
+  
+  }
+  
+}
+```
+
+- 훨씬 더 깔끔한 정답
+
+- 출처(https://st-lab.tistory.com/66)
+
+- StringBuilder 의 reverse() 메소드를 이용
+
+- 비교구문은 삼항연산자를 이용
+
+  - 삼항 연산자 :
+
+    -  `(조건문) ? 참 인경우 : 거짓인 경우;` 
+    - 객체에 담는 것도 가능, 모든항의 타입은 맞춰 주어야함
+    - ex) 
+
+    ```java
+    int max = Integer.parseInt(changeB) < Integer.parseInt(changeA) ? Integer.parseInt(changeA):Integer.parseInt(changeB);
+    //=======================================================
+    String ex = changeA==changeB ? "같다":"다르다";	// 가능
+    String ex = changeA==changeB ? 1:2;	// 불가능  1:2 ===> "1":"2" 변경해주면 가능
+    ```
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+ 
+public class Main {
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        
+		int A = Integer.parseInt(new StringBuilder(st.nextToken()).reverse().toString());
+		int B = Integer.parseInt(new StringBuilder(st.nextToken()).reverse().toString());
+		
+		System.out.print(A > B ? A:B);
+		
+	}
+}
+```
+
+- 수학적 연산을 통해 활용
+- 상기 답안과 같은 블로그 기재 답안
+- 48은 0의 아스키 코드값임
+
+```java
+import java.io.IOException;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+		int A = 0;
+		int B = 0;
+		
+		A += System.in.read() - 48;
+		A += (System.in.read() - 48)*10;
+		A += (System.in.read() - 48)*100;
+		
+		System.in.read();	// 공백
+		
+		B += System.in.read() - 48;
+		B += (System.in.read() - 48)*10;
+		B += (System.in.read() - 48)*100;
+		
+		System.out.println(A > B ? A : B);
 	}
 }
 ```
