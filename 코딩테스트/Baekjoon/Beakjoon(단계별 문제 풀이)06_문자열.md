@@ -833,15 +833,15 @@ public class Main {
 
   - 참조사이트: 
 
-    - [CR(\r), LF(\n) 개념](https://m.blog.naver.com/taeil34/221325864981"CR(\r), LF(\n) 개념")
+    - [CR(\r), LF(\n) 개념](https://m.blog.naver.com/taeil34/221325864981 "CR(\r), LF(\n) 개념")
     
-    - [System.in 자료1](https://blog.naver.com/jihogrammer/222281057830"System.in 자료1")
+    - [System.in 자료1](https://blog.naver.com/jihogrammer/222281057830 "System.in 자료1")
     
-    - [System.in 자료2](https://blog.naver.com/jihogrammer/222281999239"System.in 자료2")
+    - [System.in 자료2](https://blog.naver.com/jihogrammer/222281999239 "System.in 자료2")
     
-    - [System.in 자료3](https://blog.naver.com/jihogrammer/222314445259"System.in 자료3")
+    - [System.in 자료3](https://blog.naver.com/jihogrammer/222314445259 "System.in 자료3")
     
-    - [아스키코드표](https://hanburn.tistory.com/87"아스키코드표")
+    - [아스키코드표](https://hanburn.tistory.com/87 "아스키코드표")
 
 
 ```java
