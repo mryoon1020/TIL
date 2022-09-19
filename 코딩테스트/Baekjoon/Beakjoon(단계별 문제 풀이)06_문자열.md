@@ -797,7 +797,7 @@ public class Main {
 ```
 
 - 같은 블로그내 BufferedReader 없이 짠 코드
-  - 'A'~'B' 의 아스키 코드 : 65~90 이용
+  - 'A'\~'B' 의 아스키 코드 : 65\~90 이용
   - 해당 블로거는 이방법을 추천하지 않았음
   - JAVA에서 구현하는 입출력 스트림사용을 추천함
   
@@ -833,11 +833,15 @@ public class Main {
 
   - 참조사이트: 
 
-    [링크1]: https://m.blog.naver.com/taeil34/221325864981	"CR(\r), LF(\n) 개념"
-    [링크2]: https://blog.naver.com/jihogrammer/222281057830	"System.in 자료1"
-    [링크3]: https://blog.naver.com/jihogrammer/222281999239	"System.in 자료2"
-    [링크4]: https://blog.naver.com/jihogrammer/222314445259	"System.in 자료3"
-    [링크5]: https://hanburn.tistory.com/87	"아스키코드표"
+    - [CR(\r), LF(\n) 개념](https://m.blog.naver.com/taeil34/221325864981"CR(\r), LF(\n) 개념")
+    
+    - [System.in 자료1](https://blog.naver.com/jihogrammer/222281057830"System.in 자료1")
+    
+    - [System.in 자료2](https://blog.naver.com/jihogrammer/222281999239"System.in 자료2")
+    
+    - [System.in 자료3](https://blog.naver.com/jihogrammer/222314445259"System.in 자료3")
+    
+    - [아스키코드표](https://hanburn.tistory.com/87"아스키코드표")
 
 
 ```java
