@@ -671,3 +671,205 @@ public class Main {
 }
 ```
 
+> 5622번(https://www.acmicpc.net/problem/5622)
+
+- 내 정답
+- 굉장히 지저분하지만 풀렸음
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+/*
+ * 숫자 1 : abc 2초
+ * 숫자 2 : def 3초
+ * 숫자 3 : ghi 4초
+ * 
+ * wa = 13초 ===> w = 9 => 10초 a = 2 => 3초
+ * 
+ */
+
+public class Main {
+  
+  public static void main(String[] args) throws IOException{
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    String a = br.readLine();
+    
+    char [] arr = new char [a.length()];
+    
+    int sec = 0;
+    
+    for(int i =0; i<a.length();i++) {
+      arr[i]=a.charAt(i);
+    }
+    
+    for(int i =0; i<a.length();i++) {
+      
+      if(arr[i] == 'A' |arr[i] == 'B'|arr[i] == 'C') {
+        sec += 3;
+      }else if(arr[i] == 'D' |arr[i] == 'E'|arr[i] == 'F') {
+        sec += 4;
+      }else if(arr[i] == 'G' |arr[i] == 'H'|arr[i] == 'I') {
+        sec += 5;
+      }else if(arr[i] == 'J' |arr[i] == 'K'|arr[i] == 'L') {
+        sec += 6;
+      }else if(arr[i] == 'M' |arr[i] == 'N'|arr[i] == 'O') {
+        sec += 7;
+      }else if(arr[i] == 'P' |arr[i] == 'Q'|arr[i] == 'R'|arr[i] == 'S') {
+        sec += 8;
+      }else if(arr[i] == 'T' |arr[i] == 'U'|arr[i] == 'V') {
+        sec += 9;
+      }else if(arr[i] == 'W' |arr[i] == 'X'|arr[i] == 'Y'|arr[i] == 'Z') {
+        sec += 10;
+      }
+        
+
+    }
+      
+    System.out.println(sec);
+    
+  }
+  
+}
+```
+
+- switch 문을 사용한 정답
+- 출처(https://st-lab.tistory.com/67)
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+ 
+public class Main {
+	public static void main(String[] args) throws IOException {
+    
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+		String s = br.readLine();
+        
+		int count=0;
+		int k = s.length();
+        
+		for(int i = 0 ; i < k ; i++) {
+        
+			switch(s.charAt(i)) {
+			case 'A' : case 'B': case 'C' : 
+				count += 3; 
+				break;
+                
+			case 'D' : case 'E': case 'F' : 
+				count += 4; 
+				break;
+                
+			case 'G' : case 'H': case 'I' : 
+				count += 5; 
+				break;
+                
+			case 'J' : case 'K': case 'L' : 
+				count += 6; 
+				break;
+                
+			case 'M' : case 'N': case 'O' : 
+				count += 7; 
+				break;
+                
+			case 'P' : case 'Q': case 'R' : case 'S' :
+				count += 8; 
+				break;
+                
+			case 'T' : case 'U': case 'V' : 
+				count += 9; 
+				break;
+                
+			case 'W' : case 'X': case 'Y' : case 'Z' : 
+				count += 10; 
+				break;
+			}
+		}		
+		System.out.print(count);
+	}
+}
+```
+
+- 같은 블로그내 BufferedReader 없이 짠 코드
+  - 'A'~'B' 의 아스키 코드 : 65~90 이용
+  - 해당 블로거는 이방법을 추천하지 않았음
+  - JAVA에서 구현하는 입출력 스트림사용을 추천함
+  
+- 정답 제출에는 문제가 없으나 콘솔창에 3이 계속 더해지는 오류가 있음
+
+- `count-3` 을 할경우 오답처리됨
+
+- 하기와 같이 조건문 변경에도 컴파일 에러가 남(콘솔에서는 잘됨)
+
+  - `  if(value < 65) count = count;`
+  - `  else if(value < 68) count += 3;`
+
+- 원인 **추측**
+
+  - `System.in.read()` 을 사용할경우 다음 코드를 실행하기 위해서는 `'\n'` 입력 또는 `System.out.println()` 와 같은 멈춤장치가 필요한것으로 보임
+
+  - 백준채점은 우분투이기 때문에 '\n'으로 해도 문제가 되지 않음
+
+  - `value` 를 출력해보면 입력한 문자와 상관없이  `13` , `10` 이 출력되는 것을 볼수 있음
+
+  - 아스키 코드 : 
+
+    - `13 = CR(Carriage Return, 첫번째로 돌아감, \r)` 
+    - `10 = LF(Line Feed, 줄바꿈, \n)`
+
+  - 리눅스 : `\n` 은 첫번째로 돌아감을 포함되어있음
+
+  - 윈도우: `\n` 만 쓸경우 인식하지 못함, 반드시 `\r\n` 을 해주어야함
+
+  - 자바가상머신(JVM)이 윈도우에서 `\n` 를 사용했을시 `\r` 도 자동으로 입력하는 것으로 보임
+
+  - 자동으로 입력된 `\r` 이 저장되어 조건문속으로 들어가 실행되어 3이 입력되는것으로 추정됨
+
+  - 참조사이트: 
+
+    [링크1]: https://m.blog.naver.com/taeil34/221325864981	"CR(\r), LF(\n) 개념"
+    [링크2]: https://blog.naver.com/jihogrammer/222281057830	"System.in 자료1"
+    [링크3]: https://blog.naver.com/jihogrammer/222281999239	"System.in 자료2"
+    [링크4]: https://blog.naver.com/jihogrammer/222314445259	"System.in 자료3"
+    [링크5]: https://hanburn.tistory.com/87	"아스키코드표"
+
+
+```java
+import java.io.IOException;
+ 
+public class Main {
+	public static void main(String[] args) throws IOException {
+		
+		int count = 0;
+		int value;
+		
+		while(true) {
+			
+			value = System.in.read();
+			
+			if(value == '\n') {
+				break;
+			}
+			
+			if(value < 68) count += 3;
+			else if(value < 71) count += 4;
+			else if(value < 74) count += 5;
+			else if(value < 77) count += 6;
+			else if(value < 80) count += 7;
+			else if(value < 84) count += 8;
+			else if(value < 87) count += 9;
+			else count += 10;
+			
+			
+		}
+		System.out.print(count);
+	}
+}
+```
+
