@@ -879,8 +879,125 @@ public class Main {
 
 > 2941번(https://www.acmicpc.net/problem/2941)
 
+- 런타임 에러나는 내 정답
+- 답도출에는 문제가 없지만 백준 홈페이지에서 런타임 에러가 남
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+    
+public class Main {
+  
+  public static void main(String[] args) throws IOException{
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    String word = br.readLine();
+    
+    char [] arr = new char[word.length()];
+    
+    int [] cnt = new int[word.length()];
+    
+    for(int i =0 ; i<word.length();i++) {
+      arr[i] = word.charAt(i);
+    }
+    
+    for(int i =0 ; i<word.length();i++) {
+      cnt[i]= 0;
+    }
+    
+    for(int i =0 ; i<word.length();i++) {
+      
+      if(arr[i] == 'c' && arr[i+1] == '=') {
+        cnt[i]++;
+        cnt[i+1]--;
+        
+        if(i+1 == word.length()-1 && arr[i+1] != '=') {
+          cnt[i+1]++;
+        }
+        
+      }else if(arr[i] == 'c' && arr[i+1] == '-') {
+        cnt[i]++;
+        cnt[i+1]--;
+        
+        if(i+1 == word.length()-1 && arr[i+1] != '-') {
+          cnt[i+1]++;
+        }
+        
+      }else if(arr[i] == 'd' && arr[i+1] == 'z' && arr[i+2] == '=') {
+        cnt[i]++;
+        cnt[i+2]--;
+        
+        if(i+2 == word.length()-1 && arr[i+2] != '=') {
+          cnt[i+1]++;
+          cnt[i+2]++;
+        }
+        
+      }else if(arr[i] == 'd' && arr[i+1] == '-') {
+        cnt[i]++;
+        cnt[i+1]--;
+        
+        if(i+1 == word.length()-1 && arr[i+1] != '-') {
+          cnt[i+1]++;
+        }
+        
+      }else if(arr[i] == 'l' && arr[i+1] == 'j') {
+        cnt[i]++;
+        cnt[i+1]--;
+        
+        if(i+1 == word.length()-1) {
+          cnt[i+1]++;
+        }
+        
+      }else if(arr[i] == 'n' && arr[i+1] == 'j') {
+        cnt[i]++;
+        cnt[i+1]--;
+        
+        if(i+1 == word.length()-1) {
+          cnt[i+1]++;
+        }
+        
+      }else if(arr[i] == 's' && arr[i+1] == '=') {
+        cnt[i]++;
+        cnt[i+1]--;
+        
+        if(i+1 == word.length()-1 && arr[i+1] != '=') {
+          cnt[i+1]++;
+        }
+        
+      }else if(arr[i] == 'z' && arr[i+1] == '=') {
+        cnt[i]++;
+        cnt[i+1]--;
+        
+        if(i+1 == word.length()-1 && arr[i+1] != '=') {
+          cnt[i+1]++;
+        }
+        
+      }else {
+        cnt[i]++;
+      }
+      
+    }
+    
+    int cntA = 0;
+    
+    for(int i =0 ; i<word.length();i++) {
+      cntA += cnt[i]; 
+
+    }
+    
+    System.out.println(cntA);
+  }
+  
+}
+```
+
 - 정답
 - 출처(https://st-lab.tistory.com/68)
+- 해당블로그의 필자는 배열을 사용하지 않았음
+- 조건문을 좀 더 압축하여 코드길이를 줄임
 
 ```java
 import java.io.BufferedReader;
@@ -896,50 +1013,149 @@ public class Main {
 		int len = str.length();
 		int count = 0;
  
+ //===========================================================       
+        
 		for (int i = 0; i < len; i++) {
  
 			char ch = str.charAt(i);
  
-			if(ch == 'c' && i < len - 1) {			// 만약 ch 가 c 라면?
-				//만약 ch 다음 문자가 '=' 또는 '-' 이라면?
-				if(str.charAt(i + 1) == '=' || str.charAt(i + 1) == '-') {		
-					// i+1 까지가 하나의 문자이므로 다음 문자를 건너 뛰기 위해 1 증가
-					i++;		
+			if(ch == 'c' && i < len - 1) {	
+                
+                // ex) 입력문자 : jjabqc , i = 5 , len = 6              
+                // str.charAt(5) == 'c' && 5 < len 하게 되면 다음 조건에서 오류가 남
+                // 조건 str.charAt(i + 1) == '=' 에 대입해보면
+                // str.charAt(5 + 1) == '=' 
+                // ===> c가 마지막 글자이므로 오류가남(charAt(6)는 존재하지 않기 때문)
+                // 그러므로 len -1 로 처리해주어야함
+                
+				if(str.charAt(i + 1) == '=' || str.charAt(i + 1) == '-') {
+                    
+					i++;
+                    
+                    // 이경우 c= 가 입력 됬다면 c=을 한글자로 취급 하므로
+                    // 한단계 건너 띄워 주어야 함
+                    // 입력문자 : ac=b , 시행결과는 하기와 같음
+                    // for문의 i = 1 일 경우 : charAt(1+1) == '=' 의 조건에 맞음
+                    // 조건문이 실행 됬으므로 i 가 2인 상태로 루프 한개가 끝남
+                    // 다음 루프는 i = 3 으로 실행됨
+                    
 				}
 				
-			}
-		    
-			else if(ch == 'd' && i < len - 1) {
+			} else if(ch == 'd' && i < len - 1) {
+                
+                // ch == 'd'인 경우는 2가지 경우로 나누어 봐야함
+                // d- 와 dz= 경우
+                
 				if(str.charAt(i + 1) == '-') {	// d- 일 경우
+                    
 						i++;
-					}
-				else if(str.charAt(i + 1) == 'z' && i < len - 2) {
+                    
+				} else if(str.charAt(i + 1) == 'z' && i < len - 2) {
 					
 					if(str.charAt(i + 2) == '=') {	// dz= 일 경우
-						i += 2;
+						
+                        i += 2;
+                        
+                        // 이 경우 두글자를 건너 띄어야 함
+                        // i++이 아닌 i+=2 가 되어야함
+                        
 					}
 				}
-			}
-		    
-			else if((ch == 'l' || ch == 'n') && i < len - 1) {
+                
+			} else if((ch == 'l' || ch == 'n') && i < len - 1) {
+                
 				if(str.charAt(i + 1) == 'j') {	// lj 또는 nj 일 경우
+                    
 					i++;
+                    
 				}
-			}
-		    
- 
-			else if((ch == 's' || ch == 'z') && i < len - 1) {
+                
+			} else if((ch == 's' || ch == 'z') && i < len - 1) {
+                
 				if(str.charAt(i + 1) == '=') {	// s= 또는z= 일 경우
+                    
 					i++;
+                    
 				}
 			
 		    }
-		    
+            
+ //=========================================================== 	
+            
 			count++;
- 
-		}
- 
+ 			// for문의 한 루프가 끝나면 count 에 +1을 해줌
+            
+		}//for end
+
+ //===========================================================        
+        
 		System.out.println(count);
+        
+	}
+}
+```
+
+> 1316번(https://www.acmicpc.net/problem/1316)
+
+- 풀지 못했던 문제
+
+- 정답
+- 출처(https://st-lab.tistory.com/69)
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+ 
+public class Main {
+ 
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+	public static void main(String[] args) throws IOException{
+ 
+		int count = 0;
+		int N = Integer.parseInt(br.readLine());
+ 
+		for (int i = 0; i < N; i++) {
+			if (check() == true) {
+				count++;
+			}
+		}
+		System.out.println(count);
+	}
+ 
+	public static boolean check() throws IOException {
+		boolean[] check = new boolean[26];
+		int prev = 0;
+		String str = br.readLine();
+		
+		for(int i = 0; i < str.length(); i++) {
+			int now = str.charAt(i);	// i 번째 문자 저장 (현재 문자)
+			
+			
+			// 앞선 문자와 i 번째 문자가 같지 않다면?
+			if (prev != now) {		
+				
+				// 해당 문자가 처음 나오는 경우 (false 인 경우)
+				if ( check[now - 'a'] == false ) {
+					check[now - 'a'] = true;		// true 로 바꿔준다
+					prev = now;					// 다음 턴을 위해 prev 도 바꿔준다 
+				}
+	 
+				// 해당 문자가 이미 나온 적이 있는 경우 (그룹단어가 아니게 됨) 
+				else {
+					return false;	//함수 종료
+				}
+			}
+	        
+	        
+			// 앞선 문자와 i 번째 문자가 같다면? (연속된 문자)
+			// else 문은 없어도 됨
+			else {
+				continue;
+			}
+		}    
+		return true;
 	}
 }
 ```
