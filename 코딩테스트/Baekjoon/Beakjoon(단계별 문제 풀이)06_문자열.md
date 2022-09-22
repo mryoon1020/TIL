@@ -1101,6 +1101,7 @@ public class Main {
 
 - 정답
 - 출처(https://st-lab.tistory.com/69)
+- 함수를 이용한 풀이
 
 ```java
 import java.io.BufferedReader;
@@ -1124,38 +1125,55 @@ public class Main {
 		System.out.println(count);
 	}
  
+//=============================================================    
+    
 	public static boolean check() throws IOException {
-		boolean[] check = new boolean[26];
-		int prev = 0;
+        
+		boolean[] check = new boolean[26];	// 알파벳 갯수 만큼 배열생성, 기본값은 false임
+		int prev = 0;	// 최초의 문자 초기화
 		String str = br.readLine();
 		
 		for(int i = 0; i < str.length(); i++) {
-			int now = str.charAt(i);	// i 번째 문자 저장 (현재 문자)
+            
+			int now = str.charAt(i);
+            
+            // char타입의 문자는 int형에 대입 할 경우 아스키코드 값으로 저장됨
+            // now에 현재 문자를 저장함
 			
-			
-			// 앞선 문자와 i 번째 문자가 같지 않다면?
-			if (prev != now) {		
-				
-				// 해당 문자가 처음 나오는 경우 (false 인 경우)
+			if (prev != now) {
+                
+			// 이미 입력된 문자와 비교
+            // 다를경우 하기 조건문 실행
+                
 				if ( check[now - 'a'] == false ) {
+                   
+                // 해당 문자가 처음 나오는 경우 (false 인 경우)    
+                    
 					check[now - 'a'] = true;		// true 로 바꿔준다
 					prev = now;					// 다음 턴을 위해 prev 도 바꿔준다 
+                    
+				} else {
+                    
+                // 해당 문자가 이미 나온 적이 있는 경우 (그룹단어가 아니게 됨)
+                    
+					return false;	// 함수종료, 함수결과를 false로 리턴
+                    
 				}
-	 
-				// 해당 문자가 이미 나온 적이 있는 경우 (그룹단어가 아니게 됨) 
-				else {
-					return false;	//함수 종료
-				}
-			}
-	        
-	        
-			// 앞선 문자와 i 번째 문자가 같다면? (연속된 문자)
-			// else 문은 없어도 됨
-			else {
+                
+			} else {
+                
+            // 없어도 되는 부분  
+            // 이미 입력된 문자와 i 번째 문자가 같은경우 (연속된 문자)
+                
 				continue;
+                
+                // 반복문 계속실행
+                
 			}
-		}    
-		return true;
+		}
+        
+		return true;	// 함수 결과를 true로 리턴
+        
 	}
 }
 ```
