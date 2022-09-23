@@ -132,3 +132,81 @@ public class Main {
 }
 ```
 
+> 2292번(https://www.acmicpc.net/problem/2292)
+
+- 풀지 못한 문제
+
+- 정답출처(https://st-lab.tistory.com/73)
+
+- 알고리즘
+
+  - 1을 기점으로 둘러싸는 갯수
+
+    - 1겹    =>    2겹    =>    3겹       =>   4겹
+
+    - 1        =>	6	    =>	12	    =>	18		=======>	6씩 증가하고 있음
+
+    - 1        =>    2~7   =>    8~19    =>    20~37  
+
+      =======>    최단거리(count)는 범위(겹)가 늘어남에 따라 1씩증가
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+ 
+public class Main {
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+		int N = Integer.parseInt(br.readLine());
+		int count = 1; // 겹 수(최소 루트)
+		int range = 2;	// 범위 (최솟값 기준) 
+ 
+		if (N == 1) {
+			System.out.print(1);
+		}
+ 
+		else {
+			while (range <= N) {	// 범위가 N보다 커지기 직전까지 반복 
+				range = range + (6 * count);
+				count++;
+			}
+			System.out.print(count);
+		}
+	}
+}
+```
+
+- 비슷한 풀이
+- 출처(https://youtu.be/rIH8_7zdJFc)
+- 해당영상은 Scanner를 사용함
+- 상기 블로그 답과 차이는 반복문 안에 조건문을 넣어 준 것
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+ 
+public class Main {
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+		int N = Integer.parseInt(br.readLine());
+		int count = 1;
+		int sum = 1;
+ 
+		while(true){
+            if(N<= sum){
+                break;
+            }
+            sum+= count*6;
+            count++;
+        }
+        System.out.println(count);
+	}
+}
+```
+
