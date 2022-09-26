@@ -270,6 +270,126 @@ public class Main {
 
 > 2869번(https://www.acmicpc.net/problem/2869)
 
+- 답이 나오지 않는 내 답안
+- 정점에 도달하였을때는 미끄러지지 않는다 조건을 달아주지 못함
+  - a = 2, b = 1, v = 5 일 때
+  - 4일 차에서 남은 높이를 다 올라감
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+ 
+public class Main {
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int a = Integer.parseInt(st.nextToken());
+		int b = Integer.parseInt(st.nextToken());
+		int v = Integer.parseInt(st.nextToken());
+ 
+		int d = 0;
+		
+		while(v>0) {
+		  v = v - a + b;
+		  d++;
+		}
+		
+		System.out.println(d);
+		
+	}
+}
+```
+
+- 이후 수정한 내 답안
+- 정답을 구하는데 문제는 없지만 시간초과됨
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+ 
+public class Main {
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int a = Integer.parseInt(st.nextToken()); 
+		int b = Integer.parseInt(st.nextToken()); 
+		int v = Integer.parseInt(st.nextToken());
+ 
+		int d = 0;
+		
+		while(v>0) {
+		  
+		  if(v == b) {
+		    
+		    break;
+		    
+		  }else {
+        v = v - a + b;
+        d++;
+		  }
+		}
+		
+		System.out.println(d);
+		
+	}
+}
+```
+
+- 정답
+
+- 출처(https://st-lab.tistory.com/75)
+
+- 참고(https://lordofkangs.tistory.com/104)
+
+- 수학연산으로 반복문없이 시간을 줄였음
+
+  - 최소 일수 : n , 높이 : v , 올라간 거리 : a , 밤사이 미끄러진 거리 : b
+
+  - 최소 일수 전날 : n-1
+
+  - 최소 일수 전날까지는 올라가고 미끄러지고를 계속 반복했음
+
+    ==> `(n-1) * (a-b)`
+
+  - 최소 일수 당일의 경우 올라가기만 함
+
+    ==> `+a` 
+
+  - 상기 식을 이용하여 부등식을 세운다면
+
+    - **(n-1) * (a-b) + a >= v**
+    - 부등식을 풀어 본다면
+
+  - na - nb - a + b + a >= v
+
+  - n(a - b) >= v - b
+
+  - **n >= (v - b) / (a - b)**
+
+    - 부등식을 보기 쉽게 풀어본다면
+
+      1.  **n = (v - b) / (a - b)**
+
+      2.  **n > (v - b) / (a - b)**
+
+    - 두가지 경우가 나옴
+
+      - 1의 경우 : 나머지가 없는(0인) 경우 
+
+      - 2의 경우 : 나머지가 0 아닌 경우
+
+        => 2 의 경우 조건문 처리하여 n에 1을 처리함
+
 ```java
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -283,15 +403,55 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         
-		int up = Integer.parseInt(st.nextToken());
-		int down = Integer.parseInt(st.nextToken());
-		int length = Integer.parseInt(st.nextToken());
+		int a = Integer.parseInt(st.nextToken());
+		int b = Integer.parseInt(st.nextToken());
+		int v = Integer.parseInt(st.nextToken());
  
-		int day = (length - down) / (up - down);
-		if ((length - down) % (up - down) != 0)
-			day++;
+		int n = (v - b) / (a - b);
+		if ((v - b) % (a - b) != 0)
+			n++;
  
-		System.out.println(day);
+		System.out.println(n);
 	}
 }
 ```
+
+- 상기 부등식과 같은 내용이지만 본인이 이해하기 어렵웠던 내용
+  - 하루동안 올라간 거리 : 3, 밤사이 미끄러진 거리 : 1
+  - 하기 표에서 높이가 8인 경우와 9인 경우를 비교해봤을 때
+    - 높이가 9인 경우 4일 필요
+    - 높이가 8인 경우 4일 필요
+    - 두경우 모두 4일 필요함을 알수 있음
+    - 높이가 9인 경우 `높이 / (올라간거리 - 미끄러진거리)` 로 최소 일수가 나오지 않음
+      - 4회 등반했을 때 딱 떨어지기 때문
+      - 그러므로 `(높이 - 미끄러진거리) / (올라간거리 - 미끄러진거리)` 할 경우
+        - 높이: 8  몫: 3  나머지: 1
+        - 높이: 9  몫: 4
+        - 나머지가 있는경우 일수에 +1 해줌으로 최소 일수를 걸러줄 수 있음
+
+```
+
+												10
+									
+4회등반							  9			  9
+------------------------------------------------------------4					
+4회추락			 	  8			  8			  8
+			
+3회등반	  7			  7			  7			  7
+------------------------------------------------------------3
+3회추락 	  6			  6			  6			  6
+
+2회등반 	  5			  5			  5			  5
+------------------------------------------------------------2
+2회추락	  4			  4			  4		      4
+
+1회등반	  3   		  3			  3			  3
+------------------------------------------------------------1
+1회추락	  2			  2			  2			  2
+	        
+		    1		    1			1		    1
+------------------------------------------------------------0
+			0			0			0			0
+
+```
+
