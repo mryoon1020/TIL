@@ -455,3 +455,148 @@ public class Main {
 
 ```
 
+> 10250번(https://www.acmicpc.net/problem/10250)
+
+- 삼중 for 반복문을 이용하려 하였으나 실패한 내 코드
+- 배열의 값이 누적으로 저장되는 오류가 있음
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+ 
+public class Main {
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+		int t = Integer.parseInt(br.readLine());
+		
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int h = Integer.parseInt(st.nextToken());
+		int w = Integer.parseInt(st.nextToken());
+		int n = Integer.parseInt(st.nextToken());
+
+		int[] room = new int[h*w];
+		
+		for(int i =0; i<room.length; i++) {
+		  
+//		  for(int j = 0; j<w; j++) {
+		    
+		    room[i] = 1;
+		    
+		    if(i<w) {
+		      room[i] ++;
+		    }
+		    
+//		    for(int k =0; k<h; k++) {
+		      
+//		      if(k<h) {
+//		        
+//		        room[i] = (k+1)*100;
+		        
+//		        System.out.println("room "+j+" : "+room[j]);
+		        
+//		      }else if(k<=(j+1)*h) {
+//		        k=0;
+//		        break;
+//		      }
+		      
+//		    }
+		    
+//		  }
+		  
+		  
+		}
+		  for(int i = 0; i<room.length;i++) {
+		System.out.println("room "+i+" : "+room[i]);
+		  }
+	}
+}
+```
+
+- 정답출처(https://st-lab.tistory.com/77)
+
+- 입력값: 
+
+  - H: 높이(층수)
+  - W: 가로길이(한층당 방갯수)
+  - N: n번째 손님
+
+- 높이 y : 손님이 위치한 층수
+
+  - **y = N % H**
+
+  - 예시: 3층 6열 10번째 손님의 층수
+
+  - 10/3 = 3 ...1  ===> 1층에 위치, 104호에 있을 것임
+
+  - 층별 호실
+
+    - ```
+      301		302		303		304		305		306
+      201		202		203		204		205		206
+      101		102		103		104		105		106
+      ```
+
+  - 풀이: 
+
+    - 문제 조건은 101호 201호 301호를 채운후 다시 102호로 다시 채움
+    - 즉, 한줄씩 채움 => 채워지는 방수는 층수와 같음
+    - 주의 할점은 나머지가 없는경우 ==> 따로 조건문 처리
+
+- 거리(방) x: 엘리베이터와의 거리
+
+  - **x = N / H +1**
+  - 예시: 3층 6열 10번째 손님의 층수
+  - 10/3 = 3 ...1  ===> 3+1 = 4호에 위치
+  - 엘리베이터와의 거리는 1부터 시작이므로 +1을 해주어야함
+  - 풀이:
+    - 2번째 손님의 예시:
+    - 2/3 = 0...2 ===> 2층에 있지만 엘리베이터와의 거리는 0이 아닌 1임 ===> 201호에 있음
+
+```java
+import java.util.StringTokenizer;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+ 
+public class Main {
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+		StringBuilder sb = new StringBuilder();
+		int T = Integer.parseInt(br.readLine());	// 테스트 케이스
+ 
+		for (int i = 0; i < T; i++) {
+            
+			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+
+//==================================================================            
+            
+			int H = Integer.parseInt(st.nextToken());	// 층수
+            
+			st.nextToken();			// W 는 필요없는 값이므로 버림
+            
+			int N = Integer.parseInt(st.nextToken());	// n번째 손님
+ 
+			if (N % H == 0) {
+                
+				sb.append((H * 100) + (N / H)).append('\n');
+ 
+			} else {
+                
+				sb.append(((N % H) * 100) + ((N / H) + 1)).append('\n');
+			}
+            
+		}// for end
+        
+		System.out.print(sb);
+ 
+	}
+}
+```
+
