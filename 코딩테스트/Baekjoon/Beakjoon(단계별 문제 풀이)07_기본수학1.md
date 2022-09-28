@@ -600,3 +600,107 @@ public class Main {
 }
 ```
 
+> 2775번(https://www.acmicpc.net/problem/2775)
+
+- 풀지 못한 문제
+
+- 정답 출처(https://st-lab.tistory.com/78)
+
+- 2차원배열 활용한 문제
+
+- **2차원 배열**
+
+  - 행렬과 비슷
+
+  - ```java
+    int[][] arr = new int[rows][columns];
+    					//[행크기][열크기];
+    int[][] arr = { {1, 2, 3}, {4, 5, 6} };
+    			// 선언과 동시에 초기화도 가능함
+    		// { 
+    		// {[0][0]의 요소, [0][1]의 요소, [0][2]의 요소},
+    		// {[1][0]의 요소, [1][1]의 요소, [1][2]의 요소} 
+    		// };
+    ```
+
+  - `int[][] arr = new int[2][3];` 의 도식화
+
+  - |   arr\[0][0]   |   arr\[0][1]   |   arr\[0][2]   |
+    | :------------: | :------------: | :------------: |
+    | **arr\[1][0]** | **arr\[1][1]** | **arr\[1][2]** |
+
+  - 참고사이트 : http://www.tcpschool.com/java/java_array_twoDimensional
+
+- 해설
+
+  - |         | 0호  | 1호  | 2호  | 3호  | 4호  | 6호  |
+    | ------- | ---- | ---- | ---- | ---- | ---- | ---- |
+    | **4층** | X    | 1    | 6    | 21   | 56   | 126  |
+    | **3층** | X    | 1    | 5    | 15   | 35   | 70   |
+    | **2층** | X    | 1    | 4    | 10   | 20   | 35   |
+    | **1층** | X    | 1    | 3    | 6    | 10   | 15   |
+    | **0층** | X    | 1    | 2    | 3    | 4    | 5    |
+
+  - 상기 표를 참조 한다면
+
+  - 2층 3호 => 2층2호 + 1층3호 => 4 + 6 임을 알수있음
+
+  - k층 n호 => k층 n-1호 + k-1층 n호 
+
+  - 0호는 0명으로 취급해도 괜찮음 
+
+  - 하기 코드는 아파트를 만드는 것을 가독성을 위해 메소드로 분리 했음
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+ 
+public class Main {
+ 
+	public static int[][] APT = new int[15][15];
+ 
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		make_APT();	// 아파트 만들기 함수 
+		
+		int T = Integer.parseInt(br.readLine());	// 시행횟수
+ 
+		for (int i = 0; i < T; i++) {
+            
+			int k = Integer.parseInt(br.readLine());
+			int n = Integer.parseInt(br.readLine());
+            
+			sb.append(APT[k][n]).append('\n');	// StringBuilder에 출력결과 저장
+            
+		}
+        
+		System.out.println(sb);
+        
+	}
+ 
+	
+	public static void make_APT() {
+		// 아파트 생성
+ 
+		for (int i = 0; i < 15; i++) {
+			APT[i][1] = 1; // i층 1호
+			APT[0][i] = i; // 0층 i호
+		}
+ 
+		for (int i = 1; i < 15; i++) { // 1층부터 14층까지
+ 
+			for (int j = 2; j < 15; j++) { // 2호부터 14호까지, 1호부터 해도 상관없지만
+                							// 1호는 항상 1로 위에서 초기화 해주었음
+                							// 반복문을 돌려도 항상 1만 나옴
+				APT[i][j] = APT[i][j - 1] + APT[i - 1][j];
+			}
+		}
+	}
+ 
+}
+```
+
