@@ -704,3 +704,177 @@ public class Main {
 }
 ```
 
+> 2839번(https://www.acmicpc.net/problem/2839)
+
+- 최초 내 답
+  - 11과 같은 수는 완벽한 봉지가 나옴에도 걸러내지 못하는 오류가 있음
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+ 
+public class Main {
+ 
+	public static int[][] APT = new int[15][15];
+ 
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		int n = Integer.parseInt(br.readLine());
+		
+		int cal = n%5;
+		
+		int cal2 = cal/3;
+		
+		if(cal%3 == 0) {
+		  System.out.println(n/5+cal2);
+		}else {
+		  
+		  if(n%3 == 0) {
+		    System.out.println(n/3);
+		  }else {
+		    System.out.println(-1);
+		  }
+  
+		}
+    
+	}
+ 
+	
+}
+```
+
+- while문으로 다시 제작했으나 18대입시 3이 정답으로 나옴
+- 5의 배수 뺀값이 3, 6, 9, 12인 경우만 최소봉지 갯수라고 생각했음
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+ 
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		int n = Integer.parseInt(br.readLine());
+		
+		int cnt = 0;
+		
+		if(n%5 != 0) {
+		
+		while(n!=0) {
+		
+		  n = n-(5*cnt);		  
+		  
+		  if(n>0) {
+		  
+		    if(n==3|n==6|n==9|n==12) {
+		    
+		    cnt=cnt+n/3;
+		    break;
+		    
+		    }
+		  
+		  cnt++;
+		  
+		  }else {
+		    cnt=-1;
+		    break;
+		  }
+		}
+		
+		System.out.println(cnt);
+		
+//		}else if(n%3 != 0) {
+//		  cnt=n/3;
+//      System.out.println(cnt);
+    }
+		
+	}
+	
+}
+```
+
+- 정답
+- 출처(https://st-lab.tistory.com/72)
+- 수학적규칙을 찾아 한 풀이 방법
+
+```java
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int N = Integer.parseInt(br.readLine());
+		
+ 
+		if (N == 4 || N == 7) {
+			System.out.println(-1);
+		}
+		else if (N % 5 == 0) {
+			System.out.println(N / 5);
+		}
+		else if (N % 5 == 1 || N % 5 == 3) {
+			System.out.println((N / 5) + 1);
+		}
+		else if (N % 5 == 2 || N % 5 == 4) {
+			System.out.println((N / 5) + 2);
+		}
+	}
+}
+```
+
+- 또 다른 정답
+- 출처(https://yongku.tistory.com/1434)
+- while문 사용
+- 조건에 맞는 while문을 사용하려고 했던 나와 달리 5의 배수가 아닌경우 계속 -3씩 빼주면서 5로 나누어줬음
+- -3이 되는 경우 계속 봉지갯수를 추가함
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+ 
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		int n = Integer.parseInt(br.readLine());
+		
+        int cnt = 0;
+        
+        while(true){
+            
+            if(n%5 == 0){
+                
+                cnt += n/5;
+                System.out.println(cnt);
+                break;
+                
+            } else{
+                n -= 3;
+                cnt++;
+            }
+            
+            if(n<0){
+                System.out.println(-1);
+                break;
+            }
+            
+        }
+		
+	}
+	
+}
+```
+
