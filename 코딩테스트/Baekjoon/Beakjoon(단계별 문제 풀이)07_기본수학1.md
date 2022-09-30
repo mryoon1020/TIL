@@ -878,3 +878,143 @@ public class Main {
 }
 ```
 
+> 10757번(https://www.acmicpc.net/problem/10757)
+
+- 내답안(오답)
+- 단순히 넓은 범위를 가진 타입으로 연산하면 될 것이라 생각하였음
+- 하지만 문제에서는 범위가 0 < A,B < 10<sup>10000</sup> 로 long타입보다 훨씬 더 높음을 알수 있음
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+ 
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		double a = Double.parseDouble(st.nextToken());
+		double b = Double.parseDouble(st.nextToken());
+		
+		System.out.println();
+		
+	}
+	
+}
+```
+
+- 정답
+
+- 출처(https://st-lab.tistory.com/199)
+
+- 출처의 필자는 2가지 방법으로 풀었음
+
+- 가장 간단한 방법인 java내부 함수 BigInteger를 사용하는 방법
+
+  - 참고자료(https://coding-factory.tistory.com/604)
+  - java.math안에 있음
+  - 일반 객체 처럼 선언 `BigInteger A = new BigInteger();` 
+  - 문자열이기 때문에 사친연산이 안됨
+  - BigInteger내부의 메소드를 활용하여 연산해야함
+  - 내부 메소드
+
+  | **.add()**       | **덧셈**   |
+  | ---------------- | ---------- |
+  | **.subtract()**  | **뺄셈**   |
+  | **.multiply()**  | **곱셈**   |
+  | **.divide()**    | **나눗셈** |
+  | **.remainder()** | **나머지** |
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+import java.math.BigInteger;
+ 
+public class Main {
+	public static void main(String[] args) throws IOException {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+		
+		BigInteger A = new BigInteger(st.nextToken());
+		BigInteger B = new BigInteger(st.nextToken());
+		
+		A = A.add(B);
+		
+		System.out.println(A.toString());
+	}
+}
+```
+
+- 조금은 복잡하지만 직접 연산하는 방법
+  - 큰수를 하나의 배열로 분해하여 역순으로 저장 각 자리에 해당하는 인덱스끼리 계산
+  - 그대로 저장해도 되지만 1234+34 를 1234+3400 으로 인식하는 결과가 나올수도 있음
+  - `for(int i = str_A.length() - 1, idx = 0; i >= 0; i--, idx++)` 
+  - 반복문의 반복 조건을 이중으로 적는 것도 가능함을 알게 됨
+  - 각자리수는 10으로 나눈 나머지 값이어야 함
+  - 덧셈 시행과정에서 마지막자리에서 올림이 있을 수 있으므로 최대값보다 1자리 더긴 배열로 생성해줌
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+		
+		String str_A = st.nextToken();
+		String str_B = st.nextToken();
+		
+		// 두 개의 수 중 가장 긴 자리수 길이를 구해둠
+		int max_length = Math.max(str_A.length(), str_B.length());
+		
+		
+		int[] A = new int[max_length + 1];	// 마지막 자리수 올림이 있을 수 있으므로 +1
+		int[] B = new int[max_length + 1];	// 마지막 자리수 올림이 있을 수 있으므로 +1
+		
+		// A 초기화 
+		for(int i = str_A.length() - 1, idx = 0; i >= 0; i--, idx++) {
+			A[idx] = str_A.charAt(i) - '0';	// 맨 뒤 문자부터 역순으로 하나씩 저장
+		}
+		
+		// B 초기화
+		for(int i = str_B.length() - 1, idx = 0; i >= 0; i--, idx++) {
+			B[idx] = str_B.charAt(i) - '0';	// 맨 뒤 문자부터 역순으로 하나씩 저장
+		}
+		
+		
+		for(int i = 0; i < max_length; i++) {
+			int value = A[i] + B[i];
+			A[i] = value % 10;		// 더한 값의 10으로 나눈 나머지가 자리값이 됨
+			A[i + 1] += (value / 10);	// 더한 값의 10으로 나눈 몫이 올림값이 됨
+		}
+		
+		// A배열 역순 출력
+		// 가장 높은 자리수가 0일 수도 있기 때문에 0이 아닐 경우에만 출력
+		StringBuilder sb = new StringBuilder();
+		if(A[max_length] != 0) {
+			sb.append(A[max_length]);
+		}
+		
+		for(int i = max_length - 1; i >= 0; i--) {
+			sb.append(A[i]);
+		}
+		System.out.println(sb);
+	}
+}
+```
+
