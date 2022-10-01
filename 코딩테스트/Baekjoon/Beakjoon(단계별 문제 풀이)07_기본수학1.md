@@ -1,6 +1,6 @@
 # Beakjoon(단계별 문제 풀이)
 
-### 손익분기점
+### 기본수학1
 
 > 1712번(https://www.acmicpc.net/problem/1712)
 
