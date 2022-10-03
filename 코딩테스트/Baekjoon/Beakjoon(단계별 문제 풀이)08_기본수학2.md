@@ -5,15 +5,41 @@
 > 1978번(https://www.acmicpc.net/problem/1978)
 
 - 내 답안
+
 - 소수의 조건인 1와 자신의 수로만 나눠지는 수 내가만든 조건
   - 몫이 1인 경우
+  
   - 몫이 1이면서 나머지가 0인경우
+  
   - 제곱근이 자연수가 아닌경우
     - 제곱근을 구하는 자바 내부함수는 `Math.sqrt()`
     - 제곱근을 1로 나눈 나머지가 0 일때 제곱근은 자연수로 떨어짐
-      - 실제 연산에서는 1로나누게 되면 나머지는 0임
-      - 해당 조건이 성립하는 이유는 자바연산에서 int타입은 소수점 계산을 하지 못하기 때문으로 추정
-      - int타입에서는 소수점은 버려짐
+  
+    ```java
+    public class asd {
+    
+      public static void main(String[] args) {
+        
+        int a = 7;
+        
+        if(Math.sqrt(a)%1 != 0) {
+          System.out.println("자연수가 아님");
+        }else {
+          System.out.println("자연수임");
+        }
+    
+        System.out.println(a/4);
+      }
+    
+    }
+    // 출력결과---------------------------------
+    자연수가 아님
+    1   
+    ```
+  
+    - 실제 연산에서는 1로나누게 되면 나머지는 0임
+    - 해당 조건이 성립하는 이유는 자바연산에서 int타입은 소수점 계산을 하지 못하기 때문으로 추정
+    - int타입에서는 소수점은 버려짐
 
 ```java
 import java.io.BufferedReader;
@@ -148,6 +174,145 @@ public boolean[] make_prime(int Max) {
 	// 배열 index 가 소수라면 false 로, 아니라면 true 로 완성됨
     
 	return Prime;
+}
+```
+
+> 2581번(https://www.acmicpc.net/problem/2581)
+
+- 내답안
+- 에라토스테네스의 채를 활용하며 구해 보고자 했으나 구해지지 않음
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.math.BigInteger;
+import java.util.StringTokenizer;
+ 
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		int m = Integer.parseInt(br.readLine());
+		int n = Integer.parseInt(br.readLine());
+		
+		int min = 0;
+		int sum = 0;
+		
+		boolean[] prime = new boolean[n-m+1];
+		
+		if(m == 0) {
+		  prime[0]= true;
+		  prime[1]= true;
+		}
+		
+		if(m == 1) {
+		  prime[0]= true;
+		}
+		
+		for(int i = 0; i <= Math.sqrt(n); i++) {
+		  
+		  if(prime[i]=true) {
+		    continue;
+		  }
+		  
+		  for(int j = i*i; j< n-m+1; j +=i) {
+		    prime[j] = true;
+		  }
+		  System.out.println(prime[i]);
+		}
+		
+		for(int i=0; i<prime.length; i++) {
+		  if(prime[i]== false) {
+
+		    sum += i+m;
+		  }
+		}
+		
+		for(int i=0; i<prime.length; i++) {
+	    if(prime[i]== false) {
+	        min= i+m;
+	        break;
+	      }  
+		  
+		}
+		
+		if(sum == 0 || min == 0) {
+		  System.out.println(-1);
+		}else {
+		
+		System.out.println(sum);
+		System.out.println(min);
+		
+		}
+		
+	}
+	
+}
+```
+
+- 정답
+- 출처(https://st-lab.tistory.com/83)
+- 에라토스테네스의채 개념설명(https://st-lab.tistory.com/81)
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+ 
+public class Main {
+ 
+	public static boolean prime[];
+	
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int M = Integer.parseInt(br.readLine());
+		int N = Integer.parseInt(br.readLine());
+		
+		prime = new boolean[N + 1];	// 배열 생성 
+		get_prime();
+		
+		
+		// 소수 합 및 최솟값 
+		int sum = 0;
+		int min = Integer.MAX_VALUE;
+		for(int i = M; i <= N; i++) {
+			if(prime[i] == false) {	// false = 소수 
+				sum += i;
+				if(min == Integer.MAX_VALUE) {	// 첫 소수가 최솟값임  
+					min = i;
+				}
+			}
+		}
+		
+		if(sum == 0) {	// 소수가 없다면 
+			System.out.println(-1);
+		}
+		else {
+			System.out.println(sum);
+			System.out.println(min);
+		}
+		
+	}
+ 
+	
+	// 에라토스테네스 체 알고리즘 
+	public static void get_prime() {
+		prime[0] = true;
+		prime[1] = true;
+		
+		for(int i = 2; i <= Math.sqrt(prime.length); i++) {
+			if(prime[i]) continue;	// 이미 체크된 배열일 경우 skip
+			for(int j = i * i; j < prime.length; j += i) {
+				prime[j] = true;
+			}
+		}
+		
+	}
 }
 ```
 
