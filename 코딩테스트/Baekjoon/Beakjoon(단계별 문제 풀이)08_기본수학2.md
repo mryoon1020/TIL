@@ -316,3 +316,95 @@ public class Main {
 }
 ```
 
+> 11653번(https://www.acmicpc.net/problem/11653)
+
+- 내정답
+- 오랜만에 혼자 풀어서 맞췄음
+- 백준 홈페이지상 하기 코드를 실행했을때 시간이 매우 오래 걸렸음
+- 매우 간단하게 짰음
+  - 입력받을 숫자 n 설정
+  - 최초로 나눌 숫자 num 설정
+  - 나머지가 남을경우 num으로는 소인수 분해 되지 않는 경우이므로 num에 1을 더해서 다시 실행
+  - 나누는 숫자와 입력받은 숫자 혹은 몫이 동일할경우 더 이상 소인수 분해되지 않으므로 while문을 끝내고 n을 출력
+  - 소인수 분해 이므로 몫이 아닌 나누는 수(약수)를 출력해야함 
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+ 
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		int n = Integer.parseInt(br.readLine());
+		
+    	int num = 2;
+		
+		while(n != 1) {
+		  
+      if(n == num) {
+        System.out.println(n);
+        break;
+        
+      } if(n%num != 0) {
+        
+        num++;
+
+      }else {
+		    
+		    n = n/num;
+		    System.out.println(num);	    
+		    
+		  }
+		  
+		}
+		
+	}
+	
+}
+```
+
+- 다른 정답
+- 출처(https://st-lab.tistory.com/152)
+- 내 정답보다 시간이 훨씬 줄어듬
+  - 내정답 : 156 ms
+  - 하기답안: 124 ms
+- 알고리즘
+  - 2~n 까지 모든수를 나눠보며 나머지가 0일 경우 그값을 출력하는 것
+  - 1은 소수가 아니므로 제외
+  - 반복문의 범위를 n의 제곱근 까지로 설정
+    - 어떤 n이 두개이상 소인수분해를 했을때 인수중 한개 이상은 반드시 n의 제곱근보다 작거나 같음
+  - while문과 for문 종료후 마지막 인수 출력을 위한 조건문출력 조건을 설정(1은 소수가 아님)
+    - n = 34일경우
+    - for문은 34의 제곱근의 근사값인 5.83이하의 정수까지만 대입될것임
+    - 17 % 2 != 0이므로 for문이 종료 되지만 17도 하나의 약수 이므로 출력해주어야함
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+ 
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+		StringBuilder sb = new StringBuilder();
+		int N = Integer.parseInt(br.readLine());
+ 
+		for (int i = 2; i <= Math.sqrt(N); i++) {
+			while (N % i == 0) {
+				sb.append(i).append('\n');
+				N /= i;
+			}
+		}
+		if (N != 1) {	
+			sb.append(N);
+		}
+		System.out.println(sb);
+	}
+}
+```
+
