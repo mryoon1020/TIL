@@ -408,3 +408,177 @@ public class Main {
 }
 ```
 
+>1929번(https://www.acmicpc.net/problem/1929)
+
+- 내정답
+- 에라토스테네스의 체를 활용
+- 0~n까지의 수를 모두 걸러낸뒤 0~m까지의 수를 모두 true 로 변경
+- 단, 0과 1의 경우는 고정으로 true로 설정해주어야함
+  - 설정해주지 않으면 0과 2입력시 0, 1, 2를 모두 출력함
+  - 하단 m이 0이므로 0, 1을 true로 바꿔주지 못하기 때문
+  - 나중에 알게된 사실
+    - prime 메소드의 ` for(int i =0; i<m; i++) {arr[i] = true;}` 는 필요 없음
+    - 메인의 `for(int i =m; i<arr.length; i++)` 에서 이미 걸러주기 때문
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+ 
+public class Main {
+
+  public static boolean arr[];
+  
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int m = Integer.parseInt(st.nextToken());
+		int n = Integer.parseInt(st.nextToken());
+		
+		prime(m,n);
+		
+		for(int i =m; i<arr.length; i++) {
+		  if(arr[i]==false) {
+		    System.out.println(i);
+		  }
+		}
+		
+	}
+	
+	public static void prime(int m, int n) {
+	  arr = new boolean [n+1];
+	  
+	  arr[0] = true;
+	  arr[1] = true;
+	  
+	  for(int i = 2; i<=Math.sqrt(n); i++) {
+	    
+	    if(arr[i]==true) {
+	      continue;
+	    }
+	    
+	    for(int j=i*i;j<arr.length; j+=i) {
+	      
+	      arr[j]=true;
+	      
+	    }
+	    
+	  }
+	  
+//	   for(int i =0; i<m; i++) {
+//	      arr[i] = true;
+//	    }
+	     
+	}
+	
+}
+```
+
+- 비슷하지만 다른 풀이
+- 출처(https://st-lab.tistory.com/84)
+
+- 에라토스테네스의 체를 활용함
+- 시간 면에서 나의 풀이보다 훨씬 빠름
+  - 나의풀이 : 808ms
+  - 하기풀이: 224ms
+- 성능향상을 위해 StringBuilder를 활용
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+ 
+ 
+public class Main {
+	public static boolean[] prime;
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine()," ");
+		int M = Integer.parseInt(st.nextToken());
+		int N = Integer.parseInt(st.nextToken());
+		
+		prime = new boolean[N + 1];	// 내 풀이와 다른 부분
+		get_prime();
+		
+		StringBuilder sb = new StringBuilder();
+		
+		for(int i = M; i <= N; i++) {
+			// false = 소수 
+			if(!prime[i]) sb.append(i).append('\n'); // 내 풀이와 다른부분
+		}
+		System.out.println(sb);
+	}
+ 
+	public static void get_prime() {
+		// true = 소수아님 , false = 소수 
+		prime[0] = prime[1] = true;
+		
+		for(int i = 2; i <= Math.sqrt(prime.length); i++) {
+			if(prime[i]) continue;
+			for(int j = i * i; j < prime.length; j += i) {
+				prime[j] = true;
+			}
+		}
+	}
+}
+```
+
+- 소수판별과 동시에 출력
+- 출처(https://st-lab.tistory.com/84)
+- 최대값(n)까지 반복해야 가능(제곱근까지 불가)
+  - 소수 판별 후 출력의 경우 배열의 false 값만 출력하므로 범위의 소수가 다 포함 되어있음
+  - 하지만 하기방식은 false 값을 출력하지 못하므로 소수를 모두 찾기 위해 끝까지 가야함
+  - 예시(0 16 입력시)
+  - true 인 인덱스
+    - 2의 배수 : 4 6 8 10 12 14 16
+    - 3의 배수:  6 9 12 15
+    - 5의 배수: 10 15
+    - 7의 배수: 14
+    - 11의 배수: 없음
+    - 13의 배수: 없음
+  - false 인 인덱스 : 2, 3, 5, 7, 11, 13 : 굳이 n까지 돌지 않아도 최대값의 제곱근까지에서 판별됨 
+  - i를 StringBuilder에 직접저장하는 하기 방식에서는 최대값의 제곱근까지 하게되면 2, 3만 저장됨
+- 이중 반복문의 내부 반복문이 수정되었음
+  - `i*i` 가 될경우 int형 범위를 넘어 버릴수 있음
+  - i 가 최대 1,000,000 가 된다면 j 의 경우 1,000,000,000,000 으로 int 형 범위초과
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+ 
+public class Main {
+	public static void main(String[] args) throws IOException {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        int M = Integer.parseInt(st.nextToken());
+        int N = Integer.parseInt(st.nextToken());
+        
+        boolean[] prime = new boolean[N + 1];
+        
+        for(int i = 2; i <= N; i++) {
+        	if(prime[i]) continue;
+        	
+        	if(i >= M) sb.append(i).append('\n');
+        	
+        	for(int j = i + i; j <= N; j += i) {
+        		prime[j] = true;
+        	}
+        }
+        
+        System.out.println(sb);
+    }
+ 
+}
+```
+
