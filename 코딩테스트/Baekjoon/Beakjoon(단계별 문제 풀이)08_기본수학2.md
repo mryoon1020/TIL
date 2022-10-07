@@ -722,3 +722,79 @@ public class Main {
 }
 ```
 
+> 9020번(https://www.acmicpc.net/problem/9020)
+
+- 내답안
+- 고민의시간이 많이 길었음
+- 10000까지의 모든 소수를 배열에 저장하였음
+- 이후 입력값으로 나누는 코드만 짜면 되지만 좀더 연구가 필요함
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+ 
+public class Main {
+
+  public static boolean checkPrime[];
+  
+	public static void main(String[] args) throws IOException {
+ 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		int t = Integer.parseInt(br.readLine());
+		
+		int [] arr = new int[t];
+		
+		StringBuilder sb= new StringBuilder();
+		
+		checkPrime = new boolean[10001];
+		
+		for(int i = 0; i<arr.length; i++) {
+		  arr[i]= Integer.parseInt(br.readLine());
+		}
+		
+		prime();
+		
+		int cnt = 0;
+		
+		for(int i =0; i<checkPrime.length; i++) {
+		  if(checkPrime[i]==false) {
+		    cnt++;
+		  }
+		}
+		
+		int []primeNo = new int[cnt];
+		
+		int j =0;
+		
+    for(int i =0; i<checkPrime.length; i++) {
+            
+      if(checkPrime[i]==false) {
+          
+         primeNo[j]=i;
+         
+         j++;
+                  
+        }      
+      
+    }
+      
+	}//main end
+	
+	public static void prime() {
+
+	  checkPrime[0] = checkPrime[1] = true;
+    
+    for(int i = 2; i <= Math.sqrt(checkPrime.length); i++) {
+      if(checkPrime[i]) continue;
+      for(int j = i * i; j < checkPrime.length; j += i) {
+        checkPrime[j] = true;
+      }
+    }
+    
+	}  
+	
+}
+```
+
