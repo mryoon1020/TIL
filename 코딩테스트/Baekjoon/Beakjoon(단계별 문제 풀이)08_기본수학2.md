@@ -727,7 +727,7 @@ public class Main {
 - 내답안
 - 고민의시간이 많이 길었음
 - 10000까지의 모든 소수를 배열에 저장하였음
-- 이후 입력값으로 나누는 코드만 짜면 되지만 좀더 연구가 필요함
+- 이후 입력값으로 나누는 코드만 짜는 부분에서 실패
 
 ```java
 import java.io.BufferedReader;
@@ -800,6 +800,26 @@ public class Main {
 
 - 정답
 - 출처(https://st-lab.tistory.com/91)
+- 우선 짝수n을 절반으로 나눔
+- 각각의 수를 1씩가감하여 두수가 소수가 될때까지 찾음
+- 본인의 코드 실패 원인
+
+  - 입력받은 수에서 소수를 뺀뒤 그수를 다시 반복문을 돌려서 소수인지 아닌지 찾는 코드 구상하였음
+  - 실제 실패한 코드
+  - ```java
+        for(int i = 0; i<t; i++) {
+         int no = Integer.parseInt(br.readLine());
+         
+         for(int k =0 ; k<primeNo.length;k++) {
+           if((no-primeNo[k])%primeNo[k] == 0) {
+             
+           }
+         }
+          
+        }
+    ```
+  -  이렇게할 경우 코드 길이도 매우 길어지며 답이 도출될 수 없는 코드임
+
 
 ```java
 import java.io.BufferedReader;
