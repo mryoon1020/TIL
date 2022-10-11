@@ -87,3 +87,45 @@ public class Main {
 }
 ```
 
+> 2751번(https://www.acmicpc.net/problem/2751)
+
+- 정답
+- 출처(https://st-lab.tistory.com/106)
+- 기존 Arrays.sort로는 시간초과로 풀리지 않았음
+- Collections.sort()를 사용하는 방법
+  - Timsort임
+  - 합병 및 삽입정렬 알고리즘 사용
+
+```java
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+ 
+ 
+public class Main {
+	public static void main(String[] args) throws IOException {
+    
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		int N = Integer.parseInt(br.readLine());
+		
+		// list 계열 중 하나를 쓰면 된다.
+		ArrayList<Integer> list = new ArrayList<>();
+		
+		for(int i = 0; i < N; i++) {
+			list.add(Integer.parseInt(br.readLine()));
+		}
+		
+		Collections.sort(list);
+		
+		for(int value : list) {
+			sb.append(value).append('\n');
+		}
+		System.out.println(sb);
+	}
+}
+```
+
