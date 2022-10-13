@@ -215,3 +215,100 @@ public class Main {
 }
 ```
 
+- count 정렬을 사용하여 푼 2751번(https://www.acmicpc.net/problem/2751)
+
+- 런타임에러는 나지만 정렬하는데 문제없음
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+  
+	public static void main(String[] args) throws IOException {
+ 
+	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));  
+	
+	int t = Integer.parseInt(br.readLine());
+	
+	int[] arr = new int[t];
+	
+	int[] count = new int[1000000];
+	
+	int[] sort = new int[t];
+	
+	for(int i =0; i<arr.length; i++) {
+	  arr[i]= Integer.parseInt(br.readLine());
+	}
+	
+	for(int i =0; i<arr.length; i++) {
+	  count[arr[i]]++;
+	}
+	
+	for(int i =1; i<count.length; i++) {
+	  count[i]= count[i]+count[i-1];
+	}
+
+	for(int i = arr.length -1; i>=0; i--) {
+	  
+	  int value = arr[i];
+	  count[value]--;
+	  sort[count[value]]=value;
+	  
+	}
+	
+	for(int i =0; i<sort.length; i++) {
+	  
+	  System.out.println(sort[i]);
+	}
+	
+	}  
+	
+}
+```
+
+- 해당 블로거의 정답
+- 출처(https://st-lab.tistory.com/106)
+- 좀더 간결함
+  - 배열을 3개씩이나 생성하지 않음
+  - StringBuilder를 통해 좀더 시간을 단축함
+  - 수가 중복되지 않으므로 boolean 배열 사용 가능
+  - 문제에서 절대값 1000000이하인 정수라고 하였음
+    - 수의 범위는 -1000000 ~ 1000000
+    - arr [1000000] = 0 이 해당하는 곳이라고 생각함
+      - 숫자 0은 배열의 1000000번 index에 해당한다고 생각하고 문제를 품 
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+ 
+public class Main {
+	public static void main(String[] args) throws IOException {
+    
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+        
+		/*
+		  -1000000 ~ 1000000
+		  기준점 0 = index 100000 으로 생각
+		*/
+		boolean[] arr = new boolean[2000001];	
+        
+		int N = Integer.parseInt(br.readLine());
+        
+		for(int i = 0; i < N; i++) {
+			arr[Integer.parseInt(br.readLine()) + 1000000] = true;
+		}
+ 
+		for(int i = 0; i < arr.length; i++) {
+			if(arr[i]) {
+				sb.append((i - 1000000)).append('\n');
+			}
+		}
+		System.out.print(sb);
+	}
+}
+```
+
