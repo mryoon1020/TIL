@@ -42,11 +42,13 @@
 - 제약조건 종류
   - primary key
     - not null && unique
+    - 주키로 테이블당 한개만 생성가능
   - unique
     - 칼럼값이 해당테이블 전체에서 유일한값
     - null 가능
   - foreign key
     - 입력되어야 할 값이 다른 테이블 칼럼의 값 참조
+    - 외래키로 테이블당 여러개 생성 가능
   - check
     - 해당조건을 만족하는 값으로만 입력을 제한
   - not null
@@ -101,3 +103,78 @@ create table product(
   - 값의 부재(조건에 맞는 데이터가 없을 때의 공집합과도 다름)
   - null은 is null, is not null로만 비교가능 이외에는 알수 없음을 반환함
   - null을 포함한 사칙연산의 결과는 null
+
+9. 10. 
+
+- 책필기 참조
+
+11.
+
+- 테이블명 지정 규칙
+  - 반드시 영문으로 시작해야함
+  - A~Z
+  - a~z
+  - 0~9
+  - 특수 문자 `$, #, _`  세개만 가능
+- 주의사항
+  - 가능한 단수형으로 명명 할것
+  - 다른테이블명과 중복되지 않을것
+  - 한 테이블내에서는 컬럼명이 중복될 수 없음
+  - 테이블 이름을 지정하고 컬럼들은 `()` 로 묶어서  지정
+  - 컬럼들은 `,` 로 구분
+  - 테이블 생성문은 `;` 로 끝남
+  - 컬럼에 대해서는 다른 테이블까지 고려하여 데이터베이스 내에서는 일관성 있게 사용하는 것이 좋음
+    - 데이터 표준화 관점
+  - 컬럼뒤에 데이터 유형은 꼭지정되야함
+  - 벤더별로 길이에 대한 한계가 있음
+  - 벤더에서 사전에 정의한 예약어는 쓸수 없음
+
+12. 
+
+- index
+  - 개념
+    - 검색 속도를 높이기 위해 사용하난 하나의 기술
+    - 인덱스 생성시 인덱스 테이블을 생성하여 관히
+    - B-tree 인덱스가 일반적임
+      - 인덱스 키(인덱스로 만들 테이블의 컬럼 값)
+      - 인덱스 키에 해당하는 컬럼 값을 가진 테이블의 로우가 저장된 주소값으로 구성
+  - `create [unique] index [스키마명] 인덱스명 on 테이블명(컬럼명,[컬럼명, 컬럼명...])`
+  - select 사용 가능
+  - 오라클에서는 alter사용 불가 수정시에는 삭제후 생성이 필요
+  - 대괄호 부분은 생량가능
+  - drop을 통해 삭제가능
+  - 쿼리문이 빨리 동작하도록 할수는 있지만 전체적인 데이터 베이스의 성능 부하를 초래함
+  - SQL문을 최대한 효율적으로 짠후 최후의 수단으로 사용 할수 있도록 할것
+- 올바른 코드
+
+```sql
+create table EMP (
+
+    EMP_NO varchar2(10) not null primary key,
+    EMP_NM varchar2(30) not null,
+    DEPT_CODE varchar2(4) not null,
+    JOIN_DATE date not null,
+    REGIST_DATE date null
+);
+
+create index IDX_EMP_01 on EMP(JOIN_DATE);
+```
+
+- 올바른 코드2
+
+```sql
+create table EMP (
+
+    EMP_NO varchar2(10) not null,
+    EMP_NM varchar2(20) not null,
+    DEPT_CODE varchar2(4) DEFALUT '0000' not null,
+    JOIN_DATE DATE not null,
+    REGIST_DATE date
+    
+);
+
+alter table EMP ADD CONSTRAINT EMP_PK primary key(EMP_NO);
+
+create index IDX_EMP_01 on EMP(JOIN_DATE);
+```
+
