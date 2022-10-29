@@ -178,3 +178,169 @@ alter table EMP ADD CONSTRAINT EMP_PK primary key(EMP_NO);
 create index IDX_EMP_01 on EMP(JOIN_DATE);
 ```
 
+13. 
+
+```sql
+create table 학생 (
+    
+    학번 char(8) primary key,
+    장학금 integer
+                 
+);
+
+-- SQL1
+select count(*) from 학생;
+-- SQL2
+select count(학번) from 학생;
+```
+
+- SQL1, SQL2 는 항상 같은 결과가나옴(유효한 튜플 삽입되었을 때)
+
+14. 
+
+- 외래키
+  - 테이블 생성시 가능, 생성후에도 가능함
+  - 외래키가 특정 PK에 참조되면 null값을 가질 수 없음
+  - 한테이블에 여러개 존재가능
+  - 외래키 값은 참조 무결성 제약을 받을수 있음
+
+15. 
+
+- 테이블 제약조건(constraint)
+  - check 제약조건은 데이터베이스에서 데이터 무결성을 유지하기 위해 테이블의 특정 컬럼에 설정하는 제약
+  - 기본키는 반드시 테이블당 한개만 가능
+  - 고유키로 지정된 모든 컬럼들은 null값을 가질 수 있음
+  - 외래키는 테이블간의 관계를 정의하기 위해 기본키를 다른테이블의 외래키가 참조하도록 생성한다
+
+16.
+
+- 테이블의 불필요한 컬럼 삭제
+  - `alter table 테이블명 drop column 삭제할 칼럼명;`
+  - 오라클에서는 테이블의 데이터가 많을때 많은 시간이 필요함
+
+17. 
+
+- `on update cascade`
+  - 외래키로 참조 되어질때 값을 수정 할 수 있게 해주는 것
+- `on delete cascade`
+  - 외래키로 참조 되어 질 때 값을 삭제 할 수 있게 해주는 것
+
+18. 
+
+- 테이블명 변경 쿼리
+  - `rename 테이블명 to 바꿀 테이블명;`
+
+19.
+
+- on delete : 부모를 삭제할때
+  - cascade
+    - 부모 삭제시 자식도 삭제
+  - set null
+    - 부모 삭제시 자식은 null 설정
+  - set default
+    - 부모삭제시 자식은 기본값 설정
+  - restrict
+    - 자식이 없는 경우만 부모 삭제
+- on insert : 자식을 입력 할때
+  - automatic
+    - 부모 입력값이 없을 때 부모 입력후 자식입력
+  - set null
+    - 부모가 입력값이 없는 경우, 자식의 FK를 null로 입력
+  - set default
+    - 부모가 입력값이 없을때 FK를 기본값으로 입력
+  - set dependent
+    - 부모의 PK가 있는 경우만 자식입력
+    - 역으로 말하면 부모에 PK가 없는경우 자식테이블에 데이터 입력을 허용하지 않음
+
+20.
+
+- int = integer ==> 정수
+- number = 소수점 가능
+- 오라클에서는 integer를 잘 사용하지 않음
+  - 사용시 자체적으로 number로 변환해서 사용된다함
+- 입력방법
+  - `insert into 테이블명(컬럼명1, 컬럼명2, 컬럼명3...) values(값, 값, 값...);`
+  - `insert into 테이블명 values(값, 값, 값...);`
+    - 이경우에는 values에 모든 컬럼에 대한 값이 들어가야함
+
+```sql
+create table TBL(
+
+    ID number primary key,
+    AMT number not null,
+    DEGREE varchar2(1)
+
+);
+
+-- 1번
+insert into TBL values(1,100);
+-- 2번
+insert into TBL(ID, AMT, DEGREE) values (2, 200, 'AB');
+-- 3번
+insert into TBL(ID, DEGREE) values (4, 'X');
+-- 4번
+insert into TBL(ID, AMT) values (3, 300);
+-- 5번
+insert into TBL values (5, 500, null);
+```
+
+- 1번 
+  - `insert into TBL(ID, AMT) values(1,100);` 로 변경해서 실행
+
+- 2번
+  - DEGREE자리의 입력 밧이 너무 큼(`varchar2(1)` 초과)
+- 3번
+  - AMT는 not null이며 누락됨
+
+- 4번, 5번 맞는 문장
+
+- 추가적으로 테스트
+
+```sql
+alter table TBL add test_alias varchar2(5);
+-- 테스트 구문
+insert into TBL(ID,AMT,test_alias)  values(2, 300, '안');
+```
+
+- 오류 없음
+  - DEGREE는 null을 허용하기 때문
+
+21. 
+
+- 입력된 데이터 수정
+  - `update 테이블명 set 수정을 원하는 컬럼명 = 수정되길 원하는 새로운 값;` 
+
+- 테이블 만들기 및 구문 연습
+
+```sql
+BOARD
++---------------------------------+
+| BOARD_ID: VARCHAR2(10) NOT NULL |
+|---------------------------------|
+| BOARD_NM: VARCHAR2(50) NOT NULL |
+| USE_YN: VARCHAR2(1) NOT NULL    |
+| REG_DATE: DATE NOT NULL         |
+| BOARD_DESC: VARCHAR2(100) NULL  |
++---------------------------------+
+
+create table BOARD(
+
+    BOARD_ID: varchar2(10) not null primary key,
+    BOARD_NM: varchar2(50) not null,
+    USE_YN: varchar2(1) not null,
+    REG_DATE: date not null,
+    BOARD_DESC: varchar2(100) null
+);
+
+-- 1번
+insert into BOARD values(1, 'Q&A', 'Y', sysdate, 'Q&A게시판');
+-- 2번
+insert into BOARD(BOARD_ID, BOARD_NM, USE_YN, BOARD_DESC) values('100', 'FAQ', 'Y', 'FAQ게시판');
+-- 3번
+update BOARD set USE_YN = 'N' where BOARD_ID ='1';
+-- 4번
+update BOARD set BOARD_ID = 200 where BOARD_ID = '100';
+```
+
+- 2번은 오류가 남
+  - REG_DATE 컬럼은 null을 허용하지 않음
