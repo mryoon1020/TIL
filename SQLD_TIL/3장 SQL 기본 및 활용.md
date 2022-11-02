@@ -586,3 +586,57 @@ SELECT COL1 + COL3 FROM TAB_A;
 
 - NULL값과의 모든 연산의 결과는 모두 NULL 임
 - NULL은 크다 작다를 표현 할 수 없음
+
+36. 
+
+- 부정 비교연산자
+  - != : 같지 않다
+  - ^= : 같지 않다
+  - <> : 같지않다
+    - ISO 표준, 모든 운영체제에서 사용가능
+  - NOT 컬럼명 = : ~와 같지 않다
+  - NOT 컬럼명 > : ~와 크지 않다
+- 비교대상  IS NOT NULL
+  - NULL이 아니다
+
+37. 
+
+```SQL
+CREATE TABLE 서비스 (
+
+    서비스번호 VARCHAR2(10) PRIMARY KEY,
+    서비스명 VARCHAR2(100) NULL,
+    개시일자 DATE NOT NULL
+);
+
+-- DML
+INSERT INTO 서비스 VALUES ('999', '', '2015-11-11');
+SELECT * FROM 서비스 WHERE 서비스명 IS NULL;
+```
+
+- SQL SERVER에서 해당 INSERT문은 데이터가 조회 되지 않음
+- ORACLE 에서는 공백 `''` 은 NULL 로 처리하므로 데이터가 조회됨
+  - 단, `' '` 은 공백으로 처리함
+
+38. 
+
+- BETWEEN a AND b
+  - a와 b 사이의 값
+  - a, b 도 포함됨
+- IN
+  - WHERE 절에서 사용 쓰임
+  - 리스트값 중에서 어느하나라도 일치하면 됨
+  - `SELECT * FROM 테이블명 WHERE 컬럼명 IN (값1, 값2, 값3, ...);`
+
+39. 
+
+- 형변환 함수
+  - TO_CHAR
+    - 날짜형 또는 숫자형을 문자형으로 변환
+  - TO_NUMBER
+    - 문자형을 숫자형으로 변환
+  - TO_DATE
+    - 문자형을 날짜형으로 변환
+
+- 각종 형변환 함수 참조 사이트
+  - https://blog.naver.com/jiae7634/222857895703
