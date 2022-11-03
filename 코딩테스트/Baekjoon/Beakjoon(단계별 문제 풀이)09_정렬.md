@@ -95,6 +95,7 @@ public class Main {
 - Collections.sort()를 사용하는 방법
   - Timsort임
   - 합병 및 삽입정렬 알고리즘 사용
+- 추가설명자료(https://st-lab.tistory.com/276)
 
 ```java
 import java.io.InputStreamReader;
