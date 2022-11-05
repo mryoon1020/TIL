@@ -1,10 +1,10 @@
-package com.example.spring_s3_demo;
+package com.example.springawss3;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringS3DemoApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
