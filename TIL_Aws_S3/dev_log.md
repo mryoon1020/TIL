@@ -24,3 +24,11 @@
     - 입력방식 차이로 보임
     - 가독성은 yml 파일 형식이 훨씬 좋으나 Rent_car_project는 properties 파일을 사용하므로 properties로 변경하여 사용하겠음
 
+- 2022-11-07
+  - Application.run 명령문 오류가 남
+  - 원인파악이 잘 안됨
+- 2022-11-08
+  - Application.run 명령문 오류는 아주 심플한 오류였음
+    - 부끄럽지만 sysntax에러 였음
+    - 오타주의할 것!!
+  - 아주 심플한 뷰페이지를 만들었음

@@ -1,5 +1,10 @@
 package com.example.springawss3.service;
 
+import com.example.springawss3.model.FileDetail;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 @Service
 @RequiredArgsConstructor
 public class FileUploadService {
