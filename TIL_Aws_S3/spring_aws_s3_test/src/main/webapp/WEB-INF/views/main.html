@@ -1,16 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <script>
+<script>
 
+    const formData = new FormData();
+    const fileField = document.querySelector('input[type="file"][multiple]');
+    
+    if(fileField.files[0] != null){
 
+        formData.append(fname,fileField.files[0]);
 
-    </script>
+    }
+
+    fetch('/upload', {
+        method: 'POST',
+        body: formData,
+    })
+    .then((response) => response.json())
+    .then((result) => {
+        console.log('성공:', result);
+    })
+    .catch((error) => {
+        console.error('실패:', error);
+    });
+    
+
+</script>
 
 </head>
 <body>
@@ -29,7 +48,7 @@
 
             <td>
 
-                파일이올부분.jqg
+                파일이올부분.jpg
     
             </td>
 
@@ -39,7 +58,7 @@
 
             <td>
 
-                <input type="file">
+                <input type="file" multiple>
     
             </td>
 
