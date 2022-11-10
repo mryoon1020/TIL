@@ -15,15 +15,15 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @Controller
 @RequiredArgsConstructor
 public class UploadController {
-    @Autowired
-    @Qualifier("com.example.springawss3.service.serviceImpl");
-        private final FileUploadService fileUploadService;
-
-        @GetMapping("./")
-        public String Home{
-
-            return "./";
-    }
+//    @Autowired
+//    @Qualifier("com.example.springawss3.service.serviceImpl");
+//        private final FileUploadService fileUploadService;
+//
+//        @GetMapping("./")
+//        public String Home{
+//
+//            return "./";
+//    }
     @ResponseBody
     @RequestMapping(value = "/upload", produces = APPLICATION_JSON_VALUE)
     @PostMapping
