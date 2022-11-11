@@ -118,4 +118,81 @@
   spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
   ```
 
+
+- 2022-11-11
+
+  - test project 이므로 tiles를 통해 뷰를나눌 필요가없어서 index를 url 없이 직접 호출하고 싶었음
+
+    - `src/main/resources/static` 에 index.html을 넣어주면 아주 간단하게 해결이 됨
+
+  - jsp사용을 위해서는 프로젝트 구조변경이 필요함
+
+    - jsp없이 자바스크립트만으로 처리해보고 싶었지만 일단 궁극적 목표인 aws추가 할 프로젝트는 jsp여서 기존방식으로 처리하기로함
+
+  - `main/webapp/WEB-INF/views` 폴더 추가
+
+  - application.properties
+
+    - 하기항목추가
+
+    ```properties
+    # jsp 설정
+    spring.mvc.view.prefix=/WEB-INF/views/
+    spring.mvc.view.suffix=.jsp
+    ```
+
+  - build.gradle
+
+    - dependency 내부에 하기 항목추가
+    - jsp는 별도의 템플릿엔진이므로 별도의 라이브러리를 추가해야함
+    - jstl사용을 위해서 추가로 한줄 더 넣었으나 (jstl적힌 부분)굳이 필요하진 않음
+
+    ```gradle
+    	implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
+    	implementation 'javax.servlet:jstl'
+    ```
+
+  - controller 를 통해 index페이지 바로 호출되게끔 처리
+
+    ```java
+    import org.springframework.stereotype.Controller;
+    import org.springframework.web.bind.annotation.GetMapping;
+    
+    @Controller
+    public class webTestControler {
+    
+    @GetMapping("/")
+        public String home(){
+        return "index";
+    }
+    ```
+
+  - 우선 DB는 s3 적용전이므로 간단하게 짰음
+
+  ```sql
+  create database fileupload;
   
+  use fileupload;
+  
+  create table filename(
+  
+  fileNo int not null primary key auto_increment,
+  fileName varchar(100) not null
+  
+  );
+  
+  -- sample data
+  insert into filename (fileName) values("aa.jpg");
+  insert into filename (fileName) values("bb.jpg");
+  insert into filename (fileName) values("cc.jpg");
+  insert into filename (fileName) values("dd.jpg");
+  ```
+
+  - index.jsp 호출까지는 성공했으나 dto.fileNo에 데이터가 들어오진 않음
+
+    ```jsp
+                <input type="hidden" value="${dto.fileNo}">
+                <input type="text" value="${dto.fileNo}">&nbsp;&nbsp;
+                <input type="text" value="${dto.fileName}">
+    ```
+
