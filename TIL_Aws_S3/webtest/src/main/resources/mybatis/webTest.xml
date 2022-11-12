@@ -5,7 +5,7 @@
 
 <mapper namespace="spring.test.service.webTestMapper">
 
-    <select id="webTestList" resultType="spring.test.model.webTestDTO">
+    <select id="list" resultType="spring.test.model.webTestDTO">
 
         select fileNo, fileName from fileName
 

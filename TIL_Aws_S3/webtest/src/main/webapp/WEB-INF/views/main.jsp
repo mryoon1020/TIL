@@ -90,10 +90,13 @@
 
     <ul class="fileList" id="fileList">
 
+        <li><input type="hidden" value="${dto.fileNo}"></li>
+
         <c:forEach var="dto" items="${list}">
 
         <li>
 
+            <input type="hidden" value="${dto.fileNo}">
             <input type="text" value="${dto.fileNo}">&nbsp;&nbsp;
             <input type="text" value="${dto.fileName}">
 

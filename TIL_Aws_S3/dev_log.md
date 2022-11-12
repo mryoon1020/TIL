@@ -196,3 +196,114 @@
                 <input type="text" value="${dto.fileName}">
     ```
 
+- 2022-11-12
+
+  - dto.fileNo에 데이터가 들어오진 않았던 건
+    - 생각보다 많은 문제가 있었음
+    - index.jsp는 정말 index페이지로서 인식이 되었음을 확인(컨트롤러를 거치지 않는것으로 보임, log, System.out.prinln()등 전부 출력이 되지 않음)
+    - 과거자료 및 인터넷 검색을 해보니 다음 두파일이 누락되었음
+
+  ```java
+  import javax.sql.DataSource;
+   
+  import org.apache.ibatis.session.SqlSessionFactory;
+  import org.mybatis.spring.SqlSessionFactoryBean;
+  import org.mybatis.spring.SqlSessionTemplate;
+  import org.mybatis.spring.annotation.MapperScan;
+  import org.springframework.beans.factory.annotation.Autowired;
+  import org.springframework.boot.context.properties.ConfigurationProperties;
+  import org.springframework.context.ApplicationContext;
+  import org.springframework.context.annotation.Bean;
+  import org.springframework.context.annotation.Configuration;
+  import org.springframework.context.annotation.PropertySource;
+   
+  import com.zaxxer.hikari.HikariConfig;
+  import com.zaxxer.hikari.HikariDataSource;
+   
+  @Configuration
+  @PropertySource("classpath:/application.properties")  // 설정 파일 위치
+  @MapperScan(basePackages= {"spring.test.*"})
+  public class DatabaseConfiguration {
+    @Autowired
+    private ApplicationContext applicationContext;
+    
+    @Bean
+    @ConfigurationProperties(prefix="spring.datasource.hikari") // 설정 파일의 접두사 선언 
+    public HikariConfig hikariConfig() {
+        return new HikariConfig();
+    }
+    
+    @Bean
+    public DataSource dataSource() throws Exception{
+        DataSource dataSource = new HikariDataSource(hikariConfig());
+        System.out.println(dataSource.toString());  // 정상적으로 연결 되었는지 해시코드로 확인
+        return dataSource;
+    }
+    
+    @Bean
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception{
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dataSource);
+        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/mybatis/**/*.xml"));
+        return sqlSessionFactoryBean.getObject();
+    }
+    
+    @Bean
+    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory){
+        return new SqlSessionTemplate(sqlSessionFactory);
+    }
+  }
+  ```
+
+  ```java
+  import org.springframework.boot.WebApplicationType;
+  import org.springframework.boot.builder.SpringApplicationBuilder;
+  import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+  import spring.test.webtest.WebtestApplication;
+  
+  public class ServletInitializer extends SpringBootServletInitializer {
+  
+  	@Override
+  	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+  		return application.sources(WebtestApplication.class);
+  	}
+  
+  }
+  ```
+
+  - 추가적으로 applicartion.properties 파일의 mysql부분 수정했더니 정상적으로 작동
+
+  ```properties
+  #mysql
+  spring.datasource.hikari.driver-class-name=com.mysql.cj.jdbc.Driver
+  spring.datasource.hikari.jdbc-url=jdbc:mysql://localhost:3306/fileupload?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+  spring.datasource.hikari.username=아이디
+  spring.datasource.hikari.password=비밀번호
+  spring.datasource.hikari.connection-test-query=SELECT NOW() FROM dual
+  ```
+
+  - 스프링 환경셋팅후 다음 파일을 통해 문제가 없는지 체크 할 수 있음
+
+  ```java
+  import org.junit.jupiter.api.Test;
+  import org.mybatis.spring.SqlSessionTemplate;
+  import org.springframework.beans.factory.annotation.Autowired;
+  import org.springframework.boot.test.context.SpringBootTest;
+  
+  @SpringBootTest
+  class WebtestApplicationTests {
+  
+  	@Autowired
+  	private SqlSessionTemplate sqlSession;
+  	@Test
+  	void contextLoads() {
+  	}
+  
+  	@Test
+  	public void testSqlSession() throws Exception {
+  		System.out.println(sqlSession.toString());
+  	}
+  }
+  ```
+
+  - 상기와 같이 수정후 정상적으로 데이터를 읽는 것을 확인 하였음
