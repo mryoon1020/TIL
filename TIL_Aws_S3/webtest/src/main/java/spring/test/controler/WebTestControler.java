@@ -7,32 +7,39 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import spring.test.model.webTestDTO;
-import spring.test.service.webTestService;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import spring.test.model.WebTestDTO;
+import spring.test.service.WebTestService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-public class webTestControler {
+public class WebTestControler {
 
-    private static final Logger log = LoggerFactory.getLogger(webTestControler.class);
-
+    private static final Logger log = LoggerFactory.getLogger(WebTestControler.class);
     @Autowired
     @Qualifier("spring.test.service.webTestServiceImpl")
-    private webTestService webTestService;
+    private WebTestService webTestService;
 
 @GetMapping("/")
     public String home(HttpServletRequest request){
 
-    List<webTestDTO> list = webTestService.list();
+    List<WebTestDTO> list = webTestService.list();
     request.setAttribute("list", list);
 
     return "main";
 
-
-
 }
 
+@PostMapping("/upload")
+@ResponseBody
+    public String upload(@RequestParam("file") MultipartFile file){
+
+    webTestService.saveFile(file);
+        return "저장에 성공했습니다";
+    }
 
 }

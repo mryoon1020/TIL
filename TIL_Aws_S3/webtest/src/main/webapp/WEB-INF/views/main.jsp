@@ -10,12 +10,16 @@
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
 
-    const formData = new FormData();
-    const fileField = document.querySelector('input[type="file"][multiple]');
+
     
+    function addFile(){
+
+    const formData = new FormData();
+    const fileField = document.querySelector('input[type="file"]');
+
     if(fileField.files[0] != null){
 
-        formData.append(fname,fileField.files[0]);
+        formData.append('file',fileField.files[0]);
 
     }
 
@@ -23,14 +27,25 @@
         method: 'POST',
         body: formData,
     })
-    .then((response) => response.json())
+    .then((response) => {
+        if(!response.ok){
+            console.log(response)
+        }else{
+            response.text()
+        }
+
+    }
+    
+    )
     .then((result) => {
         console.log('성공:', result);
+        alert("업로드에 성공했습니다.")
     })
     .catch((error) => {
         console.error('실패:', error);
     });
     
+    }
 
 </script>
 
@@ -51,16 +66,6 @@
 
             <td>
 
-                파일이올부분.jpg
-    
-            </td>
-
-        </tr>
-
-        <tr>
-
-            <td>
-
                 <input type="file" multiple>
     
             </td>
@@ -70,7 +75,7 @@
         <tr>
             <td>
 
-                <button type="submit">파일등록</button>&nbsp;
+                <input type="button" onclick=addFile() value="파일등록">&nbsp;
 
                 <button type="submit">파일수정</button>&nbsp;
 
@@ -90,13 +95,10 @@
 
     <ul class="fileList" id="fileList">
 
-        <li><input type="hidden" value="${dto.fileNo}"></li>
-
         <c:forEach var="dto" items="${list}">
 
         <li>
 
-            <input type="hidden" value="${dto.fileNo}">
             <input type="text" value="${dto.fileNo}">&nbsp;&nbsp;
             <input type="text" value="${dto.fileName}">
 

@@ -307,3 +307,101 @@
   ```
 
   - 상기와 같이 수정후 정상적으로 데이터를 읽는 것을 확인 하였음
+
+- 2022-11-14
+
+  - 정말 다양한 시행착오 끝에 upload기능 구현 성공하였음
+
+  - 참조사이트
+
+    - https://www.youtube.com/watch?v=NbOBIexAyjA
+    - https://github.com/adityajoshi12/S3-springboot-example
+    - 해당영상은 maven 기반으로 제작되었음
+    - gradle의 의존성주입은 다음과 같이 작성하면됨
+    - `implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'`
+
+  - 에러들
+
+    - **java.lang.IllegalStateException: There is no EC2 meta data available, because the application is not running in the EC2 environment. Region detection is only possible if the application is running on a EC2 instance**
+
+      - application.properties 파일에 aws Region 관련 정보가 없음에서 나타나게되는 오류임
+      - 본인은 region 정보가 있었음에도 오류가 나게 되어 살짝 다른 코드로 변경하였음
+      - `cloud.aws.region.static=ap-northeast-2`를 추가하여 해결
+
+    - 오류인듯 오류아닌 오류같은 로그들
+
+      - 스프링 부트 구동시 생기며 서버가 올라가지 않음
+
+      - 기능에 이상이 생겨서 나는 오류는 아님 
+
+      - ```
+        Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+        2022-11-14 18:33:17.875 ERROR 30484 --- [  restartedMain] o.s.boot.SpringApplication               : Application run failed
+        
+        org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.cloud.aws.core.env.ResourceIdResolver.BEAN_NAME': Invocation of init method failed;
+        
+        Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'stackResourceRegistryFactoryBean' defined in class path resource [org/springframework/cloud/aws/autoconfigure/context/ContextStackAutoConfiguration.class]: Unsatisfied dependency expressed through method 'stackResourceRegistryFactoryBean' parameter 1; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'autoDetectingStackNameProvider' defined in class path resource [org/springframework/cloud/aws/autoconfigure/context/ContextStackAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.cloud.aws.core.env.stack.config.StackNameProvider]: Factory method 'autoDetectingStackNameProvider' threw exception; nested exception is java.lang.IllegalArgumentException: No valid instance id defined
+        
+        Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'autoDetectingStackNameProvider' defined in class path resource [org/springframework/cloud/aws/autoconfigure/context/ContextStackAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.cloud.aws.core.env.stack.config.StackNameProvider]: Factory method 'autoDetectingStackNameProvider' threw exception; nested exception is java.lang.IllegalArgumentException: No valid instance id defined
+        
+        Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.cloud.aws.core.env.stack.config.StackNameProvider]: Factory method 'autoDetectingStackNameProvider' threw exception; nested exception is java.lang.IllegalArgumentException: No valid instance id defined
+        
+        Caused by: java.lang.IllegalArgumentException: No valid instance id defined
+        ```
+
+      - 다음구문을 application.properties에 추가해주면 간단하게 해결됨
+
+      - `cloud.aws.stack.auto=false`
+
+    - JavaScript오류
+
+      - **Cannot read properties of null (reading 'classList')**
+
+      - 해당오류는 스크립트 로드 우선순위가 잘못되거나 로드가 되지 않았거나 스크립트가 로드될 당시 페이지에 아이디나 클래스에 해당하는 요소가 없는 경우에 남
+
+      - 본인은 다음과 같이 작성하여 오류남
+
+      - ```JS
+        <script>
+            
+        const formData = new FormData();
+        const fileField = document.querySelector('input[type="file"]');
+        
+        function addFile(){
+        
+            if(fileField.files[0] != null){
+                formData.append('file',fileField.files[0]); //오류가 난부분
+            }
+        //--------------------중략------------------------------
+            
+         }//function end
+        
+        </script>
+        ```
+
+      - 해결
+
+      - ```js
+        <script>
+        
+        function addFile(){
+        
+         const formData = new FormData();
+         const fileField = document.querySelector('input[type="file"]');
+            
+            if(fileField.files[0] != null){
+                formData.append('file',fileField.files[0]); //오류가 난부분
+            }
+        //--------------------중략------------------------------
+            
+         }//function end
+        
+        </script>
+        ```
+
+    - fetch 비동기통신이 성공적으로 수행이 되었으나 404에러가 날경우
+
+      - controller 주소 받는 부분에 `@Responsebody` 추가로 해결
+      -  스프링에서 `@Responsebody` 없는 리턴값은 view의 이름으로 받아들인다고함
+      - 비동기통신이므로 따로 이동할 뷰가 없음
+
