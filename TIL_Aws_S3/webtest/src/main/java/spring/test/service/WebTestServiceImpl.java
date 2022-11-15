@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import spring.test.model.WebTestDTO;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,10 +27,10 @@ public class WebTestServiceImpl implements WebTestService {
         this.s3 = s3;
     }
 
-    @Override
-    public List<WebTestDTO> list() {
-        return mapper.list();
-    }
+//    @Override
+//    public List<WebTestDTO> list() {
+//        return mapper.list();
+//    }
 
     @Override
     public String saveFile(MultipartFile file) {
@@ -71,7 +70,11 @@ public class WebTestServiceImpl implements WebTestService {
     public List<String> listAllFiles() {
 
         ListObjectsV2Result listObjectsV2Result = s3.listObjectsV2(bucketName);
-        return  listObjectsV2Result.getObjectSummaries().stream().map(S3ObjectSummary::getKey).collect(Collectors.toList());
+        return  listObjectsV2Result
+                .getObjectSummaries()
+                .stream()
+                .map(S3ObjectSummary::getKey)
+                .collect(Collectors.toList());
 
     }
 

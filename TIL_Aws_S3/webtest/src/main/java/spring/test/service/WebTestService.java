@@ -1,11 +1,10 @@
 package spring.test.service;
 
 import org.springframework.web.multipart.MultipartFile;
-import spring.test.model.WebTestDTO;
 
 import java.util.List;
 public interface WebTestService {
-    List<WebTestDTO> list();
+//    List<WebTestDTO> list();
 
     String saveFile(MultipartFile file);
 

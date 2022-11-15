@@ -47,6 +47,54 @@
     
     }
 
+    function delteFile(fileNo){
+
+        alert(fileNo);
+        // let fileName = id.split('.');
+        // alert(fileName[0]);
+
+        let url = "/delete";
+        url+= "?"+fileNo;
+
+        fetch('url', {
+        method: 'POST',
+        body: formData,
+    })
+    .then((response) => {
+        if(!response.ok){
+            console.log(response)
+        }else{
+            response.text()
+        }
+
+    }
+    
+    )
+    .then((result) => {
+        console.log('성공:', result);
+        alert("삭제에 성공했습니다.")
+    })
+    .catch((error) => {
+        console.error('실패:', error);
+    });
+    }
+
+
+    function fileList(){
+        $.ajax({
+            url:"/fileList",
+            type:"GET",
+            success:function(data){
+                if(data != undefined || data != null){
+                    $("fileList *").remove();
+                    fileListTag = "<a href=\""+data+"\">"+data+"</a>";
+                    $("#fileList").append(fileListTag);
+                }
+            }
+        })
+
+    }
+
 </script>
 
 </head>
@@ -77,9 +125,7 @@
 
                 <input type="button" onclick=addFile() value="파일등록">&nbsp;
 
-                <button type="submit">파일수정</button>&nbsp;
-
-                <button type="submit">파일삭제</button>
+                <input type="button" onclick=addFile() value="파일등록">
 
             </td>
 
@@ -93,20 +139,24 @@
 <div>
     <p>저장된 파일리스트</p>
 
-    <ul class="fileList" id="fileList">
+    <!-- <ul class="fileList" id="fileList">
 
         <c:forEach var="dto" items="${list}">
 
         <li>
 
-            <input type="text" value="${dto.fileNo}">&nbsp;&nbsp;
-            <input type="text" value="${dto.fileName}">
+        <input type="text" value="${dto.fileNo}">&nbsp;&nbsp;
+            <input type="text" value="${dto.fileName}">&nbsp;<input type="button" onclick=delteFile() value="파일삭제">
 
         </li>
 
-        </c:forEach>
+        </c:forEach> 
 
-    </ul>
+    </ul>-->
+    <input type="button" onclick=fileList() value="파일목록보기">
+    <div id="fileList">
+
+    </div>
 </div>
 
 </body>
