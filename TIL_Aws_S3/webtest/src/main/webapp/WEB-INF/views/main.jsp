@@ -81,17 +81,31 @@
 
 
     function fileList(){
-        $.ajax({
-            url:"/fileList",
-            type:"GET",
-            success:function(data){
-                if(data != undefined || data != null){
-                    $("fileList *").remove();
-                    fileListTag = "<a href=\""+data+"\">"+data+"</a>";
-                    $("#fileList").append(fileListTag);
-                }
-            }
-        })
+
+        fetch('/list/files', {
+        method: 'POST',
+        body: JSON,
+    })
+    .then((response) => {
+        if(!response.ok){
+            console.log(respons.text)
+        }else{
+            response.text()
+        }
+
+    }
+    
+    )
+    .then((result) => {
+        console.log('성공:', result);
+
+
+
+        alert(result);
+    })
+    .catch((error) => {
+        console.error('실패:', error);
+    });
 
     }
 

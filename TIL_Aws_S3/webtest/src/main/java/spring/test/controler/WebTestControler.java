@@ -1,24 +1,19 @@
 package spring.test.controler;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.ObjectListing;
-import com.amazonaws.services.s3.model.S3ObjectSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import spring.test.service.WebTestService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -50,24 +45,38 @@ public class WebTestControler {
 }
 
     /*새로운 리스트 방법 */
-@GetMapping("/fileList")
-    public String fileList(HttpServletRequest request, HttpServletResponse response) throws IOException{
+//@GetMapping("/fileList")
+//    public String fileList(HttpServletRequest request, HttpServletResponse response) throws IOException{
+//
+//    log.info("!!!!!!!!!!@@@@@request",request);
+//
+//    ObjectListing objectListing = s3client.listObjects("myrentcar");
+//    List<String> arrayKeyList = new ArrayList<>();
+//    List<Date> arrayModTimeList = new ArrayList<>();
+//
+//    for(S3ObjectSummary s : objectListing.getObjectSummaries()){
+//        arrayKeyList.add(s.getKey());
+//        arrayModTimeList.add(s.getLastModified());
+//    }
+//
+//    Date max = Collections.max(arrayModTimeList);
+//    String fileName = arrayKeyList.get(arrayModTimeList.indexOf(max));
+//    String url = "https://"+bucketName+".s3."+region+".amzonaws.com/"+fileName;
+//
+//    return url;
+//
+//    }
 
-    ObjectListing objectListing = s3client.listObjects("myrentcar");
-    List<String> arrayKeyList = new ArrayList<>();
-    List<Date> arrayModTimeList = new ArrayList<>();
+    /*골자는 같지만 새로운 방법*/
+    @PostMapping("/list/files")
+    @ResponseBody
+    public ResponseEntity<List<String>> getListOfFiles() {
 
-    for(S3ObjectSummary s : objectListing.getObjectSummaries()){
-        arrayKeyList.add(s.getKey());
-        arrayModTimeList.add(s.getLastModified());
-    }
+        List filelist =webTestService.listAllFiles();
+        log.info("@@@@@테스트",filelist);
+        System.out.println(filelist);
 
-    Date max = Collections.max(arrayModTimeList);
-    String fileName = arrayKeyList.get(arrayModTimeList.indexOf(max));
-    String url = "https://"+bucketName+".s3."+region+".amzonaws.com/"+fileName;
-
-    return url;
-
+        return new ResponseEntity<>(filelist, HttpStatus.OK);
     }
 
 @PostMapping("/upload")

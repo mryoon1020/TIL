@@ -1,0 +1,14 @@
+나누기: \div (Ex. X\div Y)
+$$ X\div Y $$
+
+곱하기: \times (Ex. X\times Y)
+$$ X\times Y $$
+
+분수: \frac (Ex. \frac{X}{Y})
+$$ \frac{X}{Y} $$
+
+루트: \sqrt (Ex. \sqrt{XY})
+$$ \sqrt{XY} $$
+
+제곱: ^숫자 (Ex. XY^2)
+$$ XY^2 $$

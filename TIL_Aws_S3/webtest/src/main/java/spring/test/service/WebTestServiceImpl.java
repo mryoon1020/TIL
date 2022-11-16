@@ -11,8 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service("spring.test.service.webTestServiceImpl")
 public class WebTestServiceImpl implements WebTestService {
@@ -68,16 +68,42 @@ public class WebTestServiceImpl implements WebTestService {
 
     @Override
     public List<String> listAllFiles() {
+        ListObjectsRequest listObjectsRequest =
+                new ListObjectsRequest()
+                        .withBucketName(bucketName);
 
-        ListObjectsV2Result listObjectsV2Result = s3.listObjectsV2(bucketName);
-        return  listObjectsV2Result
-                .getObjectSummaries()
-                .stream()
-                .map(S3ObjectSummary::getKey)
-                .collect(Collectors.toList());
+        List<String> keys = new ArrayList<>();
 
+        ObjectListing objects = s3.listObjects(listObjectsRequest);
+
+        while (true) {
+            List<S3ObjectSummary> objectSummaries = objects.getObjectSummaries();
+            if (objectSummaries.size() < 1) {
+                break;
+            }
+
+            for (S3ObjectSummary item : objectSummaries) {
+                if (!item.getKey().endsWith("/"))
+                    keys.add(item.getKey());
+            }
+
+            objects = s3.listNextBatchOfObjects(objects);
+        }
+
+        return keys;
     }
 
+//    @Override
+//    public List<String> listAllFiles() {
+//
+//        ListObjectsV2Result listObjectsV2Result = s3.listObjectsV2(bucketName);
+//        return  listObjectsV2Result
+//                .getObjectSummaries()
+//                .stream()
+//                .map(S3ObjectSummary::getKey)
+//                .collect(Collectors.toList());
+//
+//    }
 
     private File convertMultiPartToFile(MultipartFile file ) throws IOException
     {
