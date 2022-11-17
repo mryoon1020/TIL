@@ -86,22 +86,38 @@
         method: 'POST',
         body: JSON,
     })
-    .then((response) => {
-        if(!response.ok){
-            console.log(respons.text)
-        }else{
-            response.text()
+    .then((response) => 
+        response.json())
+    .then((result) => {
+
+        for(let i = 0; i<result.length;i++){
+
+            let fileList = document.getElementById('fileList');
+
+            let li = document.createElement('li');
+            let downLoadLink = document.createElement('a');
+            let deleteButton = document.createElement('button');
+
+            let linkText = document.createTextNode(result[i]);
+            let buttonText = document.createTextNode("파일삭제");
+
+            let deleteLink = "location.href=";
+            deleteLink+="'/deleteFile/"+result[i]+"'";
+
+            downLoadLink.href = "/download/"+result[i];
+
+            // deleteButton.setAttribute("onclick", `deleteFile(${result})`);
+            deleteButton.setAttribute("onclick", deleteLink);
+
+            downLoadLink.appendChild(linkText);
+            deleteButton.appendChild(buttonText);
+
+            fileList.appendChild(li).appendChild(downLoadLink)
+            li.appendChild(deleteButton);
         }
 
-    }
-    
-    )
-    .then((result) => {
         console.log('성공:', result);
 
-
-
-        alert(result);
     })
     .catch((error) => {
         console.error('실패:', error);
@@ -168,9 +184,9 @@
 
     </ul>-->
     <input type="button" onclick=fileList() value="파일목록보기">
-    <div id="fileList">
+    <Ol id="fileList">
 
-    </div>
+    </Ol>
 </div>
 
 </body>

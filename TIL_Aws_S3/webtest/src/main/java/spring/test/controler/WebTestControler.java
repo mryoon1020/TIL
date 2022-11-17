@@ -72,11 +72,11 @@ public class WebTestControler {
     @ResponseBody
     public ResponseEntity<List<String>> getListOfFiles() {
 
-        List filelist =webTestService.listAllFiles();
-        log.info("@@@@@테스트",filelist);
-        System.out.println(filelist);
+        List fileList =webTestService.listAllFiles();
+        log.info("@@@@@테스트",fileList);
+        System.out.println(fileList);
 
-        return new ResponseEntity<>(filelist, HttpStatus.OK);
+        return new ResponseEntity<>(fileList, HttpStatus.OK);
     }
 
 @PostMapping("/upload")

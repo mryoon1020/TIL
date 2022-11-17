@@ -413,9 +413,91 @@
 - 2022-11-16
 
 
-  - 골자는 같지만 다른 방법으로 다시 코딩하였음
-  - 참조자료: https://www.techgeeknext.com/cloud/aws/amazon-s3-springboot-list-all-files-in-s3-bucket#google_vignette
-  - 코드를 뜯어보며 aws 객체 사용기능은 같음을 알수있었음 추가적으로 list에 저장하여 리턴을 했음
-  - list 형태로 데이터를 받는데 성공하였음
-  - 비동기통신 요청으로 다시 응답하려면 json 형태로 변환해서 출력만 해주면 됨
-  - 하지만 다운로드 기능도 필요하기 때문에 다운로드 링크를 같이 처리를 할 수 있게끔 반환하는 방법이 필요함 
+    - 골자는 같지만 다른 방법으로 다시 코딩하였음
+
+
+    - 참조자료: https://www.techgeeknext.com/cloud/aws/amazon-s3-springboot-list-all-files-in-s3-bucket#google_vignette
+
+
+    - 코드를 뜯어보며 aws 객체 사용기능은 같음을 알수있었음 추가적으로 list에 저장하여 리턴을 했음
+
+
+    - list 형태로 데이터를 받는데 성공하였음
+
+
+    - 비동기통신 요청으로 다시 응답하려면 json 형태로 변환해서 출력만 해주면 됨
+
+
+    - 하지만 다운로드 기능도 필요하기 때문에 다운로드 링크를 같이 처리를 할 수 있게끔 반환하는 방법이 필요함 
+
+- 2022-11-17
+
+  - 다운로드는 파일명 출력시 a태그를 사용해서 /download/파일명으로 서버로 요청을 보내는 방식으로 처리
+  - 생각보다 시간이 많이 걸렸음
+  - 우선 li 태그를 파일 목록의 갯수만큼 자동 생성 해야함
+    - 하기 코드에서 `'fileList'`는 ul 또는 ol의 id임
+
+  ```js
+  let fileList = document.getElementById('fileList');
+  
+              let li = document.createElement('li');
+              
+              fileList.appendChild(li)
+  ```
+
+  - 이후 자식 노드를 생성하고 추가
+    - 텍스트 내용이 필요하다면 `document.createTextNode()` 를 사용하면됨
+    - 원하는 태그의 하위 요소로 입력을 위해서는 `appendChild()` 를 통해 추가해주면됨
+    - ul이나 ol에 li를 추가한후 a태그 추가시 자동으로 li태그 안으로 a태그가 들어가짐
+
+  ```js
+              let fileList = document.getElementById('fileList');
+  
+              let li = document.createElement('li');
+              let downLoadLink = document.createElement('a');
+  
+              let linkText = document.createTextNode(result[i]);
+  
+              downLoadLink.href = "/download/"+result[i];
+  			// a 태그에 주소를 추가해줌
+  
+              downLoadLink.appendChild(linkText);
+  
+              fileList.appendChild(li).appendChild(downLoadLink)
+  
+  ```
+
+  - 같은 방법으로 삭제 버튼도 추가 해주었음
+    - a태그에서는 `.href` 를 통해 주소를 추가해주었지만 button에서는 되지 않음
+    - button tag는 `setAttribute("속성명", "값")` 을 통해서 추가해주어야함
+      - 이 기능을 사용할시에 값에 해당하는 부분에는 ``${result[i]}``,  `location.href='/deleteFile/+${result[i]}'` 사용했을때 result[i] 부분에 값이 들어오지 않으므로 따로 변수를 선언해서 넣어 주어야함
+      - 이부분 해결을 위해 정말 많은 시간이 걸렸음
+    - ` deleteButton.setAttribute("onclick", `deleteFile(${result})`);`
+
+  ```js
+          for(let i = 0; i<result.length;i++){
+  
+              let fileList = document.getElementById('fileList');
+  
+              let li = document.createElement('li');
+              let downLoadLink = document.createElement('a');
+              let deleteButton = document.createElement('button');
+  
+              let linkText = document.createTextNode(result[i]);
+              let buttonText = document.createTextNode("파일삭제");
+  
+              let deleteLink = "location.href=";
+              deleteLink+="'/deleteFile/"+result[i]+"'";
+  
+              downLoadLink.href = "/download/"+result[i];
+              deleteButton.setAttribute("onclick", deleteLink);
+  
+              downLoadLink.appendChild(linkText);
+              deleteButton.appendChild(buttonText);
+  
+              fileList.appendChild(li).appendChild(downLoadLink)
+              li.appendChild(deleteButton);
+          }
+  ```
+
+  - 이제 정말 끝나간다. Spring 쪽에서 해당 url에 해당하는 기능만 매치해주면 된다
