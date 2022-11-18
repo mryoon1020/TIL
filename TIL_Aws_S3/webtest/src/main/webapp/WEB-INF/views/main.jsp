@@ -40,45 +40,13 @@
     .then((result) => {
         console.log('성공:', result);
         alert("업로드에 성공했습니다.")
+        location.href="/"
     })
     .catch((error) => {
         console.error('실패:', error);
     });
     
     }
-
-    function delteFile(fileNo){
-
-        alert(fileNo);
-        // let fileName = id.split('.');
-        // alert(fileName[0]);
-
-        let url = "/delete";
-        url+= "?"+fileNo;
-
-        fetch('url', {
-        method: 'POST',
-        body: formData,
-    })
-    .then((response) => {
-        if(!response.ok){
-            console.log(response)
-        }else{
-            response.text()
-        }
-
-    }
-    
-    )
-    .then((result) => {
-        console.log('성공:', result);
-        alert("삭제에 성공했습니다.")
-    })
-    .catch((error) => {
-        console.error('실패:', error);
-    });
-    }
-
 
     function fileList(){
 
@@ -106,7 +74,6 @@
 
             downLoadLink.href = "/download/"+result[i];
 
-            // deleteButton.setAttribute("onclick", `deleteFile(${result})`);
             deleteButton.setAttribute("onclick", deleteLink);
 
             downLoadLink.appendChild(linkText);
@@ -152,8 +119,6 @@
 
         <tr>
             <td>
-
-                <input type="button" onclick=addFile() value="파일등록">&nbsp;
 
                 <input type="button" onclick=addFile() value="파일등록">
 

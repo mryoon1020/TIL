@@ -6,7 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ import spring.test.service.WebTestService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+
+import static java.net.HttpURLConnection.HTTP_OK;
 
 @Controller
 public class WebTestControler {
@@ -85,12 +89,26 @@ public class WebTestControler {
 
     webTestService.saveFile(file);
 
-        return "저장에 성공했습니다";
+        return "등록성공";
     }
 
-    @PostMapping("/delete/{filename}")
+ // @PostMapping("/deleteFile/{filename}")
+    @RequestMapping(value="/deleteFile/{filename}", method = {RequestMethod.GET, RequestMethod.POST})
     public  String deleteFile(@PathVariable("filename") String filename){
-        return webTestService.deleteFile(filename);
+
+        webTestService.deleteFile(filename);
+
+        return "redirect:/";
+    }
+
+
+    @GetMapping("/download/{filename}")
+    public ResponseEntity<byte[]> download(@PathVariable("filename") String filename){
+        HttpHeaders headers=new HttpHeaders();
+        headers.add("Content-type", MediaType.ALL_VALUE);
+        headers.add("Content-Disposition", "attachment; filename="+filename);
+        byte[] bytes = webTestService.downloadFile(filename);
+        return  ResponseEntity.status(HTTP_OK).headers(headers).body(bytes);
     }
 
 }

@@ -501,3 +501,37 @@
   ```
 
   - 이제 정말 끝나간다. Spring 쪽에서 해당 url에 해당하는 기능만 매치해주면 된다
+
+- 2022-11-15
+
+  - 다운로드 기능 오류없이 완료
+
+  - 삭제기능 405에러가 뜬다
+
+    - 처음삭제 기능 어노테이션을 `@GetMapping` `@PostMapping` 두개 다 사용했으나 오류가남
+
+      - 두경우 모두 하기 에러가 출력됨
+
+        ```
+        There was an unexpected error (type=Method Not Allowed, status=405).
+        
+        Request method 'GET' not supported
+        ```
+
+    - aws 콘솔창으로 확인했을 때 파일이 삭제 되었으므로 기능에 문제는 없음
+
+    - `@RequestMapping(value="/deleteFile/{filename}", method = {RequestMethod.GET, RequestMethod.POST})` 로 다시 코딩하여 해결하였음
+
+    - 바꿨을 때도 같은 에러가 발생하였음
+
+      - 처음에는 비동기 통신 부분 특히 button에 onclick 이벤트 추가하는 setAttrubute 파트안에 result[i]를 매개 변수로 받는 함수를 넣으려고 햇음
+        - 함수는 들어갈수 있지만 매개변수를 받을수가 없었음
+      - 원인은 url을 통해 처리를 하였으나 돌아갈 뷰페이지가 없었음 따라서 `redirect:/` 를 통해 원래 페이지로 돌아가게 하여 완성하였음
+
+- 해당 실습을 마치며
+
+  - 생각했던 기간보다 매우 오래 걸렸다
+  - 처음에는 DB에 파일리스트를 저장하고 출력하려고 하였으나 javascript도 같이 연습하기 위해 list에 저장해서 바로 출력하는 방법으로 코딩을 했다
+  - 이번 연습용 프로젝트를 작성해보며 많은 공부가 되었다
+  - 특히, 예제들을 참조하고 변형해서 내가 원하는 방향으로 흘러가게 하는 것은 정말 재밌는 것 같다
+  - 이제 aws S3 관련 연습 프로젝트를 완성하였으니 기존에 했던 팀프로젝트에서 해당기능에 대해 리펙토링작업을 하여 완성도를 높여야 겠다
