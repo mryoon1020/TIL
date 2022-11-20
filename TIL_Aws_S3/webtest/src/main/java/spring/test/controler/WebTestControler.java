@@ -38,42 +38,13 @@ public class WebTestControler {
     private  String bucketName;
 @GetMapping("/")
     public String home(HttpServletRequest request){
-//
-//    List<WebTestDTO> list = webTestService.list();
-//
-//    List<String> list =  webTestService.listAllFiles();
-//    request.setAttribute("list", list);
-//
+
     return "main";
 
 }
 
-    /*새로운 리스트 방법 */
-//@GetMapping("/fileList")
-//    public String fileList(HttpServletRequest request, HttpServletResponse response) throws IOException{
-//
-//    log.info("!!!!!!!!!!@@@@@request",request);
-//
-//    ObjectListing objectListing = s3client.listObjects("myrentcar");
-//    List<String> arrayKeyList = new ArrayList<>();
-//    List<Date> arrayModTimeList = new ArrayList<>();
-//
-//    for(S3ObjectSummary s : objectListing.getObjectSummaries()){
-//        arrayKeyList.add(s.getKey());
-//        arrayModTimeList.add(s.getLastModified());
-//    }
-//
-//    Date max = Collections.max(arrayModTimeList);
-//    String fileName = arrayKeyList.get(arrayModTimeList.indexOf(max));
-//    String url = "https://"+bucketName+".s3."+region+".amzonaws.com/"+fileName;
-//
-//    return url;
-//
-//    }
-
-    /*골자는 같지만 새로운 방법*/
-    @PostMapping("/list/files")
-    @ResponseBody
+@PostMapping("/list/files")
+@ResponseBody
     public ResponseEntity<List<String>> getListOfFiles() {
 
         List fileList =webTestService.listAllFiles();
@@ -92,7 +63,6 @@ public class WebTestControler {
         return "등록성공";
     }
 
- // @PostMapping("/deleteFile/{filename}")
     @RequestMapping(value="/deleteFile/{filename}", method = {RequestMethod.GET, RequestMethod.POST})
     public  String deleteFile(@PathVariable("filename") String filename){
 
@@ -100,7 +70,6 @@ public class WebTestControler {
 
         return "redirect:/";
     }
-
 
     @GetMapping("/download/{filename}")
     public ResponseEntity<byte[]> download(@PathVariable("filename") String filename){
