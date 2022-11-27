@@ -1,6 +1,6 @@
-package spring.test.config;
+package com.example.kakao_map.config;
 
-import spring.test.webtest.WebtestApplication;
+import com.example.kakao_map.KakaoMapApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
@@ -8,7 +8,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(WebTestApplication.class);
+		return application.sources(KakaoMapApplication.class);
 	}
 
 }

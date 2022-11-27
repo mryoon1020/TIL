@@ -48,7 +48,6 @@ public class WebTestControler {
     public ResponseEntity<List<String>> getListOfFiles() {
 
         List fileList =webTestService.listAllFiles();
-        log.info("@@@@@테스트",fileList);
         System.out.println(fileList);
 
         return new ResponseEntity<>(fileList, HttpStatus.OK);
