@@ -57,3 +57,101 @@
 
 - 보안키 감추는 작업 시도중
 - 복잡하게 properties파일에서 받아 오는 것보다 js 파일을 따로 두어 script를 이중으로 받을수 있게한 후 ignorelist에 추가하면 어떨까하는 생각에서 했으나 자바스크립트 주소를 따로 변수값으로 넣어주는 것이 해결되지 않고 있음
+
+> 2022-11-30
+
+- properties 파일에서 받아오는 방식으로 보안키를 감추는 것을 성공하였음
+
+- 처음생각
+
+  - controller에서 메인화면을 요청하는 url "/"을 요청시 태그를 치환하는 방식으로 처리하고자 했음
+  - 일단 자바스크립트 내부에서는 당연한 얘기지만 ${}을 사용할 수 없음
+  - 코드
+
+  ```js
+      //비동기통시 요청
+  
+      fetch("/")
+      // .then((response) => response.text())
+      // .then((result) => alert(result))
+      .then(
+  
+      function (result){
+  
+      let kakaoScript ="자바스크립트"+"<script src"+"="+${result}+">"+"<"+"/script>";
+      document.querySelector('#changeToScript').insertAdjacentHTML('beforebegin',kakaoScript);
+      }
+      )
+      .then(console.log="성공했습니다")    
+      </script>
+  ```
+
+  - html 파트
+
+  ```html
+  <body>
+  <p id="changeToScript"></p>
+  <P>자바스크립트 삽입 위치확인용</P>
+  <div id="map" style="width:500px;height:400px;"></div>
+  	<script>
+  		var container = document.getElementById('map');
+  		var options = {
+  			center: new kakao.maps.LatLng(33.450701, 126.570667),
+  			level: 3
+  		};
+  
+  		var map = new kakao.maps.Map(container, options);
+  	</script>
+  </body>
+  ```
+
+  - 컨트롤러
+
+  ```java
+  @Controller
+  public class KakaoMapControler {
+  
+      private static final Logger log = LoggerFactory.getLogger(KakaoMapControler.class);
+  
+      @Autowired
+      @Qualifier("com.example.kakao_map.service.KakaoMapServiceImpl")
+      private KakaoMapService service;
+  
+      @Value("${kakaokey}")
+      private String kakaokey;
+  
+      @GetMapping("/")
+      public String home(HttpServletRequest request){
+      System.out.println(kakaokey);
+      request.setAttribute("kakaokey",kakaokey);
+          return "main";
+  
+      }
+  
+  }
+  ```
+
+- 생각보다 간단하게 해결되었음
+
+  - 컨트롤러에서 setAttribute를 통해 kakaokey를 보내줌
+  - 자바스크립트 src 부분에 그냥 ${}을 사용하여 처리하면 간단하게 해결이 됨
+  - html부분
+
+  ```html
+  <body>
+  <script src=${kakaokey}></script>
+  
+  <div id="map" style="width:500px;height:400px;"></div>
+  	<script>
+  		var container = document.getElementById('map');
+  		var options = {
+  			center: new kakao.maps.LatLng(33.450701, 126.570667),
+  			level: 3
+  		};
+  
+  		var map = new kakao.maps.Map(container, options);
+  	</script>
+  </body>
+  ```
+
+- 복잡해보이는 문제라도 오히려 쉽게 접근하는 것이 해결에 도움이 된다는 것을 느낄 수 있었음

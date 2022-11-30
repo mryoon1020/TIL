@@ -8,11 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 </head>
 <body>
+<script src=${kakaokey}></script>
 
 <div id="map" style="width:500px;height:400px;"></div>
-	<script type="text/javascript" src="kakaomap.js"></script>
 	<script>
 		var container = document.getElementById('map');
 		var options = {
