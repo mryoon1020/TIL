@@ -154,4 +154,37 @@
   </body>
   ```
 
-- 복잡해보이는 문제라도 오히려 쉽게 접근하는 것이 해결에 도움이 된다는 것을 느낄 수 있었음
+- 복잡해보이는 문제는 쉽게 접근하는 것이 오히려 해결에 더 도움이 된다는 것을 느낄 수 있었음
+
+> 2022-12-01
+
+- 카카오 지도 api 뜯어 보기
+  - `container` *Node* : 지도가 표시될 HTML element
+  - `options` Object
+    - `center` *LatLng* : 중심 좌표 (필수)
+    - `level` *Number* : 확대 수준 (기본값: 3)
+    - `mapTypeId` *MapTypeId* : 지도 종류 (기본값: 일반 지도)
+    - `draggable` *Boolean* : 마우스 드래그, 휠, 모바일 터치를 이용한 시점 변경(이동, 확대, 축소) 가능 여부
+    - `scrollwheel` *Boolean* : 마우스 휠, 모바일 터치를 이용한 확대 및 축소 가능 여부
+    - `disableDoubleClick` *Boolean* : 더블클릭 이벤트 및 더블클릭 확대 가능 여부
+    - `disableDoubleClickZoom` *Boolean* : 더블클릭 확대 가능 여부
+    - `projectionId` *String* : 투영법 지정 (기본값: kakao.maps.ProjectionId.WCONG)
+    - `tileAnimation` *Boolean* : 지도 타일 애니메이션 설정 여부 (기본값: true)
+    - `keyboardShortcuts` *Boolean | Object* : 키보드의 방향키와 +, – 키로 지도 이동,확대,축소 가능 여부 (기본값: false)
+      - `speed` *Number* : 지도 이동 속도
+  - 기타 자료들
+    - https://apis.map.kakao.com/web/documentation/#Map
+
+> 2022-12-02
+
+- 현재위치 가져오기
+ - geolocation api를 활용해야함
+ - 참고자료
+
+   - https://developer.mozilla.org/ko/docs/Web/API/Geolocation_API/Using_the_Geolocation_API
+
+   - https://www.youtube.com/watch?v=6b3JWcZoWkc
+
+> 2022-12-03
+
+- 지도의 위치를 현위치의 경도와 위도값을 변수로 받아 이동시키기 성공

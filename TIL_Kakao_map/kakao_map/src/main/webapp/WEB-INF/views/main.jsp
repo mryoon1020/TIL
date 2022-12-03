@@ -26,31 +26,50 @@
     // doSomething(position.coords.latitude, position.coords.longitude);
     // });
 
-    navigator.geolocation.getCurrentPosition(
+    // navigator.geolocation.getCurrentPosition(
     //(가져오기 성공했을 때, error일때)
 
-    (position) =>{
+    // (position) =>{
 
-        let latitude = position.coords.latitude
-        let longitude = position.coords.longitude
+    //     let latitude = position.coords.latitude
+    //     let longitude = position.coords.longitude
 
-        console.log(latitude);
-        console.log(longitude);
-    },
-    (error) => {console.log("위치정보찾기실패")}
+    //     console.log(latitude);
+    //     console.log(longitude);
+    // },
+    // (error) => {console.log("위치정보찾기실패")}
 
-    )
-    </script>
+    // )
+    // </script>
 
 </head>
 <body>
 <div id="map" style="width: 500px;height:350px;"></div>
 <p>
-    <button onclick="setCenter()">지도 중심좌표 이동시키기</button>
+    <button onclick="setCenter()">지도 현위치로 이동시키기</button>
     <button onclick="panTo()">지도 중심좌표 부드럽게 이동시키기</button>
 </p>
 
 <script>
+
+let latitude = 0;
+let longitude = 0;
+
+navigator.geolocation.getCurrentPosition(
+
+    (position) =>{
+
+        latitude = position.coords.latitude
+        longitude = position.coords.longitude
+
+        console.log(latitude);
+        console.log(longitude);
+    },
+
+    (error) => {console.log("위치정보찾기실패")}
+
+    )
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -61,7 +80,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 
 function setCenter() {
     // 이동할 위도 경도 위치를 생성합니다
-    var moveLatLon = new kakao.maps.LatLng(33.452613, 126.570888);
+    var moveLatLon = new kakao.maps.LatLng(latitude, longitude);
 
     // 지도 중심을 이동 시킵니다
     map.setCenter(moveLatLon);
