@@ -32,4 +32,12 @@ public class KakaoMapControler {
 
     }
 
+    @GetMapping("/main2")
+    public String homea(HttpServletRequest request){
+        System.out.println(kakaokey);
+        request.setAttribute("kakaokey",kakaokey);
+        return "main2";
+
+    }
+
 }

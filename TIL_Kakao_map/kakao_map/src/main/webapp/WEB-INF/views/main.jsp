@@ -9,38 +9,7 @@
     <title>Document</title>
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src=${kakaokey}></script>
-    <script>
-
-    // navigator.geolocation.getCurrentPosition((position) => {
-    //   doSomething(position.coords.latitude, position.coords.longitude);
-
-    // });
-
-    // const latitude  = position.coords.latitude;
-    // const longitude = position.coords.longitude;
-
-    // console.log(`위도: ${latitude} 경도: ${longitude}`);
-
-
-    // const watchID = navigator.geolocation.watchPosition((position) => {
-    // doSomething(position.coords.latitude, position.coords.longitude);
-    // });
-
-    // navigator.geolocation.getCurrentPosition(
-    //(가져오기 성공했을 때, error일때)
-
-    // (position) =>{
-
-    //     let latitude = position.coords.latitude
-    //     let longitude = position.coords.longitude
-
-    //     console.log(latitude);
-    //     console.log(longitude);
-    // },
-    // (error) => {console.log("위치정보찾기실패")}
-
-    // )
-    // </script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services"></script>
 
 </head>
 <body>
@@ -54,80 +23,7 @@
 
 <script>
 
-//현재 좌표 받아오기========================================
-
-const latitude = 0;
-const longitude = 0;
-
-navigator.geolocation.getCurrentPosition(
-
-    (position) =>{
-
-        latitude = position.coords.latitude
-        longitude = position.coords.longitude
-
-        console.log(latitude);
-        console.log(longitude);
-
-    },
-
-    (error) => {console.log("위치정보찾기실패")}
-
-    );
-
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };
-
-var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-//마커 찍기============================================================
-
-// 이미지 지도에서 마커가 표시될 위치입니다 
-console.log("마커용 위도: "+latitude)
-console.log("마커용 경도: "+longitude)
-
-// var markerPosition  = new kakao.maps.LatLng(latitude, longitude); 
-
-// // 이미지 지도에 표시할 마커입니다
-// // 이미지 지도에 표시할 마커는 Object 형태입니다
-// var marker = {
-//     position: markerPosition
-// };
-
-// var staticMapContainer  = document.getElementById('map'), // 이미지 지도를 표시할 div  
-//     staticMapOption = { 
-//         center: new kakao.maps.LatLng(33.450701, 126.570667), // 이미지 지도의 중심좌표
-//         level: 3, // 이미지 지도의 확대 레벨
-//         marker: marker // 이미지 지도에 표시할 마커 
-//     };    
-
-// // 이미지 지도를 생성합니다
-// var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
-
-//지도 이동하기=============================================
-
-function setCenter() {
-    // 이동할 위도 경도 위치를 생성합니다
-    
-    var moveLatLon = new kakao.maps.LatLng(latitude, longitude);
-
-    // 지도 중심을 이동 시킵니다
-    map.setCenter(moveLatLon);
-}
-
-function panTo() {
-    // 이동할 위도 경도 위치를 생성합니다
-    var moveLatLon = new kakao.maps.LatLng(33.450580, 126.574942);
-
-    // 지도 중심을 부드럽게 이동시킵니다
-    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-    map.panTo(moveLatLon);
-}
-
-// 현위치 마커============================================================
+//현위치 마커============================================================
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
@@ -152,7 +48,7 @@ if (navigator.geolocation) {
         // 마커와 인포윈도우를 표시합니다
         displayMarker(locPosition, message);
             
-      });
+    });
     
 } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
     
