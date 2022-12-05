@@ -259,8 +259,8 @@ function displayMarker(locPosition, message) {
 ```js
 //현재 좌표 받아오기========================================
 
-const latitude = 0;
-const longitude = 0;
+let latitude = 0;
+let longitude = 0;
 
 navigator.geolocation.getCurrentPosition(
 
@@ -304,3 +304,22 @@ console.log("마커용 경도: "+longitude)
  var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
 ```
 
+> 2022-12-05
+
+- latitude와 longitude를 geolocation api를 통해 받아오지 못하는 원인을 찾았다
+- geolocation api 의 실행완료시간이 매우 느리기 때문
+- 변수에 저장되기전에 변수가 kakao map에 들어가기 때문이다
+- 해결하려면 `setTimeout(() => 지연을 원하는 실행코드, 밀리초(ms));` 를 사용하여 0.5초 정도 지연시키면 됨
+- 하지만 전체코드를 지연시키기에는 무리가 있으므로 카카오에서 제공한 geolocation 안에서 움직이는 것이 훨씬 효율적임
+
+- setTimeout은 이런느낌으로 쓰면 됨
+
+```js
+setTimeout(() => console.log("마커용 위도: "+latitude), 500);
+setTimeout(() => console.log("마커용 경도: "+longitude), 500);
+```
+
+- 추가하고 싶은 기능
+  - 현재 위치 반경 200m 이내의 내가 등록한 장소들 검색
+  - 특정 장소검색
+  - 검색결과를 바탕으로 저장
