@@ -95,20 +95,20 @@ function displayMarker(locPosition, message) {
 
 </script>
 
-<script>
-
-document.getElementById("formSearch").onsubmit = function (){
-    let textForm = document.getElementById("textForm")
-    console.log(textForm.value)
-    return false;
-}
-
-</script>
-
 <form id="formSearch">
 <input type="text" id="textForm">&nbsp;&nbsp;
 <button id="submitBtn">검색</button>
 </form>
+
+<script>
+
+    document.getElementById("formSearch").onsubmit = function (){
+        let textForm = document.getElementById("textForm")
+        console.log(textForm.value)
+        return false;
+    }
+    
+    </script>
 
 </body>
 </html>

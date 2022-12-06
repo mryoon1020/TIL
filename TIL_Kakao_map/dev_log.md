@@ -327,8 +327,16 @@ setTimeout(() => console.log("마커용 경도: "+longitude), 500);
 > 2022-12-06
 
 - 카카오맵의 기능중 이름으로 주소 검색 기능을 사용목적으로 검색어를 직접 입력받아서 제출하고자함
-- JavaScript 에러가 나는데 원이 파악 불가
-- 계속: Cannot set properties of null (setting 'onsubmit') 에러가 남
+- JavaScript 에러가 남
+  - Cannot set properties of null (setting 'onsubmit') 에러
+  - 구글링결과 form 태그가 만들어지기도 전에 스크립트가 실행되어 값을 찾지 못해 발생하는 경우라고함
+  - 동적으로 form 태그를 만들면 된다고 함
+  - 또 다른 방법으로 자바스크립트를 form 태그보다 아래부분(body 제일 하단) 부에 위치시키면 됨
+
+- 처음에는 오타 및 자바스크립트 문법 오류라고 생각해서 해결에 시간이 더 걸렸음
+  - **오류가 난다면 반드시 구글링 먼저 해볼것**
+
+- 오류코드
 
 ```js
 <script>
@@ -347,5 +355,24 @@ document.getElementById("formSearch").onsubmit = function (){
 <input type="text" id="textForm">&nbsp;&nbsp;
 <button id="submitBtn">검색</button>
 </form>
+```
+
+- 해결코드
+
+```js
+<form id="formSearch">
+<input type="text" id="textForm">&nbsp;&nbsp;
+<button id="submitBtn">검색</button>
+</form>
+
+<script>
+
+document.getElementById("formSearch").onsubmit = function (){
+    let textForm = document.getElementById("textForm")
+    console.log(textForm.value)
+    return false;
+}
+
+</script>
 ```
 
