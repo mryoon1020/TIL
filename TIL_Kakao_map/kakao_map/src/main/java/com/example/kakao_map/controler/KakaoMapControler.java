@@ -24,10 +24,13 @@ public class KakaoMapControler {
     @Value("${kakaokey}")
     private String kakaokey;
 
+    @Value("${kakaolib}")
+    private String kakaolib;
     @GetMapping("/")
     public String home(HttpServletRequest request){
     System.out.println(kakaokey);
     request.setAttribute("kakaokey",kakaokey);
+    request.setAttribute("kakaolib",kakaolib);
         return "main";
 
     }

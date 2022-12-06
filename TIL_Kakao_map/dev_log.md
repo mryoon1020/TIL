@@ -323,3 +323,29 @@ setTimeout(() => console.log("마커용 경도: "+longitude), 500);
   - 현재 위치 반경 200m 이내의 내가 등록한 장소들 검색
   - 특정 장소검색
   - 검색결과를 바탕으로 저장
+
+> 2022-12-06
+
+- 카카오맵의 기능중 이름으로 주소 검색 기능을 사용목적으로 검색어를 직접 입력받아서 제출하고자함
+- JavaScript 에러가 나는데 원이 파악 불가
+- 계속: Cannot set properties of null (setting 'onsubmit') 에러가 남
+
+```js
+<script>
+
+document.getElementById("formSearch").onsubmit = function (){
+    let textForm = document.getElementById("textForm")
+    console.log(textForm.value)
+    return false;
+}
+
+</script>
+
+//==== HTML ============================================
+
+<form id="formSearch">
+<input type="text" id="textForm">&nbsp;&nbsp;
+<button id="submitBtn">검색</button>
+</form>
+```
+

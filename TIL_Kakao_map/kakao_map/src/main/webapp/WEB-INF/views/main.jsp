@@ -9,10 +9,10 @@
     <title>Document</title>
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src=${kakaokey}></script>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services"></script>
+    <script src=${kakaolib}></script>
 
 </head>
-<body>
+<>
 <div id="map" style="width: 500px;height:350px;"></div>
 <p>
     <button onclick="setCenter()">지도 현위치로 이동시키기</button>
@@ -83,6 +83,32 @@ function displayMarker(locPosition, message) {
     map.setCenter(locPosition);      
 }    
 
+// var places = new kakao.maps.services.Places();
+
+// var callback = function(result, status) {
+//     if (status === kakao.maps.services.Status.OK) {
+//         console.log(result);
+//     }
+// };
+
+// places.keywordSearch('판교 치킨', callback);
+
 </script>
+
+<script>
+
+document.getElementById("formSearch").onsubmit = function (){
+    let textForm = document.getElementById("textForm")
+    console.log(textForm.value)
+    return false;
+}
+
+</script>
+
+<form id="formSearch">
+<input type="text" id="textForm">&nbsp;&nbsp;
+<button id="submitBtn">검색</button>
+</form>
+
 </body>
 </html>
