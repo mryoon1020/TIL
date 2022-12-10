@@ -83,15 +83,15 @@ function displayMarker(locPosition, message) {
     map.setCenter(locPosition);      
 }    
 
-// var places = new kakao.maps.services.Places();
+const places = new kakao.maps.services.Places();
 
-// var callback = function(result, status) {
-//     if (status === kakao.maps.services.Status.OK) {
-//         console.log(result);
-//     }
-// };
+var callback = function(result, status) {
+    if (status === kakao.maps.services.Status.OK) {
+        console.log(result);
+    }
+};
 
-// places.keywordSearch('판교 치킨', callback);
+places.keywordSearch('판교 치킨', callback);
 
 </script>
 
