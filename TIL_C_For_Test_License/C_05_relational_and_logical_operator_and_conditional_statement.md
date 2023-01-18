@@ -103,3 +103,24 @@ int main()
 정답 : 3
 ```
 
+# 8강 논리연산자, 증감연산
+
+- 예제(2011 지방직 9급 프로그래밍 언어론)
+
+```c
+#include<stdio.h>
+int main(){
+    int a = 3+5, b=1, c;
+    int ap, bp;
+    ap = a++;
+    bp = ++b;
+    b = 3 * (ap == 8);
+    c = 5 * (ap != 8);
+    printf("%d %d %d %d %d", a, b, c, ap, bp);
+}
+//내정답
+ap = 8 a = 9 bp =2 b =3 c = 0 => 9 3 0 8 2 출력
+//정답 9 3 0 8 2
+```
+
+- ideone.com : C언어 , 자바 등 언어 컴파일 가능
