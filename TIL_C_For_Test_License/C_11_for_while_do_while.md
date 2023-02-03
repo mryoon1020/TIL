@@ -222,3 +222,26 @@ a = 0 출력, a = 1 , b = 2
 for 종료
 ```
 
+여기에 기록되는 모든 내용은 유튜브 흥달쌤 채널의 강의에서 개인 공부 목적으로 기록함
+
+링크 : https://www.youtube.com/watch?v=-w6O5Bq8OMY&list=PLdaE6YENrbZA8sXCvVBUWjFwFI2zb4tlK&index=2
+
+# 18강 while, if 문
+
+- 예시(2016 계리직 컴퓨터 일반)
+
+```c
+#include <stdio.h>
+void main(){
+    int a = 120, b = 45;
+    while(a != b){
+        if(a > b) a = a - b;
+        else b = b - a;
+    }
+    printf("%d", a);
+}
+
+//내정답
+15 출력    
+```
+
