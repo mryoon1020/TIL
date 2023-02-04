@@ -232,7 +232,7 @@ for 종료
 
 ```c
 #include <stdio.h>
-void main(){
+int main(){
     int a = 120, b = 45;
     while(a != b){
         if(a > b) a = a - b;
@@ -243,5 +243,65 @@ void main(){
 
 //내정답
 15 출력    
+```
+
+여기에 기록되는 모든 내용은 유튜브 흥달쌤 채널의 강의에서 개인 공부 목적으로 기록함
+
+링크 : https://www.youtube.com/watch?v=-w6O5Bq8OMY&list=PLdaE6YENrbZA8sXCvVBUWjFwFI2zb4tlK&index=2
+
+# 19강 for 문, continue, break, if
+
+### 반복문 옵션
+
+- continue
+  - 더이상 아래문장을 실행하지 않고, 반복문 처음으로 돌아감
+  - 반복문에서만 사용가능
+- break
+  - 반복문을 빠져나감
+- 예시(2018 계리직 컴퓨터 일반)
+
+```c
+#include <stdio.h>
+int main(){
+    int i, sum =0;
+    for(i=1; i<=10; i+=2){
+        if(i%2 && i%3) continue;
+        sum += i;
+    }
+    printf("%d", sum);
+    return 0;
+}
+//내 정답
+sum = 3
+//오답임 if가 시행안되도 for문은 계속 돌아감(조건 만족할때까지)
+//&&연산은 값이 있거나 없거나로 참, 거짓이 판정됨, 둘다 값이 있을경우 if문이 수행됨
+    
+//정답
+sum = 12
+//해설
+for 1차실행 결과
+i = 3
+sum = 0
+    
+for 2차실행 결과
+i%2 && i%3 => 3%2 && 3%3 => 1 && 0 => if문 수행안됨
+i = 5
+sum = 3
+
+for 3차실행 결과
+i = 7
+sum = 3
+
+for 4차실행 결과
+i = 9
+sum = 3
+
+for 5차실행 결과
+i%2 && i%3 => 9%2 && 9%3 => 1 && 0 => if문 수행안됨
+i = 11
+sum = 12
+
+for 6차실행 결과
+for문 종료
 ```
 
