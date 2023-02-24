@@ -120,3 +120,91 @@ void func(int *m, int*x, int y){
 //내정답
 a=7 b=30 => 정답
 ```
+
+여기에 기록되는 모든 내용은 유튜브 흥달쌤 채널의 강의에서 개인 공부 목적으로 기록함
+
+링크 : https://www.youtube.com/watch?v=-w6O5Bq8OMY&list=PLdaE6YENrbZA8sXCvVBUWjFwFI2zb4tlK&index=2
+
+# 48강 함수에 주소전달(8)
+
+- 예제(2019 계리직 컴퓨터 일반)
+- 3 2 1 4를 입력
+
+```c
+//---------------메인함수부분----------------
+int n;
+int *num;
+printf("How many numbers?");
+scanf("%d", &n);
+num = (int*)malloc(sizeof(int)*n);
+a(n, num);
+b(n, num);
+for(int i=0; i<n; i++)
+    printf("%d", num[i]);
+//-----------------------------------------
+void a(int n, int *num){
+    for(int i =0; i<n; i++)
+        scanf("%d", &(num[i]));
+}
+
+void b(int *lt){
+    int a, b;
+    for(a=0; a<n-1; a++)
+        for(b=a+1; b < n; b++)
+            if(lt[a]>lt[b]) c(lt+a, lt+b);
+}
+
+void c(int *a, int *b)
+    int t;
+	t = *a; *a = *b; *b = t;
+
+//정답
+1 2 4 출력
+```
+
+- 풀이
+  - 정렬 알고리즘이지만 한번 비틀어 놓은 문제
+
+
+```c
+//---------------메인함수부분----------------
+int n;
+int *num;
+printf("How many numbers?");
+
+scanf("%d", &n); 
+//문제에서 3214를 입력 받는다고 하였으므로 n이라는 주소값에 3이라는 입력값을 받겠다는 뜻
+
+num = (int*)malloc(sizeof(int)*n);
+//malloc(sizeof(int)*n) => malloc 포인터로 3만큼 공간을 할당 받음
+
+a(n, num);
+//num[0] = 2, num[1] = 1, num[2] = 4
+
+b(n, num);
+//b(n, num) => b(3, num) => num[0] = 1, num[1] = 2, num[2] = 4
+
+for(int i=0; i<n; i++)
+    printf("%d", num[i]);
+//1 2 4가 출력됨
+
+//-----------------------------------------
+void a(int n, int *num){
+    for(int i =0; i<n; i++)
+        scanf("%d", &(num[i]));
+}
+
+void b(int *lt){
+    int a, b;
+    for(a=0; a<n-1; a++)
+        for(b=a+1; b < n; b++)
+            if(lt[a]>lt[b]) c(lt+a, lt+b);
+}
+
+void c(int *a, int *b)
+    int t;
+	t = *a; *a = *b; *b = t;
+
+//정답
+1 2 4 출력
+```
