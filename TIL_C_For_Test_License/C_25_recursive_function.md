@@ -87,3 +87,140 @@ void main(){
   6
 
   1
+
+여기에 기록되는 모든 내용은 유튜브 흥달쌤 채널의 강의에서 개인 공부 목적으로 기록함
+
+링크 : https://www.youtube.com/watch?v=-w6O5Bq8OMY&list=PLdaE6YENrbZA8sXCvVBUWjFwFI2zb4tlK&index=2
+
+# 54강 재귀함수(2)
+
+- 예제(2009 지방직 9급 프로그래밍 언어론)
+
+```c
+#include<stdio.h>
+int f(int n){
+    if(n>0)
+        return n % 10 + f(n / 10);
+    else
+        return 0;
+}
+
+void main(){
+    int result;
+    result = f(123);
+    printf("%d\n", result);
+}
+//내정답
+6 출력 => 정답
+```
+
+- 계산한 값이 다음 번의 함수값에 들어감
+
+| 실행순서 | n    | 재귀함수실행결과      | 실행순서 | 함수실행결과     |
+| -------- | ---- | --------------------- | -------- | ---------------- |
+| 4        | 0    | 0                     | 1        | 0                |
+| 3        | 1    | 1%10 + func(1/10)     | 2        | 1 + 0            |
+| 2        | 2    | 12%10 + func(12/10)   | 3        | 2 + (1+0)        |
+| 1        | 123  | 123%10 + func(123/10) | 4        | 3 + (2 + (1+0))) |
+
+여기에 기록되는 모든 내용은 유튜브 흥달쌤 채널의 강의에서 개인 공부 목적으로 기록함
+
+링크 : https://www.youtube.com/watch?v=-w6O5Bq8OMY&list=PLdaE6YENrbZA8sXCvVBUWjFwFI2zb4tlK&index=2
+
+# 55강 재귀함수(3)
+
+- 예제(2008 국가직 9급 컴퓨터 일반)
+
+```c
+#include<stdio.h>
+int func(int n){
+    if(n%2 == 1)
+        n = n-1;
+    if(n==0);
+    	return 0;
+    return(func(n-2)+n);
+}
+
+void main(){
+    int result;
+    result = func(19);
+    printf("result=%d\n",result);
+}
+//내정답
+result=90 출력 => 정답
+/*    
+func(19) 일때 다음 문장 실행됨
+    if(n%2 == 1)
+        n = n-1;
+*/
+```
+
+여기에 기록되는 모든 내용은 유튜브 흥달쌤 채널의 강의에서 개인 공부 목적으로 기록함
+
+링크 : https://www.youtube.com/watch?v=-w6O5Bq8OMY&list=PLdaE6YENrbZA8sXCvVBUWjFwFI2zb4tlK&index=2
+
+# 56강 재귀함수(4)
+
+- 예제(2018 서울시 9급 컴퓨터 일반)
+
+```c
+#include<stdio.h>
+int my(int i, int j){
+    if(i<3) i=j=1;
+    else{
+        i = i-1;
+        j = j-i;
+        printf("%d, %d,", i, j);
+        return my(i,j);
+    }
+}
+
+void main(){
+    my(5, 14);
+    return 0;
+}
+
+//내정답
+3, 7, 4, 10 출력 //오답
+//if(i<3) => if(3<3) => 거짓이므로 else문 수행함
+4, 10, 3, 7, 2, 5 출력함
+//출력순서는 최초 실행값부터 출력
+```
+
+여기에 기록되는 모든 내용은 유튜브 흥달쌤 채널의 강의에서 개인 공부 목적으로 기록함
+
+링크 : https://www.youtube.com/watch?v=-w6O5Bq8OMY&list=PLdaE6YENrbZA8sXCvVBUWjFwFI2zb4tlK&index=2
+
+# 57강 재귀함수(5)
+
+- 예제 (2018 국회전산직 컴퓨터일반)
+
+```c
+#include<stdio.h>
+int recursion(int n){
+    if(n<5) return 1;
+    else if(n % 5 == 1)
+        return n + recursion(n-1);
+    else recursion(n-1);
+}
+
+void main(){
+    int n = recursion(16);
+    printf("%d", n);
+}
+//내정답
+34 출력 => 정답
+    
+/*
+recursion(5) => 1
+----------------------------
+recursion(6) : 6 + recursion(5) => 7
+recursion(11) : 11 + recursion(10) => 18
+recursion(16) : 16 + recursion(15) => 34
+상기 3개의 식처럼 변동값이 없다면 (그냥 다음 함수만 호출됨)
+식이 특별히 없으면 스택에 안쌓아도됨
+recursion(6) ~ recursion(10) => 7
+recursion(11) ~ recursion(15) => 18
+*/
+```
+
