@@ -224,3 +224,102 @@ recursion(11) ~ recursion(15) => 18
 */
 ```
 
+여기에 기록되는 모든 내용은 유튜브 흥달쌤 채널의 강의에서 개인 공부 목적으로 기록함
+
+링크 : https://www.youtube.com/watch?v=-w6O5Bq8OMY&list=PLdaE6YENrbZA8sXCvVBUWjFwFI2zb4tlK&index=2
+
+# 58강 중복 재귀함수(1)
+
+- 피라미드 형태로 그려서 푸는것이 좋음
+- 중복된 재귀함수들을 각각 계산하여 합산하면 됨
+
+- 예제(2015 지방직 컴퓨터 일반)
+
+```c
+#include<stdio.h>
+int recur(int a, int b){
+    if(a<=1)
+        return a*b;
+    else
+        return a*recur(a-1, b+1) + recur(a-1, b);
+}
+
+void main(){
+    int a = 3, b = 2;
+    printf("%d\n", recur(a, b));
+}
+```
+
+```c
+//풀이
+recur(3, 2)
+    else문 실행
+    						3*recur(2, 3) + recur(2, 2)
+    
+2*recur(1, 4) + recur(1, 3)									2*recur(1, 3) + recur(1, 2)
+    recur(1, 4) => 1 * 4 = 4									recur(1, 3) => 1* 3 = 3
+    recur(1, 3) => 1* 3 = 3										recur(1, 2) => 1* 2 = 2
+    2*4+3														2*3+2
+    
+    			    	3*recur(2, 3) + recur(2, 2) => 3*11+8 => 41
+//정답
+41 출력
+```
+
+여기에 기록되는 모든 내용은 유튜브 흥달쌤 채널의 강의에서 개인 공부 목적으로 기록함
+
+링크 : https://www.youtube.com/watch?v=-w6O5Bq8OMY&list=PLdaE6YENrbZA8sXCvVBUWjFwFI2zb4tlK&index=2
+
+# 59강 중복 재귀함수(2)
+
+- 예제(2014 계리직 컴퓨터일반)
+
+```c
+#include<stdio.h>
+int sub (int n){
+    if(n==0)return 0;
+    if(n==1)return 1;
+    return(sub(n-1)+sub(n-2));
+}
+void main(){
+    int a = 0;
+    a = sub(4);
+    printf("%d", a)
+}
+//내정답
+3 출력 => 정답
+```
+
+여기에 기록되는 모든 내용은 유튜브 흥달쌤 채널의 강의에서 개인 공부 목적으로 기록함
+
+링크 : https://www.youtube.com/watch?v=-w6O5Bq8OMY&list=PLdaE6YENrbZA8sXCvVBUWjFwFI2zb4tlK&index=2
+
+# 60강 중복 재귀함수(3)
+
+- 예제(2017 국회 전산직 컴퓨터 일반)
+
+```c
+//main함수를 실행할 때 fib()함수는 몇번 호출되는지 구하시오
+#include<stdio.h>
+int fib(int n){
+    if(n==0)return 0;
+    if(n==1)return 1;
+    return(fib(n-1)+fib(n-2));
+}
+void main(){
+    fib(5);
+}
+//15번 호출됨
+```
+
+```c
+//풀이
+											fib(5)
+    									fib(4)+fib(3)
+    			fib(3)+fib(2)									fib(2)+fib(1)
+    fib(2)+fib(1)			fib(1)+fib(0)			fib(1)+fib(0)
+fib(1)+fib(0)
+                                                
+//총 15번, main()에서 호출되는 것도 같이 세야된다는것을 잊지 말것
+```
+
