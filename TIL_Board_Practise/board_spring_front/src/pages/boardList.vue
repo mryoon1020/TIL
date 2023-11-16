@@ -34,8 +34,26 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
+  setup () {
+    const test = async () => {
 
+      try {
+        const res = await axios.get('http://localhost:8080');
+        console.log(res);
+      } catch {
+        console.log("통신실패");
+      }
+
+    }
+
+    test();
+
+    return {
+      test
+    }
+  }
 }
 </script>
 

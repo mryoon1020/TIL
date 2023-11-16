@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import boardList from '@/pages/board_list.vue';
-import boardCreate from '@/pages/board_create.vue';
+import boardList from '@/pages/boardList.vue';
+import boardCreate from '@/pages/boardCreate.vue';
 
 const router = createRouter({
     history: createWebHistory(),

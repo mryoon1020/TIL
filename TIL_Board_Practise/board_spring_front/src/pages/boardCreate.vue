@@ -3,14 +3,14 @@
         <h1>글작성 페이지</h1>
         <div>
             <label for="">제목:</label>
-            <input type="text">
+            <BoardContentsInput />
         </div>
         <div>
             <label for="">내용:</label>
-            <input type="text">
+            <BoardContentsInput />
         </div>
         <div>
-            <button>목록</button>
+            <BoardListButton/>
             <button>수정</button>
             <button>완료</button>
             <button>취소</button>
@@ -19,8 +19,14 @@
 </template>
 
 <script>
+import BoardContentsInput from '@/components/boardContentsInput.vue'
+import BoardListButton from '@/components/boardListButton.vue'
 export default {
-    
+    components : {
+        BoardContentsInput,
+        BoardListButton
+
+    }
 }
 </script>
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<mapper namespace="com.study.spring_board_reply.vo.BoardVO">
+
+<!-- list 조회 -->
+    <select id="getList" resultType="com.study.spring_board_reply.vo.BoardVO">
+        SELECT * FROM board ORDER BY board_parent DESC, board_depth ASC
+    </select>
+
+</mapper>
