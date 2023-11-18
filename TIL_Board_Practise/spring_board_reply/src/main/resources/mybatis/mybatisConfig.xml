@@ -8,11 +8,4 @@
         <setting name="callSettersOnNulls" value="true"/>
         <setting name="jdbcTypeForNull" value="NULL"/>
     </settings>
-
-    <!-- 매퍼 등록 -->
-    <mappers>
-        <mapper resource="com/study/spring_board_reply/resources/mybatis/board.xml"/>
-        <!-- 다른 매퍼 파일도 등록 가능 -->
-    </mappers>
-
 </configuration>
