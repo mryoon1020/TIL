@@ -17,3 +17,5 @@ const test = async () => {
         console.log(err);
     }
 }
+
+export default test;
