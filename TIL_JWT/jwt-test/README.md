@@ -85,3 +85,8 @@ jwt.secret=비밀키
  @Value("${jwt.secretKey}")
     String accessSecret;
 ```
+
+# 참고자료
+
+- https://jwt.io/
+- https://www.youtube.com/watch?v=HW4RhC_QnXg&t=800s
